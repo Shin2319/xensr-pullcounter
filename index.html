@@ -491,7 +491,7 @@
                                 </div>
                             </div>
                             
-                            <button id="btn-run-warp" onclick="runWarpSimulation()" style="width: 100%; margin-top: 20px; padding: 15px; font-size: 1.2em; background-color: #ab47bc;">🚀 Avvia Simulazione (10.000 Run)</button>
+                            <button id="btn-run-warp" onclick="runWarpSimulation()" style="width: 100%; margin-top: 20px; padding: 15px; font-size: 1.2em; background-color: #ab47bc;">🚀 Avvia Simulazione</button>
                         </div>
                     </div>
                 </div>
@@ -579,12 +579,12 @@
                     </label>
                 </div>
                 
-                <button onclick="saveGlobalSettings()" style="background-color: #ff9800; color: white; padding: 10px 20px; margin-top: 25px;">💾 Salva Impostazioni</button>
+                <button onclick="saveGlobalSettings()" style="background-color: #ff9800; color: white; padding: 10px 20px; margin-top: 25px;">💾 Salva Impostazioni Globali</button>
                 <span id="visibility-status" style="color: var(--success-color); display: none; margin-left: 10px; font-weight: bold;">Salvato!</span>
             </div>
 
             <div class="card" style="border: 1px solid var(--primary-color);">
-                <h2 style="color: var(--primary-color); margin-top: 0;">🌐 Impostazioni Globali e Backup</h2>
+                <h2 style="color: var(--primary-color); margin-top: 0;">🌐 Altre Impostazioni Globali e Backup</h2>
                 
                 <label style="display: flex; align-items: center; cursor: pointer; color: #ff5252; font-weight: bold; margin-bottom: 5px;">
                     <input type="checkbox" id="admin-maintenance-mode" style="width: auto; margin: 0 15px 0 0; transform: scale(1.5); accent-color: #ff5252;">
@@ -914,6 +914,7 @@
 
     let savedOdysseyBase64 = null; 
     let savedPatchIconBase64 = null;
+    window.currentGrandTotalPulls = 0; 
 
     // ==========================================
     // FUNZIONI DI RECUPERO FALLBACK PER ICONE
@@ -935,7 +936,7 @@
     }
 
     // ==========================================
-    // SPLASH SCREEN E CARICAMENTO VISTE
+    // SPLASH SCREEN LOGIC E VISTE
     // ==========================================
     window.enterSite = function(view) {
         document.getElementById('splash-screen').classList.add('hidden');
@@ -1139,8 +1140,10 @@
     }
 
     // ==========================================
-    // WARP PLANNER LOGIC (Simulazione Avanzata)
+    // WARP PLANNER LOGIC (Monte Carlo)
     // ==========================================
+    
+    let warpTimeout;
     
     function loadWarpData() {
         document.getElementById('warp-saved-jades').value = localStorage.getItem('warp-saved-jades') || '0';
@@ -1166,7 +1169,6 @@
         document.getElementById('warp-jades-label').innerHTML = `Jades ${iconJ_HTML}`;
         document.getElementById('warp-passes-label').innerHTML = `Passes ${iconP_HTML}`;
         
-        // Reset the chart until user clicks the button
         document.getElementById('warp-chart-container').innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 20px;">Imposta i parametri e clicca su "Avvia Simulazione" per calcolare il percorso.</div>`;
         document.getElementById('warp-verdict-container').style.display = 'none';
         
@@ -1212,7 +1214,6 @@
         let results = {};
         let labels = [];
 
-        // Costruisci il percorso logico per il grafico (le labels da mostrare)
         if (targetS === 'none') {
             for(let i=0; i<=6; i++) labels.push(`E${i}`);
         } else if (targetS === '-1') {
@@ -1231,7 +1232,6 @@
             let cp = cPity, cg = cGuar;
             let lp = lcPity, lg = lcGuar;
 
-            // Simula i costi di 7 copie del personaggio
             let charCosts = [];
             for (let c = 0; c < 7; c++) {
                 let cost = 0; let won = false;
@@ -1247,7 +1247,6 @@
                 charCosts.push(cost);
             }
 
-            // Simula il costo di 1 copia dell'arma (se richiesta)
             let lcCost = 0; let wonLc = false;
             if (targetS !== 'none') {
                 while (!wonLc) {
@@ -1261,7 +1260,6 @@
                 }
             }
 
-            // Conta i successi in base alla strategia e ai pull disponibili
             let spent = 0;
             if (targetS === 'none') {
                 for(let j=0; j<=6; j++) {
@@ -1284,7 +1282,6 @@
             }
         }
 
-        // Determina l'etichetta esatta dell'obiettivo dell'utente
         let goalLabel;
         if (targetS === 'none') {
             goalLabel = `E${targetE}`;
@@ -1310,7 +1307,7 @@
     }
 
     window.runWarpSimulation = function() {
-        saveWarpData(); // Salva eventuali dati non salvati
+        saveWarpData(); 
 
         const totalPulls = updateWarpPullsCount();
         const cPity = parseInt(document.getElementById('warp-char-pity').value) || 0;
@@ -1335,7 +1332,6 @@
         btn.innerHTML = "⏳ Simulazione in corso...";
         btn.disabled = true;
 
-        // Piccolo delay per permettere all'interfaccia di aggiornarsi con lo stato "In corso..."
         setTimeout(() => {
             const result = simulateWarp(totalPulls, cPity, cGuar, lcPity, lcGuar, targetE, targetS);
 
@@ -2546,79 +2542,6 @@
         if (confirm("Sei sicuro di voler rimuovere tutti gli eventi dalla lista?")) { containerEvents.innerHTML = ''; }
     }
 
-    window.exportEvents = function() {
-        const events = [];
-        document.querySelectorAll('#admin-events-container .admin-event-row').forEach(row => {
-            const name = row.querySelector('.evt-name').value;
-            const jades = row.querySelector('.evt-jades').value;
-            const passes = row.querySelector('.evt-passes').value;
-            const frequency = row.querySelector('.evt-freq').value;
-            const startDate = row.querySelector('.evt-start').value;
-            if (name && (jades || passes)) {
-                events.push({ id: row.querySelector('.evt-id').value, name: name, jades: parseInt(jades) || 0, passes: parseInt(passes) || 0, frequency: frequency, startDate: startDate });
-            }
-        });
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(events, null, 2));
-        const downloadNode = document.createElement('a');
-        downloadNode.setAttribute("href", dataStr);
-        downloadNode.setAttribute("download", `eventi_${currentPeriodId}.json`);
-        document.body.appendChild(downloadNode); downloadNode.click(); downloadNode.remove();
-    }
-
-    window.importEvents = function(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const importedEvents = JSON.parse(e.target.result);
-                if(Array.isArray(importedEvents)) {
-                    importedEvents.forEach(evt => window.addAdminEventRow(evt.id, evt.name, evt.jades, evt.passes, evt.frequency, evt.startDate));
-                    alert("Eventi importati localmente! Clicca su 'Salva Patch nel Cloud' per confermare.");
-                }
-            } catch (err) { alert("Errore nel file JSON degli eventi."); }
-            event.target.value = ''; 
-        };
-        reader.readAsText(file);
-    }
-
-    window.exportFullBackup = function() {
-        if (!allPeriods || Object.keys(allPeriods).length === 0) { alert("Nessun dato da esportare."); return; }
-        const fullBackup = { global: globalSettings || {}, periods: allPeriods, calendar: globalCalendarEvents || [] };
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fullBackup, null, 2));
-        const downloadNode = document.createElement('a');
-        downloadNode.setAttribute("href", dataStr);
-        downloadNode.setAttribute("download", "backup_totale_tracker_hsr.json");
-        document.body.appendChild(downloadNode); downloadNode.click(); downloadNode.remove();
-    }
-
-    window.importFullBackup = function(event) {
-        const file = event.target.files[0];
-        if (!file) return;
-        
-        const stringAlert = "⚠️ ATTENZIONE CRITICA ⚠️\n\nL'importazione di un backup totale cancellerà e SOVRASCRIVERÀ COMPLETAMENTE l'intero database cloud.\n\nVuoi davvero procedere?";
-        if (!confirm(stringAlert)) { event.target.value = ''; return; }
-
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const importedData = JSON.parse(e.target.result);
-                if (importedData && (importedData.periods || importedData.global || importedData.calendar)) {
-                    const fullDbRef = ref(db, DB_ROOT_PATH);
-                    set(fullDbRef, importedData).then(() => {
-                        alert("🎉 Backup globale ripristinato con successo nel cloud! La pagina verrà ricaricata.");
-                        window.location.reload();
-                    }).catch(err => alert("Errore durante il caricamento su cloud: " + err));
-                } else { alert("File di backup globale non valido."); }
-            } catch (err) { alert("Errore nella lettura del file JSON globale."); }
-            event.target.value = ''; 
-        };
-        reader.readAsText(file);
-    }
-
-    // ==========================================
-    // FUNZIONI SALVATAGGIO CLOUD
-    // ==========================================
     function populateAdminForm(data) {
         document.getElementById('admin-period-name').value = data.periodName || '';
         document.getElementById('admin-start-date').value = data.startDate || '';
@@ -2649,9 +2572,6 @@
     }
 
     window.saveGlobalSettings = function() {
-        const maintMode = document.getElementById('admin-maintenance-mode').checked;
-        const globalDbRef = ref(db, `${DB_ROOT_PATH}/global`);
-        
         const bgms = [];
         document.querySelectorAll('#admin-bgms-container .admin-bgm-row').forEach(row => {
             const b64 = row.getAttribute('data-audio');
@@ -2660,25 +2580,29 @@
             }
         });
         
-        globalSettings.bgms = bgms;
-        globalSettings.bgm = bgms.length > 0 ? bgms[0] : null; 
-        globalSettings.favicon = savedGlobalFaviconBase64;
-        globalSettings.calendarIcon = savedCalendarIconBase64;
-        globalSettings.calcIcon = savedCalcIconBase64;
-        globalSettings.screenshotIcon = savedScreenshotIconBase64;
-        globalSettings.furboshotImg = savedFurboshotBase64;
-        globalSettings.maintenanceMode = maintMode;
+        // Costruiamo un nuovo oggetto pulito per evitare l'errore "undefined" che blocca Firebase
+        const payload = {
+            maintenanceMode: document.getElementById('admin-maintenance-mode').checked,
+            hideTracker: document.getElementById('admin-hide-tracker').checked,
+            hideWarp: document.getElementById('admin-hide-warp').checked,
+            hideCalendar: document.getElementById('admin-hide-calendar').checked,
+            bgms: bgms,
+            bgm: bgms.length > 0 ? bgms[0] : null,
+            favicon: savedGlobalFaviconBase64 || null,
+            calendarIcon: savedCalendarIconBase64 || null,
+            calcIcon: savedCalcIconBase64 || null,
+            screenshotIcon: savedScreenshotIconBase64 || null,
+            furboshotImg: savedFurboshotBase64 || null,
+            iconJadesImg: savedGlobalJadesBase64 || null,
+            iconPassesImg: savedGlobalPassesBase64 || null,
+            iconNamelessImg: savedGlobalNamelessBase64 || null
+        };
         
-        globalSettings.hideTracker = document.getElementById('admin-hide-tracker').checked;
-        globalSettings.hideWarp = document.getElementById('admin-hide-warp').checked;
-        globalSettings.hideCalendar = document.getElementById('admin-hide-calendar').checked;
+        const globalDbRef = ref(db, `${DB_ROOT_PATH}/global`);
 
-        // Salvataggio Icone Globali
-        globalSettings.iconJadesImg = savedGlobalJadesBase64;
-        globalSettings.iconPassesImg = savedGlobalPassesBase64;
-        globalSettings.iconNamelessImg = savedGlobalNamelessBase64;
-
-        set(globalDbRef, globalSettings).then(() => {
+        set(globalDbRef, payload).then(() => {
+            globalSettings = payload; // Aggiorna stato locale in RAM
+            
             const statusMsg1 = document.getElementById('global-status');
             const statusMsg2 = document.getElementById('visibility-status');
             if(statusMsg1) { statusMsg1.style.display = 'inline'; setTimeout(() => statusMsg1.style.display = 'none', 3000); }
@@ -2708,6 +2632,9 @@
                 bgmAudio.src = "";
                 updateBgmIcon(false);
             }
+        }).catch((error) => { 
+            alert("⚠️ Errore critico durante il salvataggio! Forse i file che stai caricando sono troppo grandi per essere salvati in una singola operazione sul database cloud. Prova a ricaricare icone/sfondi più leggeri.\n\nDettaglio tecnico: " + error.message); 
+            console.error(error);
         });
     }
 
@@ -2735,21 +2662,20 @@
             }
         });
 
-        const isVisible = document.getElementById('admin-patch-visible').checked;
-
+        // Oggetto "pulito" (niente undefined)
         const newData = {
-            periodName: document.getElementById('admin-period-name').value,
+            periodName: document.getElementById('admin-period-name').value || "Senza Nome",
             dailyBase: parseInt(document.getElementById('admin-daily-base').value) || 0,
             dailyPass: parseInt(document.getElementById('admin-daily-pass').value) || 0,
             enableOdyssey: document.getElementById('admin-enable-odyssey').checked,
             enableNameless: document.getElementById('admin-enable-nameless').checked,
-            isVisible: isVisible,
-            patchIconImg: savedPatchIconBase64,
+            isVisible: document.getElementById('admin-patch-visible').checked,
+            patchIconImg: savedPatchIconBase64 || null,
             bannerImgs: bannerImgs,
             bannerImg: bannerImgs.length > 0 ? bannerImgs[0] : null,
-            iconOdysseyImg: savedOdysseyBase64, 
-            startDate: document.getElementById('admin-start-date').value,
-            endDate: document.getElementById('admin-end-date').value,
+            iconOdysseyImg: savedOdysseyBase64 || null, 
+            startDate: document.getElementById('admin-start-date').value || "",
+            endDate: document.getElementById('admin-end-date').value || "",
             events: events
         };
 
@@ -2761,7 +2687,10 @@
             
             const adminLabel = document.getElementById('admin-active-patch-label');
             if (adminLabel) adminLabel.innerText = newData.periodName;
-        }).catch((error) => { alert("Errore nel cloud: " + error); });
+        }).catch((error) => { 
+            alert("⚠️ Errore nel salvataggio! File troppo grandi o mancata connessione al database.\nDettaglio: " + error.message); 
+            console.error(error);
+        });
     }
 
     // ==========================================
@@ -2838,12 +2767,12 @@
             const type = row.querySelector('.cal-type').value;
             const name = row.querySelector('.cal-name').value;
             const date = row.querySelector('.cal-date').value;
-            const endDate = row.querySelector('.cal-end-date').value;
+            const endDate = row.querySelector('.cal-end-date').value || "";
             const jades = parseInt(row.querySelector('.cal-jades').value) || 0;
             const passes = parseInt(row.querySelector('.cal-passes').value) || 0;
-            const link = row.querySelector('.cal-link').value;
+            const link = row.querySelector('.cal-link').value || "";
             const oldRewards = row.querySelector('.cal-old-rewards') ? row.querySelector('.cal-old-rewards').value : '';
-            const icon = row.getAttribute('data-img');
+            const icon = row.getAttribute('data-img') || null;
             
             if (name && date) {
                 events.push({ 
@@ -2866,7 +2795,10 @@
             const statusMsg = document.getElementById('admin-cal-status');
             statusMsg.style.display = 'block';
             setTimeout(() => statusMsg.style.display = 'none', 3000);
-        }).catch((error) => { alert("Errore nel cloud (calendario): " + error); });
+        }).catch((error) => { 
+            alert("⚠️ Errore durante il salvataggio del calendario!\n\nSe hai inserito molte icone e il file è troppo pesante, il server lo rifiuterà. Riprova con file più leggeri. \nDettaglio: " + error.message); 
+            console.error(error); 
+        });
     }
 
 </script>

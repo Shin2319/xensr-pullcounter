@@ -35,17 +35,16 @@
         .container { max-width: 1100px; width: 100%; display: flex; flex-direction: column; min-height: 95vh; }
         h1, h2, h3 { color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); margin-bottom: 20px;}
         
-        /* SPLASH SCREEN (TENDINA) */
+        /* SPLASH SCREEN */
         .splash-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-color); z-index: 99999; display: flex; align-items: center; justify-content: center; transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); }
         .splash-screen.hidden { transform: translateY(-100%); }
         .splash-content { max-width: 700px; width: 90%; text-align: center; padding: 40px; border: 1px solid var(--border-color); box-shadow: 0 20px 50px rgba(0,0,0,0.8); border-radius: 16px; background-color: var(--surface-color); }
         .splash-banner { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border-color); box-shadow: 0 8px 16px rgba(0,0,0,0.4); display: none; }
         .splash-buttons { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
-        .splash-btn { padding: 20px 30px; font-size: 1.2em; flex: 1; min-width: 180px; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); color: white; cursor: pointer; font-weight: bold; }
+        .splash-btn { padding: 20px 30px; font-size: 1.2em; flex: 1; min-width: 200px; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); color: white; cursor: pointer; font-weight: bold; }
         .splash-btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); opacity: 1; }
         .splash-btn.primary-btn { background-color: var(--primary-color); }
         .splash-btn.secondary-btn { background-color: #4CAF50; }
-        .splash-btn.calc-btn { background-color: #ab47bc; }
         .splash-btn.admin-btn { background-color: #ff5252; min-width: 150px; padding: 15px 20px; font-size: 1em; }
 
         /* LOGIN MODAL */
@@ -98,11 +97,10 @@
         #locked-banner { background-color: rgba(255, 183, 77, 0.1); color: var(--locked-color); border: 1px solid var(--locked-color); padding: 15px; border-radius: 8px; margin-bottom: 20px; font-weight: bold; display: none; align-items: center; gap: 10px; }
         .card { background-color: var(--surface-color); padding: 25px; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border-color); box-shadow: 0 8px 16px rgba(0,0,0,0.4); }
         
-        .pass-selector { background: linear-gradient(135deg, #2b324c, #1c2135); padding: 15px; border-radius: 8px; display: flex; align-items: center; border: 1px solid #ffd700; margin-bottom: 20px;}
+        .pass-selector { background: linear-gradient(135deg, #2b324c, #1c2135); padding: 15px; border-radius: 8px; display: flex; align-items: center; border: 1px solid #ffd700; }
         .pass-selector input[type="checkbox"] { margin-right: 15px; transform: scale(1.6); accent-color: var(--jades-color); cursor: pointer; }
         .pass-selector input[type="checkbox"]:disabled { cursor: not-allowed; opacity: 0.5; }
         .pass-selector label { cursor: pointer; font-weight: bold; color: #ffd700; display: flex; align-items: center; gap: 5px; flex-wrap: wrap; }
-        
         .dashboard-stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 20px; }
         .stat-box { background-color: #121622; padding: 15px; border-radius: 8px; text-align: center; border: 1px solid var(--border-color); }
         .stat-box .value { font-size: 1.8em; font-weight: bold; margin-top: 10px; display: flex; align-items: center; justify-content: center; gap: 5px; flex-wrap: wrap; }
@@ -177,19 +175,6 @@
         .cal-event img { width: 22px; height: 22px; object-fit: contain; border-radius: 4px; flex-shrink: 0;}
         .cal-event span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
         
-        /* WARP PLANNER STYLES */
-        .warp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media (max-width: 768px) { .warp-grid { grid-template-columns: 1fr; } }
-        .warp-input-group { background: #121622; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 15px;}
-        .warp-input-group label.group-title { display: block; font-weight: bold; margin-bottom: 15px; color: var(--primary-color); font-size: 1.1em;}
-        
-        .warp-chart { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
-        .warp-row { display: flex; align-items: center; gap: 10px; }
-        .warp-label { width: 60px; font-weight: bold; color: var(--text-main); font-size: 1.1em; text-align: right; flex-shrink: 0; }
-        .warp-bar-wrapper { flex-grow: 1; background: #121622; height: 32px; border-radius: 6px; overflow: hidden; position: relative; border: 1px solid var(--border-color); box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
-        .warp-bar-fill { height: 100%; transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.8s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; box-sizing: border-box; }
-        .warp-pct { font-weight: bold; color: white; text-shadow: 1px 1px 2px black; font-size: 0.95em; z-index: 2; }
-        
         .scroll-top-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--primary-color); color: white; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5em; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center; transition: opacity 0.3s, transform 0.2s; }
         .scroll-top-btn:hover { transform: scale(1.1); }
         @media (max-width: 768px) { .scroll-top-btn { display: none !important; } }
@@ -227,17 +212,13 @@
         <p style="color: var(--text-muted); font-size: 1.1em; margin-bottom: 25px;">Benvenuto! Cosa desideri visualizzare?</p>
         
         <div class="splash-buttons">
-            <button id="splash-btn-tracker" onclick="enterSite('tracker')" class="splash-btn primary-btn">
+            <button onclick="enterSite('tracker')" class="splash-btn primary-btn">
                 <span style="font-size: 1.5em; display: block; margin-bottom: 5px;" id="splash-icon-tracker">✦</span>
-                Pull Counter
+                Vai al Tracker
             </button>
-            <button id="splash-btn-warp" onclick="enterSite('warp')" class="splash-btn calc-btn">
-                <span style="font-size: 1.5em; display: block; margin-bottom: 5px;" id="splash-icon-warp">🎯</span>
-                Warp Planner
-            </button>
-            <button id="splash-btn-calendar" onclick="enterSite('calendar')" class="splash-btn secondary-btn">
+            <button onclick="enterSite('calendar')" class="splash-btn secondary-btn">
                 <span style="font-size: 1.5em; display: block; margin-bottom: 5px;" id="splash-icon-calendar">📅</span>
-                Calendario
+                Vai al Calendario
             </button>
             <button onclick="document.getElementById('login-overlay').style.display='flex'" class="splash-btn admin-btn admin-login-btn-ui">
                 <span style="font-size: 1.5em; display: block; margin-bottom: 5px;">🔒</span>
@@ -256,22 +237,22 @@
     <div class="card" style="text-align: center; max-width: 400px; width: 90%; background: var(--surface-color); padding: 30px; border-radius: 16px; border: 1px solid var(--primary-color); box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
         <img id="furboshot-img-display" style="width: 100%; max-height: 250px; object-fit: contain; margin-bottom: 20px; display: none; border-radius: 8px;">
         <h2 style="color: var(--primary-color); margin-top: 0; font-size: 1.8em;">Furboshot scattato!</h2>
-        <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.1em;">L'immagine è stata scaricata con successo.</p>
+        <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.1em;">L'immagine del calendario è stata scaricata con successo.</p>
         <button onclick="document.getElementById('furboshot-overlay').style.display = 'none';" style="font-size: 1.2em; padding: 12px 30px; border-radius: 8px;">Furbo!</button>
     </div>
 </div>
 
-<!-- PULSANTE SCROLL-TO-TOP -->
+<!-- PULSANTE SCROLL-TO-TOP (SOLO PC) -->
 <button id="scroll-to-stats-btn" class="scroll-top-btn" onclick="scrollToStats()" title="Torna alle risorse">↑</button>
 
 <audio id="bgm-audio" preload="none"></audio>
 
-<!-- OVERLAY E SIDEBAR -->
+<!-- OVERLAY SIDEBAR -->
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
+<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
     <a class="sidebar-item active" id="nav-tracker" onclick="switchView('tracker')">✦ Pull Counter</a>
-    <a class="sidebar-item" id="nav-warp" onclick="switchView('warp')">🎯 Warp Planner</a>
     <a class="sidebar-item" id="nav-calendar" onclick="switchView('calendar')">📅 Calendario Eventi</a>
     <a class="sidebar-item admin-link" id="nav-admin" onclick="switchView('admin')" style="display: none;">⚙️ Pannello Admin</a>
 </div>
@@ -288,10 +269,6 @@
         <img id="maintenance-banner" alt="Banner Manutenzione" style="width: 100%; height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 8px 16px rgba(0,0,0,0.4); border: 1px solid var(--border-color); display: none;">
         <h2 style="color: var(--jades-color); display: inline-block;">🛠️ Lavori in corso...</h2>
         <p style="color: var(--text-muted); font-size: 1.1em; line-height: 1.5; margin-top: 10px;">Stiamo aggiornando il database per la nuova patch.<br>Ti preghiamo di attendere la fine della manutenzione!</p>
-        
-        <button onclick="document.getElementById('login-overlay').style.display='flex'" class="admin-login-btn-ui" style="margin-top: 25px; background-color: #ff5252; color: white; padding: 12px 25px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; font-size: 1.1em; display: inline-flex; align-items: center; gap: 8px; justify-content: center;">
-            🔒 Login Admin
-        </button>
     </div>
 
     <!-- CONTENUTO PRINCIPALE -->
@@ -314,6 +291,7 @@
                 </div>
             </div>
             
+            <!-- PULSANTI LOGIN TOP BAR -->
             <button id="top-btn-login" onclick="document.getElementById('login-overlay').style.display='flex'" class="top-action-btn admin-login-btn-ui" style="margin-left: auto;">🔒 Login</button>
             <button id="top-btn-logout" onclick="logoutAdmin()" class="top-action-btn admin-enter-btn-ui" style="margin-left: auto; display: none; background-color: #ff5252;">🔓 Esci</button>
 
@@ -336,7 +314,7 @@
                 <span>🔒</span> Questo periodo è concluso. Gli eventi sono in modalità Sola Lettura (puoi comunque spuntare i Pass per simulare i calcoli).
             </div>
             
-            <img class="period-banner" alt="Banner Patch">
+            <img class="period-banner" alt="Banner Evento">
             <div class="period-title">Caricamento periodo...</div>
 
             <!-- PANNELLO UTENTE -->
@@ -368,7 +346,7 @@
                             <div class="value passes" id="stat-total-passes">0</div>
                         </div>
                         <div class="stat-box" style="grid-column: 1 / -1; border: 2px solid var(--primary-color); background-color: #1a2032;">
-                            <div>Totale Pulls Patch (Previsti)</div>
+                            <div>Totale Pulls Patch</div>
                             <div class="value passes" id="stat-grand-total" style="color: var(--success-color);">0</div>
                         </div>
                     </div>
@@ -426,135 +404,6 @@
         </div>
         <!-- FINE VISTA TRACKER -->
 
-        <!-- ============================================== -->
-        <!-- VISTA: WARP PLANNER -->
-        <!-- ============================================== -->
-        <div id="view-warp" style="display: none;">
-            <div id="warp-capture-area">
-                <div class="card" style="border-top: 4px solid #ab47bc;">
-                    <h2 style="color: #ab47bc; margin-top: 0; display: flex; align-items: center; gap: 10px;">
-                        🎯 Warp Planner
-                    </h2>
-                    <p style="color: var(--text-muted); margin-bottom: 25px;">Scopri le probabilità di ottenere le copie che desideri, basandoti su ciò che hai nell'inventario. Vengono effettuate 10.000 simulazioni reali (inclusa la Soft Pity) per garantirti la massima precisione statistica.</p>
-
-                    <div class="warp-grid">
-                        <!-- Input Inventario -->
-                        <div class="warp-input-group" style="grid-column: 1 / -1; border-color: var(--primary-color);">
-                            <label class="group-title">1. Risorse in Inventario (Non conta i ticket futuri)</label>
-                            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                                <div style="flex: 1; min-width: 150px;">
-                                    <span style="font-size: 0.85em; color: var(--text-muted);" id="warp-jades-label">Jades (✦)</span>
-                                    <input type="number" id="warp-saved-jades" placeholder="Es. 16000" min="0" value="0">
-                                </div>
-                                <div style="flex: 1; min-width: 150px;">
-                                    <span style="font-size: 0.85em; color: var(--text-muted);" id="warp-passes-label">Passes (🎫)</span>
-                                    <input type="number" id="warp-saved-passes" placeholder="Es. 10" min="0" value="0">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Input Pity Personaggio -->
-                        <div class="warp-input-group">
-                            <label class="group-title" style="color: var(--passes-color);">2. Banner Personaggio</label>
-                            <div style="display: flex; flex-direction: column; gap: 10px;">
-                                <div>
-                                    <span style="font-size: 0.85em; color: var(--text-muted);">Pity Attuale (0-89)</span>
-                                    <input type="number" id="warp-char-pity" placeholder="Es. 40" min="0" max="89" value="0" style="margin-bottom: 0;">
-                                </div>
-                                <div style="padding-top: 5px;">
-                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--passes-color); margin: 0; font-size: 0.95em;">
-                                        <input type="checkbox" id="warp-char-guaranteed" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: var(--passes-color);">
-                                        Hai il Garantito? (Perso 50/50)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Input Pity Light Cone -->
-                        <div class="warp-input-group">
-                            <label class="group-title" style="color: var(--jades-color);">3. Banner Light Cone</label>
-                            <div style="display: flex; flex-direction: column; gap: 10px;">
-                                <div>
-                                    <span style="font-size: 0.85em; color: var(--text-muted);">Pity Attuale (0-79)</span>
-                                    <input type="number" id="warp-lc-pity" placeholder="Es. 20" min="0" max="79" value="0" style="margin-bottom: 0;">
-                                </div>
-                                <div style="padding-top: 5px;">
-                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--jades-color); margin: 0; font-size: 0.95em;">
-                                        <input type="checkbox" id="warp-lc-guaranteed" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: var(--jades-color);">
-                                        Hai il Garantito? (Perso 75/25)
-                                    </label>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Strategia e Obiettivo -->
-                        <div class="warp-input-group" style="grid-column: 1 / -1;">
-                            <label class="group-title">4. Obiettivo & Strategia</label>
-                            <p style="font-size: 0.85em; color: var(--text-muted); margin-top: -5px; margin-bottom: 15px;">Definisci il tuo Eidolon finale e scegli quando vuoi provare a pescare l'Arma S1.</p>
-                            
-                            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                                <div style="flex: 1; min-width: 200px;">
-                                    <span style="font-size: 0.85em; color: var(--text-muted);">Eidolon Desiderato</span>
-                                    <select id="warp-target-e" style="background-color: #1a2032; margin-top: 5px;">
-                                        <option value="0">E0 (1 Copia Personaggio)</option>
-                                        <option value="1">E1 (2 Copie)</option>
-                                        <option value="2">E2 (3 Copie)</option>
-                                        <option value="3">E3 (4 Copie)</option>
-                                        <option value="4">E4 (5 Copie)</option>
-                                        <option value="5">E5 (6 Copie)</option>
-                                        <option value="6">E6 (7 Copie)</option>
-                                    </select>
-                                </div>
-                                <div style="flex: 1; min-width: 200px;">
-                                    <span style="font-size: 0.85em; color: var(--text-muted);">Inserimento Light Cone (Arma S1)</span>
-                                    <select id="warp-target-s" style="background-color: #1a2032; margin-top: 5px;">
-                                        <option value="none">Non mi interessa l'arma</option>
-                                        <option value="-1">Pescala PRIMA del Personaggio</option>
-                                        <option value="0">Dopo aver trovato E0</option>
-                                        <option value="1">Dopo aver trovato E1</option>
-                                        <option value="2">Dopo aver trovato E2</option>
-                                        <option value="3">Dopo aver trovato E3</option>
-                                        <option value="4">Dopo aver trovato E4</option>
-                                        <option value="5">Dopo aver trovato E5</option>
-                                        <option value="6">Solo alla fine (Dopo E6)</option>
-                                    </select>
-                                </div>
-                            </div>
-                            
-                            <button id="btn-run-warp" onclick="runWarpSimulation()" style="width: 100%; margin-top: 20px; padding: 15px; font-size: 1.2em; background-color: #ab47bc;">🚀 Avvia Simulazione</button>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- RISULTATI GRAFICO -->
-                <div class="card" style="border: 1px solid var(--primary-color);">
-                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 10px;">
-                        <h3 style="margin: 0; color: var(--primary-color);">Probabilità di Successo</h3>
-                        <div style="font-size: 1.2em; font-weight: bold; background: rgba(74, 144, 226, 0.1); padding: 8px 15px; border-radius: 8px;">
-                            Pulls in inventario: <span id="warp-display-total-pulls" style="color: var(--primary-color);">0</span>
-                        </div>
-                    </div>
-                    
-                    <div id="warp-verdict-container" style="display: none; margin: 20px 0; text-align: center; padding: 20px; border-radius: 8px; background: rgba(255, 255, 255, 0.05); border: 1px solid var(--border-color);">
-                        <div style="font-size: 1.1em; color: var(--text-muted); margin-bottom: 5px;">Probabilità per il tuo obiettivo esatto <strong id="warp-goal-title" style="color: white; font-size: 1.2em;"></strong></div>
-                        <div id="warp-goal-pct" style="font-size: 3em; font-weight: bold; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">0.00%</div>
-                    </div>
-                    
-                    <div id="warp-chart-container" class="warp-chart">
-                        <div style="text-align: center; color: var(--text-muted); padding: 20px;">Imposta i parametri e clicca su "Avvia Simulazione" per elaborare il grafico.</div>
-                    </div>
-                </div>
-            </div> <!-- Fine capture area Warp Planner -->
-
-            <!-- PULSANTE SCREENSHOT WARP PLANNER -->
-            <div style="text-align: right; margin-bottom: 20px;">
-                <button onclick="downloadWarpImage(event)" style="background-color: #ab47bc; color: white; display: inline-flex; align-items: center; gap: 8px;">
-                    <span class="screenshot-btn-icon" style="font-size:1.2em; display: flex; align-items: center;">📸</span> Salva Screenshot Planner
-                </button>
-            </div>
-
-        </div>
-        <!-- FINE VISTA WARP PLANNER -->
 
         <!-- ============================================== -->
         <!-- VISTA: CALENDARIO -->
@@ -585,7 +434,7 @@
 
             <div style="text-align: right; margin-bottom: 20px;">
                 <button onclick="downloadCalendarImage(event)" style="background-color: #4CAF50; color: white; display: inline-flex; align-items: center; gap: 8px;">
-                    <span class="screenshot-btn-icon" style="font-size:1.2em; display: flex; align-items: center;">📸</span> Salva Screenshot Calendario
+                    <span id="screenshot-btn-icon" style="font-size:1.2em; display: flex; align-items: center;">📸</span> Salva Screenshot Calendario
                 </button>
             </div>
 
@@ -604,30 +453,6 @@
             
             <h1 style="color: #ff5252; margin-bottom: 5px;">⚙️ Hub Amministrazione</h1>
             <p style="color: var(--text-muted); margin-bottom: 25px;">Benvenuto. Gestisci qui tutte le configurazioni del sito, delle patch e del calendario.</p>
-
-            <!-- CARD: VISIBILITÀ SEZIONI PUBBLICHE -->
-            <div class="card" style="border: 1px solid #ff9800;">
-                <h2 style="color: #ff9800; margin-top: 0;">👁️ Visibilità Sezioni</h2>
-                <p style="color: var(--text-muted); margin-bottom: 20px;">Nascondi le singole sezioni agli utenti normali per lavorarci in segreto. Come Admin, continuerai a vederle e ad accedervi normalmente.</p>
-                
-                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                    <label style="display: flex; align-items: center; cursor: pointer; color: white; font-weight: bold;">
-                        <input type="checkbox" id="admin-hide-tracker" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: #ff9800;">
-                        Nascondi Pull Counter
-                    </label>
-                    <label style="display: flex; align-items: center; cursor: pointer; color: white; font-weight: bold;">
-                        <input type="checkbox" id="admin-hide-warp" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: #ff9800;">
-                        Nascondi Warp Planner
-                    </label>
-                    <label style="display: flex; align-items: center; cursor: pointer; color: white; font-weight: bold;">
-                        <input type="checkbox" id="admin-hide-calendar" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: #ff9800;">
-                        Nascondi Calendario Eventi
-                    </label>
-                </div>
-                
-                <button onclick="saveGlobalSettings()" style="background-color: #ff9800; color: white; padding: 10px 20px; margin-top: 25px;">💾 Salva Impostazioni</button>
-                <span id="visibility-status" style="color: var(--success-color); display: none; margin-left: 10px; font-weight: bold;">Salvato!</span>
-            </div>
 
             <!-- CARD: GLOBALI E BACKUP -->
             <div class="card" style="border: 1px solid var(--primary-color);">
@@ -663,17 +488,7 @@
                         </div>
                     </div>
                     <div>
-                        <label style="color: var(--text-main);">Icona Warp Planner (Menù/Splash):</label>
-                        <input type="file" id="admin-file-calc-icon" accept="image/*">
-                        <div class="preview-icon-box">
-                            <img id="preview-img-calc-icon" class="preview-img" style="max-height: 40px; max-width: 40px; border-radius: 4px;" alt="Warp Planner">
-                        </div>
-                    </div>
-                </div>
-
-                <div class="admin-icons-row" style="margin-bottom: 15px;">
-                    <div>
-                        <label style="color: var(--text-main);">Icona Pulsanti Screenshot:</label>
+                        <label style="color: var(--text-main);">Icona Pulsante Screenshot:</label>
                         <input type="file" id="admin-file-screenshot-icon" accept="image/*">
                         <div class="preview-icon-box">
                             <img id="preview-img-screenshot-icon" class="preview-img" style="max-height: 40px; max-width: 40px; border-radius: 4px;" alt="Screenshot">
@@ -879,23 +694,10 @@
     let isLocked = false; 
     let currentRandomBanner = null; 
     
+    // GESTIONE AUTENTICAZIONE ADMIN
     let isAdmin = localStorage.getItem('hsr_admin_logged_in') === 'true';
 
-    // Base64 variables
-    let savedGlobalFaviconBase64 = null;
-    let savedGlobalBgmBase64 = null; 
-    let savedScreenshotIconBase64 = null;
-    let savedCalendarIconBase64 = null;
-    let savedCalcIconBase64 = null;
-    let savedFurboshotBase64 = null;
-    let savedGlobalJadesBase64 = null;
-    let savedGlobalPassesBase64 = null;
-    let savedGlobalNamelessBase64 = null; 
-    let savedOdysseyBase64 = null; 
-    let savedPatchIconBase64 = null;
-    window.currentGrandTotalPulls = 0; 
-
-    // Autenticazione
+    // Funzione crittografica per hash (SHA-256)
     async function sha256(message) {
         const msgBuffer = new TextEncoder().encode(message);
         const hashBuffer = await crypto.subtle.digest('SHA-256', msgBuffer);
@@ -903,15 +705,22 @@
         return hashArray.map(b => b.toString(16).padStart(2, '0')).join('');
     }
 
+    // Le credenziali personalizzate (Hash in SHA-256)
     const EXPECTED_USER_HASH = "5e34bba5f667a947cef6780b7a1efa92e2cf7e2be6b889c18e8315fb2ef01200"; 
     const EXPECTED_PASS_HASH = "c89ac35e4a794358c6ce2e9a1ad359e7744a0a06f23e24c42f0cdf82245a8f77";
 
     window.handleLogin = async function() {
         const user = document.getElementById('login-username').value;
         const pass = document.getElementById('login-password').value;
-        if(!user || !pass) { alert("Inserisci nome utente e password."); return; }
+        
+        if(!user || !pass) {
+            alert("Inserisci nome utente e password.");
+            return;
+        }
+
         const userHash = await sha256(user);
         const passHash = await sha256(pass);
+
         if (userHash === EXPECTED_USER_HASH && passHash === EXPECTED_PASS_HASH) {
             localStorage.setItem('hsr_admin_logged_in', 'true');
             isAdmin = true;
@@ -921,7 +730,9 @@
             updateAdminUI();
             alert("Accesso autorizzato. Benvenuto, Admin.");
             window.location.reload(); 
-        } else { alert("Credenziali errate o non autorizzate."); }
+        } else {
+            alert("Credenziali errate o non autorizzate.");
+        }
     }
     
     window.togglePassword = function() {
@@ -943,6 +754,7 @@
         const adminLinks = document.querySelectorAll('.admin-link');
         const loginBtns = document.querySelectorAll('.admin-login-btn-ui');
         const enterBtns = document.querySelectorAll('.admin-enter-btn-ui');
+        
         if (isAdmin) {
             adminLinks.forEach(el => el.style.display = 'block');
             loginBtns.forEach(el => el.style.display = 'none');
@@ -951,14 +763,29 @@
             adminLinks.forEach(el => el.style.display = 'none');
             loginBtns.forEach(el => el.style.display = 'flex');
             enterBtns.forEach(el => el.style.display = 'none');
-            if(document.getElementById('view-admin').style.display === 'block') { switchView('tracker', false); }
+            if(document.getElementById('view-admin').style.display === 'block') {
+                switchView('tracker', false);
+            }
         }
     }
 
     updateAdminUI();
 
+    // Variabili Globali Database
+    let savedGlobalFaviconBase64 = null;
+    let savedGlobalBgmBase64 = null; 
+    let savedScreenshotIconBase64 = null;
+    let savedCalendarIconBase64 = null;
+    let savedFurboshotBase64 = null;
+    let savedGlobalJadesBase64 = null;
+    let savedGlobalPassesBase64 = null;
+    let savedGlobalNamelessBase64 = null; 
+
+    let savedOdysseyBase64 = null; 
+    let savedPatchIconBase64 = null;
+
     // ==========================================
-    // UI Helpers & Icons
+    // FUNZIONI DI RECUPERO FALLBACK PER ICONE
     // ==========================================
     function getFallbackIcon(key) {
         for (let pid in allPeriods) {
@@ -976,6 +803,9 @@
         return fallbackText;
     }
 
+    // ==========================================
+    // SPLASH SCREEN LOGIC
+    // ==========================================
     window.enterSite = function(view) {
         document.getElementById('splash-screen').classList.add('hidden');
         switchView(view, false);
@@ -983,10 +813,16 @@
         setTimeout(() => { document.getElementById('splash-screen').style.display = 'none'; }, 800);
     }
 
+    // ==========================================
+    // LOGICA SCROLL TO TOP E ALTRE UTILITY
+    // ==========================================
     window.scrollToStats = function() {
         const statsCard = document.getElementById('stats-card-container');
-        if (statsCard) { statsCard.scrollIntoView({ behavior: 'smooth', block: 'start' }); } 
-        else { window.scrollTo({ top: 0, behavior: 'smooth' }); }
+        if (statsCard) {
+            statsCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        } else {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
     }
 
     window.addEventListener('scroll', () => {
@@ -999,47 +835,104 @@
         }
     });
 
-    window.toggleSidebar = function() {
-        const sb = document.getElementById('sidebar');
-        const overlay = document.getElementById('sidebar-overlay');
-        if(sb.classList.contains('open')) {
-            sb.classList.remove('open');
-            overlay.style.display = 'none';
+    // ==========================================
+    // GESTIONE MUSICA (BGM) PLAYLIST
+    // ==========================================
+    let bgmPlaylist = [];
+    let currentBgmIndex = 0;
+    let isBgmPlaying = false;
+    let audioInitialized = false;
+    
+    const svgVolOn = `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`;
+    const svgVolOff = `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>`;
+
+    function updateBgmIcon(isPlaying) {
+        document.getElementById('bgm-toggle').innerHTML = isPlaying ? svgVolOn : svgVolOff;
+    }
+
+    function initBGM() {
+        if (audioInitialized) return;
+        audioInitialized = true;
+        
+        const bgmAudio = document.getElementById('bgm-audio');
+        const vol = localStorage.getItem('hsr_bgm_volume');
+        const isMuted = localStorage.getItem('hsr_bgm_muted') === 'true';
+        
+        if (vol !== null) {
+            bgmAudio.volume = parseFloat(vol);
+            document.getElementById('bgm-volume').value = vol;
+        }
+        
+        if (bgmPlaylist.length > 0) {
+            if (!bgmAudio.src || bgmAudio.src === window.location.href) {
+                bgmAudio.src = bgmPlaylist[0];
+                bgmAudio.load(); 
+                currentBgmIndex = 0;
+            }
+            if (!isMuted) {
+                let playPromise = bgmAudio.play();
+                if (playPromise !== undefined) {
+                    playPromise.then(() => {
+                        isBgmPlaying = true;
+                        updateBgmIcon(true);
+                    }).catch(e => {
+                        console.log("Autoplay nativo protetto. Attesa interazione.", e);
+                        isBgmPlaying = false;
+                        updateBgmIcon(false);
+                    });
+                }
+            } else {
+                updateBgmIcon(false);
+            }
+        }
+    }
+
+    document.getElementById('bgm-audio').addEventListener('ended', function() {
+        if (bgmPlaylist.length === 0) return;
+        currentBgmIndex++;
+        if (currentBgmIndex >= bgmPlaylist.length) currentBgmIndex = 0;
+        this.src = bgmPlaylist[currentBgmIndex];
+        this.load(); 
+        this.play().catch(e => console.log(e));
+    });
+
+    window.toggleBgm = function() {
+        const bgmAudio = document.getElementById('bgm-audio');
+        if(bgmPlaylist.length === 0) return;
+
+        if (!bgmAudio.src || bgmAudio.src === window.location.href) {
+            bgmAudio.src = bgmPlaylist[currentBgmIndex];
+            bgmAudio.load();
+        }
+
+        if (isBgmPlaying || !bgmAudio.paused) {
+            bgmAudio.pause();
+            isBgmPlaying = false;
+            updateBgmIcon(false);
+            localStorage.setItem('hsr_bgm_muted', 'true');
         } else {
-            sb.classList.add('open');
-            overlay.style.display = 'block';
+            bgmAudio.play().then(() => {
+                isBgmPlaying = true;
+                updateBgmIcon(true);
+                localStorage.setItem('hsr_bgm_muted', 'false');
+            }).catch(e => console.error(e));
         }
     }
 
-    window.switchView = function(view, fromClick = true) {
-        document.getElementById('view-tracker').style.display = view === 'tracker' ? 'block' : 'none';
-        document.getElementById('view-warp').style.display = view === 'warp' ? 'block' : 'none';
-        document.getElementById('view-calendar').style.display = view === 'calendar' ? 'block' : 'none';
-        document.getElementById('view-admin').style.display = view === 'admin' ? 'block' : 'none';
-        
-        const versionSelector = document.getElementById('version-selector-container');
-        if (versionSelector) { versionSelector.style.display = (view === 'tracker') ? 'flex' : 'none'; }
-
-        document.getElementById('nav-tracker').classList.toggle('active', view === 'tracker');
-        document.getElementById('nav-warp').classList.toggle('active', view === 'warp');
-        document.getElementById('nav-calendar').classList.toggle('active', view === 'calendar');
-        if(document.getElementById('nav-admin')) document.getElementById('nav-admin').classList.toggle('active', view === 'admin');
-        
-        document.getElementById('calendar-details-card').style.display = 'none';
-        document.getElementById('scroll-to-stats-btn').style.display = 'none'; 
-        
-        localStorage.setItem('hsr_tracker_last_view', view);
-
-        if (view === 'tracker') rollRandomBanner(); 
-        if (view === 'calendar') renderCalendar();
-        if (view === 'warp') loadWarpData(); 
-        
-        if (fromClick) {
-            const sb = document.getElementById('sidebar');
-            if (sb && sb.classList.contains('open')) toggleSidebar(); 
+    window.changeBgmVolume = function(val) {
+        const bgmAudio = document.getElementById('bgm-audio');
+        bgmAudio.volume = parseFloat(val);
+        localStorage.setItem('hsr_bgm_volume', val);
+        if (val > 0 && bgmAudio.paused && localStorage.getItem('hsr_bgm_muted') !== 'true' && bgmPlaylist.length > 0) {
+            bgmAudio.play().catch(e => console.log(e));
+            isBgmPlaying = true;
+            updateBgmIcon(true);
         }
     }
 
+    // ==========================================
+    // LOGICA RANDOM BANNER E VISTE
+    // ==========================================
     function rollRandomBanner() {
         if (!globalData) return;
         let banners = [];
@@ -1077,278 +970,48 @@
         });
     }
 
-    // ==========================================
-    // BGM Player
-    // ==========================================
-    let bgmPlaylist = [];
-    let currentBgmIndex = 0;
-    let isBgmPlaying = false;
-    let audioInitialized = false;
-    
-    const svgVolOn = `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`;
-    const svgVolOff = `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>`;
-
-    function updateBgmIcon(isPlaying) { document.getElementById('bgm-toggle').innerHTML = isPlaying ? svgVolOn : svgVolOff; }
-
-    function initBGM() {
-        if (audioInitialized) return;
-        audioInitialized = true;
-        const bgmAudio = document.getElementById('bgm-audio');
-        const vol = localStorage.getItem('hsr_bgm_volume');
-        const isMuted = localStorage.getItem('hsr_bgm_muted') === 'true';
-        if (vol !== null) { bgmAudio.volume = parseFloat(vol); document.getElementById('bgm-volume').value = vol; }
-        if (bgmPlaylist.length > 0) {
-            if (!bgmAudio.src || bgmAudio.src === window.location.href) {
-                bgmAudio.src = bgmPlaylist[0]; bgmAudio.load(); currentBgmIndex = 0;
-            }
-            if (!isMuted) {
-                let playPromise = bgmAudio.play();
-                if (playPromise !== undefined) {
-                    playPromise.then(() => { isBgmPlaying = true; updateBgmIcon(true); }).catch(e => {
-                        console.log("Autoplay nativo protetto.", e); isBgmPlaying = false; updateBgmIcon(false);
-                    });
-                }
-            } else { updateBgmIcon(false); }
-        }
-    }
-
-    document.getElementById('bgm-audio').addEventListener('ended', function() {
-        if (bgmPlaylist.length === 0) return;
-        currentBgmIndex++;
-        if (currentBgmIndex >= bgmPlaylist.length) currentBgmIndex = 0;
-        this.src = bgmPlaylist[currentBgmIndex]; this.load(); this.play().catch(e => console.log(e));
-    });
-
-    window.toggleBgm = function() {
-        const bgmAudio = document.getElementById('bgm-audio');
-        if(bgmPlaylist.length === 0) return;
-        if (!bgmAudio.src || bgmAudio.src === window.location.href) { bgmAudio.src = bgmPlaylist[currentBgmIndex]; bgmAudio.load(); }
-        if (isBgmPlaying || !bgmAudio.paused) {
-            bgmAudio.pause(); isBgmPlaying = false; updateBgmIcon(false); localStorage.setItem('hsr_bgm_muted', 'true');
+    window.toggleSidebar = function() {
+        const sb = document.getElementById('sidebar');
+        const overlay = document.getElementById('sidebar-overlay');
+        if(sb.classList.contains('open')) {
+            sb.classList.remove('open');
+            overlay.style.display = 'none';
         } else {
-            bgmAudio.play().then(() => { isBgmPlaying = true; updateBgmIcon(true); localStorage.setItem('hsr_bgm_muted', 'false'); }).catch(e => console.error(e));
+            sb.classList.add('open');
+            overlay.style.display = 'block';
         }
     }
 
-    window.changeBgmVolume = function(val) {
-        const bgmAudio = document.getElementById('bgm-audio');
-        bgmAudio.volume = parseFloat(val); localStorage.setItem('hsr_bgm_volume', val);
-        if (val > 0 && bgmAudio.paused && localStorage.getItem('hsr_bgm_muted') !== 'true' && bgmPlaylist.length > 0) {
-            bgmAudio.play().catch(e => console.log(e)); isBgmPlaying = true; updateBgmIcon(true);
+    window.switchView = function(view, fromClick = true) {
+        document.getElementById('view-tracker').style.display = view === 'tracker' ? 'block' : 'none';
+        document.getElementById('view-calendar').style.display = view === 'calendar' ? 'block' : 'none';
+        document.getElementById('view-admin').style.display = view === 'admin' ? 'block' : 'none';
+        
+        const versionSelector = document.getElementById('version-selector-container');
+        if (versionSelector) {
+            versionSelector.style.display = (view === 'admin' || view === 'calendar') ? 'none' : 'flex';
+        }
+
+        document.getElementById('nav-tracker').classList.toggle('active', view === 'tracker');
+        document.getElementById('nav-calendar').classList.toggle('active', view === 'calendar');
+        if(document.getElementById('nav-admin')) document.getElementById('nav-admin').classList.toggle('active', view === 'admin');
+        
+        document.getElementById('calendar-details-card').style.display = 'none';
+        document.getElementById('scroll-to-stats-btn').style.display = 'none'; 
+        
+        localStorage.setItem('hsr_tracker_last_view', view);
+
+        rollRandomBanner(); 
+        if (view === 'calendar') renderCalendar();
+        
+        if (fromClick) {
+            const sb = document.getElementById('sidebar');
+            if (sb && sb.classList.contains('open')) toggleSidebar(); 
         }
     }
 
     // ==========================================
-    // WARP PLANNER LOGIC
-    // ==========================================
-    function loadWarpData() {
-        document.getElementById('warp-saved-jades').value = localStorage.getItem('warp-saved-jades') || '0';
-        document.getElementById('warp-saved-passes').value = localStorage.getItem('warp-saved-passes') || '0';
-        document.getElementById('warp-char-pity').value = localStorage.getItem('warp-char-pity') || '0';
-        document.getElementById('warp-char-guaranteed').checked = localStorage.getItem('warp-char-guaranteed') === 'true';
-        document.getElementById('warp-lc-pity').value = localStorage.getItem('warp-lc-pity') || '0';
-        document.getElementById('warp-lc-guaranteed').checked = localStorage.getItem('warp-lc-guaranteed') === 'true';
-        
-        const savedPriority = localStorage.getItem('warp-priority') || 's1';
-        const pRadio = document.querySelector(`input[name="warp-priority"][value="${savedPriority}"]`);
-        if(pRadio) pRadio.checked = true;
-        
-        const savedTargetE = localStorage.getItem('warp-target-e') || '0';
-        document.getElementById('warp-target-e').value = savedTargetE;
-        const savedTargetS = localStorage.getItem('warp-target-s') || 'none';
-        document.getElementById('warp-target-s').value = savedTargetS;
-
-        const activeJade = globalSettings.iconJadesImg || getFallbackIcon('iconJadesImg');
-        const activePass = globalSettings.iconPassesImg || getFallbackIcon('iconPassesImg');
-        const iconJ_HTML = createIconImg(activeJade, '✦');
-        const iconP_HTML = createIconImg(activePass, '🎫');
-        
-        document.getElementById('warp-jades-label').innerHTML = `Jades ${iconJ_HTML}`;
-        document.getElementById('warp-passes-label').innerHTML = `Passes ${iconP_HTML}`;
-        
-        document.getElementById('warp-chart-container').innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 20px;">Imposta i parametri e clicca su "Avvia Simulazione" per calcolare il percorso.</div>`;
-        document.getElementById('warp-verdict-container').style.display = 'none';
-        
-        updateWarpPullsCount();
-    }
-
-    function updateWarpPullsCount() {
-        const savedJades = parseInt(document.getElementById('warp-saved-jades').value) || 0;
-        const savedPasses = parseInt(document.getElementById('warp-saved-passes').value) || 0;
-        const totalPulls = Math.floor(savedJades / 160) + savedPasses;
-        document.getElementById('warp-display-total-pulls').innerText = totalPulls;
-        return totalPulls;
-    }
-
-    window.saveWarpData = function() {
-        localStorage.setItem('warp-saved-jades', document.getElementById('warp-saved-jades').value);
-        localStorage.setItem('warp-saved-passes', document.getElementById('warp-saved-passes').value);
-        localStorage.setItem('warp-char-pity', document.getElementById('warp-char-pity').value);
-        localStorage.setItem('warp-char-guaranteed', document.getElementById('warp-char-guaranteed').checked);
-        localStorage.setItem('warp-lc-pity', document.getElementById('warp-lc-pity').value);
-        localStorage.setItem('warp-lc-guaranteed', document.getElementById('warp-lc-guaranteed').checked);
-        
-        const checkedP = document.querySelector('input[name="warp-priority"]:checked');
-        if(checkedP) localStorage.setItem('warp-priority', checkedP.value);
-        localStorage.setItem('warp-target-e', document.getElementById('warp-target-e').value);
-        localStorage.setItem('warp-target-s', document.getElementById('warp-target-s').value);
-        
-        updateWarpPullsCount();
-    }
-
-    ['warp-saved-jades', 'warp-saved-passes', 'warp-char-pity', 'warp-lc-pity', 'warp-target-e', 'warp-target-s'].forEach(id => {
-        document.getElementById(id).addEventListener('input', window.saveWarpData);
-    });
-    ['warp-char-guaranteed', 'warp-lc-guaranteed'].forEach(id => {
-        document.getElementById(id).addEventListener('change', window.saveWarpData);
-    });
-    document.querySelectorAll('input[name="warp-priority"]').forEach(radio => {
-        radio.addEventListener('change', window.saveWarpData);
-    });
-
-    function simulateWarp(pulls, cPity, cGuar, lcPity, lcGuar, targetE, targetS) {
-        const ITERATIONS = 10000;
-        let results = {};
-        let labels = [];
-
-        if (targetS === 'none') {
-            for(let i=0; i<=6; i++) labels.push(`E${i}`);
-        } else if (targetS === '-1') {
-            labels.push('S1');
-            for(let i=0; i<=6; i++) labels.push(`E${i}S1`);
-        } else {
-            let sAfter = parseInt(targetS);
-            for(let i=0; i<=sAfter; i++) labels.push(`E${i}`);
-            labels.push(`E${sAfter}S1`);
-            for(let i=sAfter+1; i<=6; i++) labels.push(`E${i}S1`);
-        }
-
-        labels.forEach(l => results[l] = 0);
-
-        for (let i = 0; i < ITERATIONS; i++) {
-            let cp = cPity, cg = cGuar;
-            let lp = lcPity, lg = lcGuar;
-
-            let charCosts = [];
-            for (let c = 0; c < 7; c++) {
-                let cost = 0; let won = false;
-                while (!won) {
-                    cost++; cp++;
-                    let chance = cp < 74 ? 0.006 : 0.006 + (cp - 73) * 0.06;
-                    if (Math.random() < chance || cp >= 90) {
-                        if (cg || Math.random() < 0.5) { won = true; cg = false; }
-                        else { cg = true; }
-                        cp = 0;
-                    }
-                }
-                charCosts.push(cost);
-            }
-
-            let lcCost = 0; let wonLc = false;
-            if (targetS !== 'none') {
-                while (!wonLc) {
-                    lcCost++; lp++;
-                    let chance = lp < 66 ? 0.008 : 0.008 + (lp - 65) * 0.07;
-                    if (Math.random() < chance || lp >= 80) {
-                        if (lg || Math.random() < 0.75) { wonLc = true; lg = false; }
-                        else { lg = true; }
-                        lp = 0;
-                    }
-                }
-            }
-
-            let spent = 0;
-            if (targetS === 'none') {
-                for(let j=0; j<=6; j++) { if (pulls >= (spent += charCosts[j])) results[`E${j}`]++; }
-            } else if (targetS === '-1') {
-                if (pulls >= (spent += lcCost)) results['S1']++;
-                for(let j=0; j<=6; j++) { if (pulls >= (spent += charCosts[j])) results[`E${j}S1`]++; }
-            } else {
-                let sAfter = parseInt(targetS);
-                for(let j=0; j<=sAfter; j++) { if (pulls >= (spent += charCosts[j])) results[`E${j}`]++; }
-                if (pulls >= (spent += lcCost)) results[`E${sAfter}S1`]++;
-                for(let j=sAfter+1; j<=6; j++) { if (pulls >= (spent += charCosts[j])) results[`E${j}S1`]++; }
-            }
-        }
-
-        let goalLabel;
-        if (targetS === 'none') { goalLabel = `E${targetE}`; } 
-        else if (targetS === '-1') { goalLabel = `E${targetE}S1`; } 
-        else {
-            let sAfter = parseInt(targetS);
-            if (targetE < sAfter) { goalLabel = `E${targetE}`; } else { goalLabel = `E${targetE}S1`; }
-        }
-
-        let finalData = labels.map(l => ({ label: l, pct: (results[l] / ITERATIONS) * 100 }));
-        let goalPct = (results[goalLabel] / ITERATIONS) * 100 || 0;
-
-        return { data: finalData, goalLabel: goalLabel, goalPct: goalPct };
-    }
-
-    window.runWarpSimulation = function() {
-        window.saveWarpData(); 
-
-        const totalPulls = updateWarpPullsCount();
-        const cPity = parseInt(document.getElementById('warp-char-pity').value) || 0;
-        const cGuar = document.getElementById('warp-char-guaranteed').checked;
-        const lcPity = parseInt(document.getElementById('warp-lc-pity').value) || 0;
-        const lcGuar = document.getElementById('warp-lc-guaranteed').checked;
-        const targetE = parseInt(document.getElementById('warp-target-e').value);
-        const targetS = document.getElementById('warp-target-s').value;
-
-        const chartContainer = document.getElementById('warp-chart-container');
-        const verdictContainer = document.getElementById('warp-verdict-container');
-
-        if (totalPulls === 0) {
-            chartContainer.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 20px;">Inserisci dei fondi nel tuo inventario per calcolare le probabilità!</div>`;
-            verdictContainer.style.display = 'none';
-            return;
-        }
-
-        const btn = document.getElementById('btn-run-warp');
-        const oldText = btn.innerHTML;
-        btn.innerHTML = "⏳ Simulazione in corso...";
-        btn.disabled = true;
-
-        setTimeout(() => {
-            const result = simulateWarp(totalPulls, cPity, cGuar, lcPity, lcGuar, targetE, targetS);
-            verdictContainer.style.display = 'block';
-            document.getElementById('warp-goal-title').innerText = result.goalLabel;
-            document.getElementById('warp-goal-pct').innerText = result.goalPct.toFixed(2) + "%";
-
-            let vColor = result.goalPct >= 90 ? 'var(--success-color)' : result.goalPct >= 50 ? 'var(--jades-color)' : 'var(--passes-color)';
-            document.getElementById('warp-goal-pct').style.color = vColor;
-            chartContainer.innerHTML = '';
-            
-            result.data.forEach(item => {
-                let hue = (item.pct * 1.2); 
-                let color = `hsl(${hue}, 80%, 45%)`;
-                if (item.pct === 0) color = 'rgba(244, 67, 54, 0.2)';
-
-                const isTarget = item.label === result.goalLabel;
-                const borderStyle = isTarget ? 'border: 2px solid white; box-shadow: 0 0 10px rgba(255,255,255,0.5);' : 'border: 1px solid var(--border-color);';
-                const labelStyle = isTarget ? 'color: white; font-weight: 900; font-size: 1.2em;' : '';
-
-                const row = document.createElement('div');
-                row.className = 'warp-row';
-                row.innerHTML = `
-                    <div class="warp-label" style="${labelStyle}">${item.label}</div>
-                    <div class="warp-bar-wrapper" style="${borderStyle}">
-                        <div class="warp-bar-fill" style="width: ${item.pct === 0 ? '100' : Math.max(2, item.pct)}%; background-color: ${item.pct === 0 ? 'transparent' : color};">
-                            <span class="warp-pct">${item.pct.toFixed(2)}%</span>
-                        </div>
-                    </div>
-                `;
-                chartContainer.appendChild(row);
-            });
-
-            btn.innerHTML = oldText;
-            btn.disabled = false;
-        }, 50);
-    }
-
-    // ==========================================
-    // LOGICA TRACKER GLOBALE E LOCALE
+    // CHIAVI LOCALI DINAMICHE E AGGIORNAMENTI
     // ==========================================
     const getLocalKey = (base) => `${base}_v14_${currentPeriodId}`;
 
@@ -1368,7 +1031,7 @@
     }
 
     function getCompletedEvents() { return JSON.parse(localStorage.getItem(getLocalKey('events')) || "[]"); }
-    window.toggleEvent = function(eventId, isCompleted) {
+    function toggleEvent(eventId, isCompleted) {
         if(isLocked) return;
         let completed = getCompletedEvents();
         if (isCompleted) { if (!completed.includes(eventId)) completed.push(eventId); } else { completed = completed.filter(id => id !== eventId); }
@@ -1377,7 +1040,7 @@
     }
 
     function getOdysseyState() { return JSON.parse(localStorage.getItem(getLocalKey('odyssey')) || "[]"); }
-    window.toggleOdyssey = function(dayIndex, isCompleted) {
+    function toggleOdyssey(dayIndex, isCompleted) {
         if(isLocked) return;
         let completed = getOdysseyState();
         if (isCompleted) { if (!completed.includes(dayIndex)) completed.push(dayIndex); } else { completed = completed.filter(d => d !== dayIndex); }
@@ -1398,31 +1061,42 @@
         renderDashboard();
     }
 
+    // ==========================================
+    // LOGICA CUSTOM DROPDOWN E ADMIN SELECTOR
+    // ==========================================
     const customSelectTrigger = document.getElementById('custom-select-trigger');
     const customSelectOptions = document.getElementById('custom-select-options');
     const customSelectDisplay = document.getElementById('custom-select-display');
 
-    if(customSelectTrigger) {
-        customSelectTrigger.addEventListener('click', () => { customSelectOptions.classList.toggle('open'); });
-    }
+    customSelectTrigger.addEventListener('click', () => {
+        customSelectOptions.classList.toggle('open');
+    });
 
     document.addEventListener('click', (e) => {
         if (!e.target.closest('#custom-version-select') && !e.target.closest('.sidebar-toggle')) {
-            if(customSelectOptions) customSelectOptions.classList.remove('open');
+            customSelectOptions.classList.remove('open');
         }
     });
 
     function updateCustomDropdownUI() {
-        if(!customSelectOptions) return;
         customSelectOptions.innerHTML = '';
         const adminSelector = document.getElementById('admin-patch-selector');
         if (adminSelector) adminSelector.innerHTML = '';
 
         const visibleIds = Object.keys(allPeriods).filter(id => isAdmin || allPeriods[id].isVisible !== false);
-        const sortedIds = visibleIds.sort((a,b) => new Date(allPeriods[b].startDate || '1970-01-01') - new Date(allPeriods[a].startDate || '1970-01-01'));
+        
+        const sortedIds = visibleIds.sort((a,b) => {
+            const dateA = new Date(allPeriods[a].startDate || '1970-01-01');
+            const dateB = new Date(allPeriods[b].startDate || '1970-01-01');
+            return dateB - dateA;
+        });
 
         if (adminSelector) {
-            const allSortedIdsAdmin = Object.keys(allPeriods).sort((a,b) => new Date(allPeriods[b].startDate || '1970-01-01') - new Date(allPeriods[a].startDate || '1970-01-01'));
+            const allSortedIdsAdmin = Object.keys(allPeriods).sort((a,b) => {
+                const dateA = new Date(allPeriods[a].startDate || '1970-01-01');
+                const dateB = new Date(allPeriods[b].startDate || '1970-01-01');
+                return dateB - dateA;
+            });
             allSortedIdsAdmin.forEach(id => {
                 const period = allPeriods[id];
                 const option = document.createElement('option');
@@ -1438,24 +1112,36 @@
             const period = allPeriods[id];
             const name = period.periodName || "Patch senza nome";
             const iconHtml = (period.patchIconImg && period.patchIconImg.startsWith('data:image')) 
-                            ? `<img src="${period.patchIconImg}" class="dropdown-icon">` : `<div style="width:24px; text-align:center;">📘</div>`;
+                            ? `<img src="${period.patchIconImg}" class="dropdown-icon">` 
+                            : `<div style="width:24px; text-align:center;">📘</div>`;
+
             const item = document.createElement('div');
             item.className = 'dropdown-item';
             if(id === currentPeriodId) item.classList.add('selected');
             item.innerHTML = `${iconHtml} <span>${name}</span>`;
-            item.addEventListener('click', () => { customSelectOptions.classList.remove('open'); window.changePeriod(id); });
+            item.addEventListener('click', () => {
+                customSelectOptions.classList.remove('open');
+                window.changePeriod(id);
+            });
             customSelectOptions.appendChild(item);
-            if (id === currentPeriodId && customSelectDisplay) { customSelectDisplay.innerHTML = `${iconHtml} <span>${name}</span>`; }
+
+            if (id === currentPeriodId) {
+                customSelectDisplay.innerHTML = `${iconHtml} <span>${name}</span>`;
+            }
         });
     }
 
     window.changePeriod = function(newId) {
         currentPeriodId = newId;
         globalData = allPeriods[newId] || {};
-        savedOdysseyBase64 = globalData.iconOdysseyImg || null; savedPatchIconBase64 = globalData.patchIconImg || null;
+        
+        savedOdysseyBase64 = globalData.iconOdysseyImg || null; 
+        savedPatchIconBase64 = globalData.patchIconImg || null;
+
         updateCustomDropdownUI();
         rollRandomBanner(); 
         renderDashboard();
+        
         if(isAdmin) {
             const label = document.getElementById('admin-active-patch-label');
             if(label) label.innerText = globalData.periodName || "Senza Nome";
@@ -1467,66 +1153,536 @@
         if (!base64Str) return;
         document.getElementById('dynamic-favicon').href = base64Str;
         document.getElementById('dynamic-apple-icon').href = base64Str;
-        const manifest = { name: "HSR Tracker", short_name: "HSR Tracker", start_url: ".", display: "standalone", background_color: "#121622", theme_color: "#1c2135", icons: [ { src: base64Str, sizes: "192x192", type: "image/png" }, { src: base64Str, sizes: "512x512", type: "image/png" } ] };
+        
+        const manifest = {
+            name: "HSR Tracker",
+            short_name: "HSR Tracker",
+            start_url: ".",
+            display: "standalone",
+            background_color: "#121622",
+            theme_color: "#1c2135",
+            icons: [
+                { src: base64Str, sizes: "192x192", type: "image/png" },
+                { src: base64Str, sizes: "512x512", type: "image/png" }
+            ]
+        };
         const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
         const manifestURL = URL.createObjectURL(manifestBlob);
         let manifestLink = document.getElementById('dynamic-manifest');
-        if (!manifestLink) { manifestLink = document.createElement('link'); manifestLink.id = 'dynamic-manifest'; manifestLink.rel = 'manifest'; document.head.appendChild(manifestLink); }
+        if (!manifestLink) {
+            manifestLink = document.createElement('link');
+            manifestLink.id = 'dynamic-manifest';
+            manifestLink.rel = 'manifest';
+            document.head.appendChild(manifestLink);
+        }
         manifestLink.href = manifestURL;
     }
     
     function applyNavCalendarIcon(base64Str) {
-        const iconHtml = (base64Str && base64Str.startsWith('data:image')) ? `<img src="${base64Str}" style="height: 1.2em; width: 1.2em; object-fit: contain; vertical-align: middle;">` : '📅';
-        const imgHtmlBig = (base64Str && base64Str.startsWith('data:image')) ? `<img src="${base64Str}" style="height: 40px; width: 40px; object-fit: contain; vertical-align: middle;">` : '📅';
-        const navCal = document.getElementById('nav-calendar'); if (navCal) navCal.innerHTML = `${iconHtml} Calendario Eventi`;
-        const splashCal = document.getElementById('splash-icon-calendar'); if (splashCal) splashCal.innerHTML = imgHtmlBig;
-    }
+        const iconHtml = (base64Str && base64Str.startsWith('data:image')) 
+            ? `<img src="${base64Str}" style="height: 1.2em; width: 1.2em; object-fit: contain; vertical-align: middle;">` 
+            : '📅';
+            
+        const imgHtmlBig = (base64Str && base64Str.startsWith('data:image')) 
+            ? `<img src="${base64Str}" style="height: 40px; width: 40px; object-fit: contain; vertical-align: middle;">` 
+            : '📅';
+        
+        const navCal = document.getElementById('nav-calendar');
+        if (navCal) navCal.innerHTML = `${iconHtml} Calendario Eventi`;
 
-    function applyCalcIcon(base64Str) {
-        const iconHtml = (base64Str && base64Str.startsWith('data:image')) ? `<img src="${base64Str}" style="height: 1.2em; width: 1.2em; object-fit: contain; vertical-align: middle;">` : '🎯';
-        const imgHtmlBig = (base64Str && base64Str.startsWith('data:image')) ? `<img src="${base64Str}" style="height: 40px; width: 40px; object-fit: contain; vertical-align: middle;">` : '🎯';
-        const navCalc = document.getElementById('nav-warp'); if (navCalc) navCalc.innerHTML = `${iconHtml} Warp Planner`;
-        const splashCalc = document.getElementById('splash-icon-warp'); if (splashCalc) splashCalc.innerHTML = imgHtmlBig;
+        const splashCal = document.getElementById('splash-icon-calendar');
+        if (splashCal) splashCal.innerHTML = imgHtmlBig;
     }
 
     function applyScreenshotIcon(base64Str) {
-        const iconHtml = (base64Str && base64Str.startsWith('data:image')) ? `<img src="${base64Str}" style="height: 1.2em; width: 1.2em; object-fit: contain; vertical-align: middle;">` : '📸';
-        document.querySelectorAll('.screenshot-btn-icon').forEach(el => { el.innerHTML = iconHtml; });
+        const iconContainer = document.getElementById('screenshot-btn-icon');
+        if (iconContainer) {
+            if (base64Str && base64Str.startsWith('data:image')) {
+                iconContainer.innerHTML = `<img src="${base64Str}" style="height: 1.2em; width: 1.2em; object-fit: contain; vertical-align: middle;">`;
+            } else {
+                iconContainer.innerHTML = '📸';
+            }
+        }
+    }
+
+    function checkLockStatus() {
+        if (!globalData || !globalData.endDate) return false;
+        const end = new Date(globalData.endDate);
+        end.setHours(23, 59, 59, 999);
+        return new Date() > end; 
+    }
+
+    function calculateDaysRemaining(startDateStr, endDateStr) {
+        if (!startDateStr || !endDateStr) return 0;
+        const start = new Date(startDateStr);
+        const end = new Date(endDateStr);
+        const today = new Date();
+        start.setHours(0,0,0,0);
+        end.setHours(0,0,0,0);
+        today.setHours(0,0,0,0);
+        let effectiveStart = today < start ? start : today;
+        if (today > end) return 0; 
+        
+        const timeDiff = end.getTime() - effectiveStart.getTime();
+        return Math.max(0, Math.round(timeDiff / (1000 * 3600 * 24)) + 1);
+    }
+
+    function calculateTotalDays(startDateStr, endDateStr) {
+        if (!startDateStr || !endDateStr) return 0;
+        const start = new Date(startDateStr);
+        const end = new Date(endDateStr);
+        start.setHours(0,0,0,0);
+        end.setHours(0,0,0,0);
+        if (end < start) return 0;
+        
+        const timeDiff = end.getTime() - start.getTime();
+        return Math.round(timeDiff / (1000 * 3600 * 24)) + 1;
     }
 
     // ==========================================
-    // SCREENSHOTS
+    // INTERFACCIA E CALCOLI TRACKER
+    // ==========================================
+    function renderDashboard() {
+        if (!globalData) return;
+
+        const maintMode = globalSettings.maintenanceMode || false;
+        
+        if (maintMode && !isAdmin) {
+            document.getElementById('main-app-content').style.display = 'none';
+            document.getElementById('maintenance-screen').style.display = 'block';
+            
+            const maintBannerEl = document.getElementById('maintenance-banner');
+            let firstBanner = null;
+            if (globalData.bannerImgs && globalData.bannerImgs.length > 0) firstBanner = globalData.bannerImgs[0];
+            else if (globalData.bannerImg) firstBanner = globalData.bannerImg;
+
+            if (firstBanner && firstBanner.startsWith('data:image')) {
+                maintBannerEl.src = firstBanner;
+                maintBannerEl.style.display = 'block';
+            } else { maintBannerEl.style.display = 'none'; }
+            return; 
+        } else {
+            document.getElementById('main-app-content').style.display = 'block';
+            document.getElementById('maintenance-screen').style.display = 'none';
+            document.getElementById('admin-maintenance-warning').style.display = (maintMode && isAdmin) ? 'block' : 'none';
+        }
+
+        isLocked = checkLockStatus();
+        document.getElementById('locked-banner').style.display = isLocked ? 'flex' : 'none';
+
+        document.getElementById('btn-select-all').disabled = isLocked;
+        document.getElementById('btn-deselect-all').disabled = isLocked;
+        
+        const passCheckboxEl = document.getElementById('user-has-pass');
+        const namelessCheckboxEl = document.getElementById('user-has-nameless');
+        passCheckboxEl.disabled = false; 
+        if(namelessCheckboxEl) namelessCheckboxEl.disabled = false;
+
+        const activeJade = globalSettings.iconJadesImg || getFallbackIcon('iconJadesImg');
+        const activePass = globalSettings.iconPassesImg || getFallbackIcon('iconPassesImg');
+        const activeNameless = globalSettings.iconNamelessImg || getFallbackIcon('iconNamelessImg');
+
+        const iconJ_HTML = createIconImg(activeJade, '✦');
+        const iconP_HTML = createIconImg(activePass, '🎫');
+        const iconN_HTML = activeNameless;
+        
+        const splashImgJadesBig = (activeJade && activeJade.startsWith('data:image')) 
+            ? `<img src="${activeJade}" style="height: 40px; width: 40px; object-fit: contain; vertical-align: middle;">` 
+            : '✦';
+
+        document.getElementById('nav-tracker').innerHTML = `${iconJ_HTML} Pull Counter`;
+        
+        const splashTracker = document.getElementById('splash-icon-tracker');
+        if(splashTracker) splashTracker.innerHTML = splashImgJadesBig;
+
+        document.querySelectorAll('.period-title').forEach(el => {
+            el.innerHTML = `${globalData.periodName || "Periodo Non Denominato"}`;
+        });
+        
+        document.getElementById('display-dates').innerText = `${globalData.startDate} fino al ${globalData.endDate}`;
+        
+        const baseDailyAmount = parseInt(globalData.dailyBase) || 60;
+        const passDailyAmount = parseInt(globalData.dailyPass) || 150;
+        
+        passCheckboxEl.checked = getUserPassStatus();
+        document.getElementById('pass-label-text').innerHTML = `Possiedi l'Express Supply Pass? (Attivalo per calcolare ${passDailyAmount} ${iconJ_HTML} al giorno invece di ${baseDailyAmount})`;
+
+        const daysRemaining = calculateDaysRemaining(globalData.startDate, globalData.endDate);
+        const totalDaysInPeriod = calculateTotalDays(globalData.startDate, globalData.endDate);
+        const baseDailyMultiplier = passCheckboxEl.checked ? passDailyAmount : baseDailyAmount;
+        
+        let extraDailyJadesRemaining = 0;
+        let extraDailyPassesRemaining = 0;
+        let eventsJadesRemaining = 0;
+        let eventsPassesRemaining = 0;
+
+        let absoluteExtraJades = 0;
+        let absoluteExtraPasses = 0;
+
+        // ODYSSEY
+        if (globalData.enableOdyssey) {
+            document.getElementById('odyssey-card').style.display = 'block';
+            const odysseyIconEl = document.getElementById('odyssey-icon-display');
+            if (globalData.iconOdysseyImg && globalData.iconOdysseyImg.startsWith('data:image')) {
+                odysseyIconEl.src = globalData.iconOdysseyImg;
+                odysseyIconEl.style.display = 'block';
+            } else { odysseyIconEl.style.display = 'none'; }
+
+            const odysseyList = document.getElementById('odyssey-list');
+            odysseyList.innerHTML = '';
+            
+            let claimedOdysseyPasses = 0;
+            const odysseyState = getOdysseyState();
+            
+            ODYSSEY_REWARDS.forEach((reward, index) => {
+                const isCompleted = odysseyState.includes(index);
+                if (isCompleted) claimedOdysseyPasses += reward;
+                
+                const div = document.createElement('div');
+                div.className = `odyssey-day ${isCompleted ? 'completed' : ''}`;
+                div.innerHTML = `
+                    <label style="display: flex; flex-direction: column; align-items: center; cursor: ${isLocked ? 'not-allowed' : 'pointer'}; height: 100%; width: 100%;">
+                        <span style="color: var(--text-muted); font-size: 0.85em; margin-bottom: 8px;">Giorno ${index + 1}</span>
+                        <span class="reward-badge passes" style="margin-bottom: 12px; font-size: 1.1em;">${reward} ${iconP_HTML}</span>
+                        <input type="checkbox" ${isCompleted ? 'checked' : ''} ${isLocked ? 'disabled' : ''} data-day="${index}" style="transform: scale(1.4); accent-color: var(--passes-color); margin-top: auto;">
+                    </label>
+                `;
+                div.querySelector('input').addEventListener('change', (e) => toggleOdyssey(parseInt(e.target.dataset.day), e.target.checked));
+                odysseyList.appendChild(div);
+            });
+            
+            absoluteExtraPasses += 10;
+            eventsPassesRemaining += (10 - claimedOdysseyPasses);
+        } else {
+            document.getElementById('odyssey-card').style.display = 'none';
+        }
+
+        // NAMELESS
+        const namelessCardEl = document.getElementById('nameless-card');
+        if (globalData.enableNameless) {
+            namelessCardEl.style.display = 'block';
+            const namelessCheckboxEl = document.getElementById('user-has-nameless');
+            namelessCheckboxEl.disabled = false; 
+            
+            const ownsNameless = getUserNamelessOwned();
+            namelessCheckboxEl.checked = ownsNameless;
+
+            const namelessIconEl = document.getElementById('nameless-icon-display');
+            if (iconN_HTML && iconN_HTML.startsWith('data:image')) {
+                namelessIconEl.src = iconN_HTML;
+                namelessIconEl.style.display = 'block';
+            } else { namelessIconEl.style.display = 'none'; }
+
+            const namelessList = document.getElementById('nameless-list');
+            namelessList.innerHTML = '';
+
+            const descNameless = document.getElementById('desc-nameless');
+            if(descNameless) descNameless.innerHTML = `Battlepass facoltativo (+680 ${iconJ_HTML} e +4 ${iconP_HTML})`;
+
+            if (ownsNameless) {
+                namelessList.style.display = 'grid';
+                const namelessState = getNamelessState();
+
+                absoluteExtraJades += 680;
+
+                const divJades = document.createElement('div');
+                divJades.className = `odyssey-day completed`;
+                divJades.innerHTML = `
+                    <label style="display: flex; flex-direction: column; align-items: center; height: 100%; width: 100%; cursor: not-allowed;">
+                        <span style="color: var(--text-muted); font-size: 0.85em; margin-bottom: 8px;">Stellar Jades</span>
+                        <span class="reward-badge jades" style="margin-bottom: 12px; font-size: 1.1em;">680 ${iconJ_HTML}</span>
+                        <input type="checkbox" checked disabled style="transform: scale(1.4); margin-top: auto;">
+                    </label>
+                `;
+                namelessList.appendChild(divJades);
+
+                const passTiers = [
+                    { id: 'pass_base', label: 'Lv.10', amount: 1 },
+                    { id: 'pass_30', label: 'Liv. 30', amount: 2 },
+                    { id: 'pass_40', label: 'Liv. 40', amount: 1 }
+                ];
+
+                passTiers.forEach(tier => {
+                    const isCompleted = namelessState.includes(tier.id);
+                    absoluteExtraPasses += tier.amount;
+                    if (!isCompleted) eventsPassesRemaining += tier.amount;
+
+                    const div = document.createElement('div');
+                    div.className = `odyssey-day ${isCompleted ? 'completed' : ''}`;
+                    div.innerHTML = `
+                        <label style="display: flex; flex-direction: column; align-items: center; cursor: pointer; height: 100%; width: 100%;">
+                            <span style="color: var(--text-muted); font-size: 0.85em; margin-bottom: 8px;">${tier.label}</span>
+                            <span class="reward-badge passes" style="margin-bottom: 12px; font-size: 1.1em;">${tier.amount} ${iconP_HTML}</span>
+                            <input type="checkbox" ${isCompleted ? 'checked' : ''} data-id="${tier.id}" style="transform: scale(1.4); accent-color: var(--passes-color); margin-top: auto;">
+                        </label>
+                    `;
+                    div.querySelector('input').addEventListener('change', (e) => window.toggleNameless(e.target.dataset.id, e.target.checked));
+                    namelessList.appendChild(div);
+                });
+            } else { namelessList.style.display = 'none'; }
+        } else {
+            namelessCardEl.style.display = 'none';
+        }
+
+        // EVENTI NORMALI
+        const completedEvents = getCompletedEvents();
+        const eventsListEl = document.getElementById('events-list');
+        eventsListEl.innerHTML = '';
+
+        if (globalData.events && globalData.events.length > 0) {
+            globalData.events.forEach(event => {
+                const isCompleted = completedEvents.includes(event.id);
+                const jadesAmount = parseInt(event.jades) || 0;
+                const passesAmount = parseInt(event.passes) || 0;
+                const frequency = event.frequency || 'once';
+
+                if (frequency === 'daily') {
+                    absoluteExtraJades += (jadesAmount * totalDaysInPeriod);
+                    absoluteExtraPasses += (passesAmount * totalDaysInPeriod);
+                } else {
+                    absoluteExtraJades += jadesAmount;
+                    absoluteExtraPasses += passesAmount;
+                }
+
+                if (!isCompleted) {
+                    if (frequency === 'daily') {
+                        extraDailyJadesRemaining += jadesAmount;
+                        extraDailyPassesRemaining += passesAmount;
+                    } else {
+                        eventsJadesRemaining += jadesAmount;
+                        eventsPassesRemaining += passesAmount;
+                    }
+                }
+
+                let badgesHTML = '';
+                if (jadesAmount > 0) badgesHTML += `<span class="reward-badge jades">${frequency === 'daily' ? jadesAmount + ' ' + iconJ_HTML + ' / giorno' : jadesAmount + ' ' + iconJ_HTML}</span>`;
+                if (passesAmount > 0) badgesHTML += `<span class="reward-badge passes">${frequency === 'daily' ? passesAmount + ' ' + iconP_HTML + ' / giorno' : passesAmount + ' ' + iconP_HTML}</span>`;
+
+                let dateHtml = '';
+                if (event.startDate) {
+                    const dateObj = new Date(event.startDate);
+                    const formattedDate = dateObj.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                    dateHtml = `<div style="font-size: 0.75em; color: var(--text-muted); margin-top: 4px;">Inizio: ${formattedDate}</div>`;
+                }
+
+                const li = document.createElement('li');
+                li.className = `event-item ${isCompleted ? 'completed' : ''}`;
+                li.innerHTML = `
+                    <label style="cursor: ${isLocked ? 'not-allowed' : 'pointer'};">
+                        <input type="checkbox" ${isCompleted ? 'checked' : ''} ${isLocked ? 'disabled' : ''} data-id="${event.id}">
+                        <span style="flex-grow: 1; padding-right: 10px;">
+                            <div style="font-weight: 500;">${event.name}</div>
+                            ${dateHtml}
+                        </span>
+                        <div style="display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end;">${badgesHTML}</div>
+                    </label>
+                `;
+                
+                li.querySelector('input').addEventListener('change', (e) => toggleEvent(e.target.dataset.id, e.target.checked));
+                eventsListEl.appendChild(li);
+            });
+        } else {
+            eventsListEl.innerHTML = '<li style="grid-column: 1/-1; text-align: center;">Nessun evento configurato.</li>';
+        }
+
+        const dailyJadesRemaining = (baseDailyMultiplier + extraDailyJadesRemaining) * daysRemaining;
+        const dailyPassesRemaining = extraDailyPassesRemaining * daysRemaining;
+        const totalJadesRemaining = dailyJadesRemaining + eventsJadesRemaining;
+        const totalPassesRemaining = dailyPassesRemaining + eventsPassesRemaining;
+
+        const eqDailyRemaining = (dailyJadesRemaining / 160).toFixed(1).replace('.0', '');
+        const eqEventsRemaining = (eventsJadesRemaining / 160).toFixed(1).replace('.0', '');
+        const eqTotalRemaining = (totalJadesRemaining / 160).toFixed(1).replace('.0', '');
+
+        const absoluteTotalJades = (baseDailyMultiplier * totalDaysInPeriod) + absoluteExtraJades;
+        const eqAbsoluteTotalFloat = absoluteTotalJades / 160;
+        const grandTotalAbsolutePulls = (eqAbsoluteTotalFloat + absoluteExtraPasses).toFixed(1).replace('.0', '');
+
+        document.getElementById('stat-daily-jades').innerHTML = `<span>${dailyJadesRemaining}</span> ${iconJ_HTML} <span class="conversion-text">(≈ ${eqDailyRemaining} ${iconP_HTML})</span>`;
+        document.getElementById('stat-events-jades').innerHTML = `<span>${eventsJadesRemaining}</span> ${iconJ_HTML} <span class="conversion-text">(≈ ${eqEventsRemaining} ${iconP_HTML})</span>`;
+        document.getElementById('stat-total-jades').innerHTML = `<span>${totalJadesRemaining}</span> ${iconJ_HTML} <span class="conversion-text">(≈ ${eqTotalRemaining} ${iconP_HTML})</span>`;
+        document.getElementById('stat-total-passes').innerHTML = `<span>${totalPassesRemaining}</span> ${iconP_HTML}`;
+        document.getElementById('stat-grand-total').innerHTML = `<span>${grandTotalAbsolutePulls}</span> ${iconP_HTML}`;
+    }
+
+    document.getElementById('user-has-pass').addEventListener('change', (e) => setUserPassStatus(e.target.checked));
+    const namelessCheckUser = document.getElementById('user-has-nameless');
+    if(namelessCheckUser) namelessCheckUser.addEventListener('change', (e) => setUserNamelessOwned(e.target.checked));
+
+    // ==========================================
+    // LOGICA CALENDARIO MESE E DETTAGLI
+    // ==========================================
+    const monthNames = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
+    let currentCalDate = new Date(); 
+
+    window.renderCalendar = function() {
+        const year = currentCalDate.getFullYear();
+        const month = currentCalDate.getMonth();
+        
+        document.getElementById('title-calendar').innerHTML = `${monthNames[month]} ${year}`;
+
+        const firstDay = new Date(year, month, 1).getDay(); 
+        const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+        let startDay = firstDay === 0 ? 6 : firstDay - 1;
+
+        const grid = document.getElementById('cal-grid');
+        grid.innerHTML = '';
+
+        for(let i=0; i < startDay; i++) {
+            const empty = document.createElement('div');
+            empty.className = 'calendar-day empty';
+            grid.appendChild(empty);
+        }
+
+        const today = new Date();
+
+        for(let d=1; d <= daysInMonth; d++) {
+            const cell = document.createElement('div');
+            cell.className = 'calendar-day';
+            cell.style.cursor = 'pointer';
+            
+            if(year === today.getFullYear() && month === today.getMonth() && d === today.getDate()) {
+                cell.classList.add('today');
+            }
+
+            const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
+            let cellHTML = `<span class="calendar-date">${d}</span>`;
+
+            const dayEvents = globalCalendarEvents.filter(ev => ev.date === dateStr);
+            dayEvents.forEach(ev => {
+                const img = ev.icon ? `<img src="${ev.icon}">` : '';
+                cellHTML += `<div class="cal-event">${img} <span>${ev.name}</span></div>`;
+            });
+
+            cell.innerHTML = cellHTML;
+            cell.addEventListener('click', () => window.showDayDetails(dateStr));
+            grid.appendChild(cell);
+        }
+    }
+
+    window.changeCalMonth = function(offset) {
+        currentCalDate.setMonth(currentCalDate.getMonth() + offset);
+        renderCalendar();
+        document.getElementById('calendar-details-card').style.display = 'none'; 
+    }
+
+    window.showDayDetails = function(dateStr) {
+        const dayEvents = globalCalendarEvents.filter(ev => ev.date === dateStr);
+        const dateObj = new Date(dateStr);
+        const formattedDate = dateObj.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+        
+        document.getElementById('cal-details-title').innerText = `📅 Inizio Eventi del ${formattedDate}`;
+        const contentEl = document.getElementById('cal-details-content');
+        contentEl.innerHTML = '';
+        
+        const activeJade = globalSettings.iconJadesImg || getFallbackIcon('iconJadesImg');
+        const activePass = globalSettings.iconPassesImg || getFallbackIcon('iconPassesImg');
+        
+        const iconJ_HTML = createIconImg(activeJade, '✦');
+        const iconP_HTML = createIconImg(activePass, '🎫');
+        
+        if (dayEvents.length === 0) {
+            contentEl.innerHTML = `<div style="color: var(--text-muted); font-style: italic; text-align: center; padding: 10px 0;">Nessun evento programmato in partenza per questo giorno.</div>`;
+        } else {
+            dayEvents.forEach(ev => {
+                const iconHtml = (ev.icon && ev.icon.startsWith('data:image'))
+                    ? `<img src="${ev.icon}" style="width: 55px; height: 55px; object-fit: contain; border-radius: 8px; border: 1px solid var(--border-color); background: #121622;">`
+                    : `<div style="font-size: 2em; width: 55px; text-align: center;">📘</div>`;
+                
+                let endHtml = '';
+                if (ev.endDate) {
+                    const endObj = new Date(ev.endDate);
+                    const formattedEnd = endObj.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
+                    endHtml = `<span style="color: var(--passes-color); font-weight: bold;">⌛ Termina il: ${formattedEnd}</span>`;
+                } else {
+                    endHtml = `<span style="color: var(--text-muted);">⌛ Fine: Non specificata</span>`;
+                }
+                
+                let detailsHtml = '';
+                if (ev.type === 'link' && ev.link) {
+                    detailsHtml = `<div style="margin-top: 6px;"><a href="${ev.link}" target="_blank" style="display: inline-block; background-color: var(--primary-color); color: white; padding: 5px 12px; border-radius: 6px; text-decoration: none; font-size: 0.85em; font-weight: bold;">🔗 Vai al Link dell'Evento</a></div>`;
+                } else {
+                    if (ev.jades > 0 || ev.passes > 0 || ev.oldRewards) {
+                        detailsHtml = `<div style="margin-top: 6px; color: var(--jades-color); font-weight: bold;">🎁 Ricompense previste: <div style="display: flex; gap: 8px; margin-top: 5px; align-items: center; flex-wrap: wrap;">`;
+                        if (ev.jades > 0) detailsHtml += `<span class="reward-badge jades" style="background: rgba(255, 215, 0, 0.15);">${ev.jades} ${iconJ_HTML}</span>`;
+                        if (ev.passes > 0) detailsHtml += `<span class="reward-badge passes" style="background: rgba(255, 107, 107, 0.15);">${ev.passes} ${iconP_HTML}</span>`;
+                        if (ev.oldRewards) detailsHtml += `<span style="color: #fff; font-weight: normal; margin-left: 5px;">${ev.oldRewards}</span>`;
+                        detailsHtml += `</div></div>`;
+                    }
+                }
+                
+                const div = document.createElement('div');
+                div.style.cssText = "display: flex; align-items: center; gap: 15px; background: #121622; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color);";
+                div.innerHTML = `
+                    ${iconHtml}
+                    <div style="flex-grow: 1; min-width: 0;">
+                        <div style="font-size: 1.15em; font-weight: bold; margin-bottom: 4px; color: var(--primary-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${ev.name}</div>
+                        <div style="font-size: 0.9em;">${endHtml}</div>
+                        ${detailsHtml}
+                    </div>
+                `;
+                contentEl.appendChild(div);
+            });
+        }
+        document.getElementById('calendar-details-card').style.display = 'block';
+    }
+
+    // ==========================================
+    // FUNZIONE DOWNLOAD SCREENSHOT CALENDARIO
     // ==========================================
     window.downloadCalendarImage = function(event) {
-        const captureArea = document.getElementById('calendar-capture-area'); const scrollWrapper = captureArea.querySelector('.calendar-scroll-wrapper');
+        const captureArea = document.getElementById('calendar-capture-area');
+        const scrollWrapper = captureArea.querySelector('.calendar-scroll-wrapper');
         const monthYearText = monthNames[currentCalDate.getMonth()] + "_" + currentCalDate.getFullYear();
-        const btn = event.currentTarget; const originalText = btn.innerHTML; const iconHtml = document.querySelector('.screenshot-btn-icon').innerHTML;
-        btn.innerHTML = `<span class="screenshot-btn-icon" style="font-size:1.2em; display: flex; align-items: center;">${iconHtml}</span> <span style="margin-left:8px;">⏳ Generazione...</span>`; btn.disabled = true;
-        const originalWidth = captureArea.style.width; const originalOverflow = scrollWrapper.style.overflowX;
-        const fullWidth = scrollWrapper.scrollWidth + 50; captureArea.style.width = fullWidth + 'px'; scrollWrapper.style.overflowX = 'visible';
-        html2canvas(captureArea, { backgroundColor: "#1c2135", scale: 2, windowWidth: fullWidth }).then(canvas => {
-            captureArea.style.width = originalWidth; scrollWrapper.style.overflowX = originalOverflow;
-            const link = document.createElement('a'); link.download = `HSR_Calendario_${monthYearText}.png`; link.href = canvas.toDataURL("image/png"); link.click();
-            btn.innerHTML = originalText; btn.disabled = false;
-            const furboImg = document.getElementById('furboshot-img-display');
-            if (savedFurboshotBase64) { furboImg.src = savedFurboshotBase64; furboImg.style.display = 'block'; } else { furboImg.style.display = 'none'; }
-            document.getElementById('furboshot-overlay').style.display = 'flex';
-        }).catch(err => {
-            captureArea.style.width = originalWidth; scrollWrapper.style.overflowX = originalOverflow; alert("Errore durante la generazione."); btn.innerHTML = originalText; btn.disabled = false;
-        });
-    }
+        
+        const btn = event.currentTarget;
+        const originalText = btn.innerHTML;
+        
+        const iconHtml = document.getElementById('screenshot-btn-icon').outerHTML;
+        btn.innerHTML = `${iconHtml} <span style="margin-left:8px;">⏳ Generazione...</span>`;
+        btn.disabled = true;
 
-    window.downloadWarpImage = function(event) {
-        const captureArea = document.getElementById('warp-capture-area'); const btn = event.currentTarget; const originalText = btn.innerHTML;
-        const iconHtml = document.querySelector('.screenshot-btn-icon').innerHTML;
-        btn.innerHTML = `<span class="screenshot-btn-icon" style="font-size:1.2em; display: flex; align-items: center;">${iconHtml}</span> <span style="margin-left:8px;">⏳ Generazione...</span>`; btn.disabled = true;
-        html2canvas(captureArea, { backgroundColor: "#1c2135", scale: 2 }).then(canvas => {
-            const link = document.createElement('a'); link.download = `HSR_WarpPlanner.png`; link.href = canvas.toDataURL("image/png"); link.click();
-            btn.innerHTML = originalText; btn.disabled = false;
+        const originalWidth = captureArea.style.width;
+        const originalOverflow = scrollWrapper.style.overflowX;
+        
+        const fullWidth = scrollWrapper.scrollWidth + 50; 
+        captureArea.style.width = fullWidth + 'px';
+        scrollWrapper.style.overflowX = 'visible';
+
+        html2canvas(captureArea, {
+            backgroundColor: "#1c2135", 
+            scale: 2, 
+            windowWidth: fullWidth 
+        }).then(canvas => {
+            captureArea.style.width = originalWidth;
+            scrollWrapper.style.overflowX = originalOverflow;
+
+            const link = document.createElement('a');
+            link.download = `HSR_Calendario_${monthYearText}.png`;
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+            
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            
+            // Attiva il Furboshot
             const furboImg = document.getElementById('furboshot-img-display');
-            if (savedFurboshotBase64) { furboImg.src = savedFurboshotBase64; furboImg.style.display = 'block'; } else { furboImg.style.display = 'none'; }
+            if (savedFurboshotBase64) {
+                furboImg.src = savedFurboshotBase64;
+                furboImg.style.display = 'block';
+            } else {
+                furboImg.style.display = 'none';
+            }
             document.getElementById('furboshot-overlay').style.display = 'flex';
-        }).catch(err => { alert("Errore durante la generazione."); btn.innerHTML = originalText; btn.disabled = false; });
+
+        }).catch(err => {
+            captureArea.style.width = originalWidth;
+            scrollWrapper.style.overflowX = originalOverflow;
+            alert("Errore durante la generazione dell'immagine.");
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
     }
 
     // ==========================================
@@ -1536,80 +1692,161 @@
 
     onValue(dbRef, (snapshot) => {
         const data = snapshot.val() || {};
-        allPeriods = data.periods || {}; globalSettings = data.global || {}; globalCalendarEvents = data.calendar || [];
+        allPeriods = data.periods || {};
+        globalSettings = data.global || {};
+        globalCalendarEvents = data.calendar || [];
 
-        if (globalSettings.maintenanceMode !== undefined) { const maintCheck = document.getElementById('admin-maintenance-mode'); if(maintCheck) maintCheck.checked = globalSettings.maintenanceMode; }
-        if (globalSettings.hideTracker !== undefined) { const ht = document.getElementById('admin-hide-tracker'); if(ht) ht.checked = globalSettings.hideTracker; }
-        if (globalSettings.hideWarp !== undefined) { const hw = document.getElementById('admin-hide-warp'); if(hw) hw.checked = globalSettings.hideWarp; }
-        if (globalSettings.hideCalendar !== undefined) { const hc = document.getElementById('admin-hide-calendar'); if(hc) hc.checked = globalSettings.hideCalendar; }
+        if (globalSettings.maintenanceMode !== undefined) {
+            const maintCheck = document.getElementById('admin-maintenance-mode');
+            if(maintCheck) maintCheck.checked = globalSettings.maintenanceMode;
+        }
 
-        document.getElementById('nav-tracker').style.display = (globalSettings.hideTracker && !isAdmin) ? 'none' : 'block';
-        document.getElementById('splash-btn-tracker').style.display = (globalSettings.hideTracker && !isAdmin) ? 'none' : 'flex';
-        document.getElementById('nav-warp').style.display = (globalSettings.hideWarp && !isAdmin) ? 'none' : 'block';
-        document.getElementById('splash-btn-warp').style.display = (globalSettings.hideWarp && !isAdmin) ? 'none' : 'flex';
-        document.getElementById('nav-calendar').style.display = (globalSettings.hideCalendar && !isAdmin) ? 'none' : 'block';
-        document.getElementById('splash-btn-calendar').style.display = (globalSettings.hideCalendar && !isAdmin) ? 'none' : 'flex';
+        if (globalSettings.favicon) {
+            savedGlobalFaviconBase64 = globalSettings.favicon;
+            applyGlobalFavicon(savedGlobalFaviconBase64);
+            if(isAdmin) {
+                document.getElementById('preview-img-favicon').src = savedGlobalFaviconBase64;
+                document.getElementById('preview-img-favicon').style.display = 'block';
+            }
+        }
+        
+        if (globalSettings.screenshotIcon) {
+            savedScreenshotIconBase64 = globalSettings.screenshotIcon;
+            applyScreenshotIcon(savedScreenshotIconBase64);
+            if(isAdmin) {
+                document.getElementById('preview-img-screenshot-icon').src = savedScreenshotIconBase64;
+                document.getElementById('preview-img-screenshot-icon').style.display = 'block';
+            }
+        } else {
+            applyScreenshotIcon(null);
+        }
 
-        if (globalSettings.favicon) { savedGlobalFaviconBase64 = globalSettings.favicon; applyGlobalFavicon(savedGlobalFaviconBase64); if(isAdmin) { document.getElementById('preview-img-favicon').src = savedGlobalFaviconBase64; document.getElementById('preview-img-favicon').style.display = 'block'; } }
-        if (globalSettings.screenshotIcon) { savedScreenshotIconBase64 = globalSettings.screenshotIcon; applyScreenshotIcon(savedScreenshotIconBase64); if(isAdmin) { document.getElementById('preview-img-screenshot-icon').src = savedScreenshotIconBase64; document.getElementById('preview-img-screenshot-icon').style.display = 'block'; } } else { applyScreenshotIcon(null); }
-        if (globalSettings.calendarIcon) { savedCalendarIconBase64 = globalSettings.calendarIcon; applyNavCalendarIcon(savedCalendarIconBase64); if(isAdmin) { document.getElementById('preview-img-calendar-icon').src = savedCalendarIconBase64; document.getElementById('preview-img-calendar-icon').style.display = 'block'; } } else { applyNavCalendarIcon(null); }
-        if (globalSettings.calcIcon) { savedCalcIconBase64 = globalSettings.calcIcon; applyCalcIcon(savedCalcIconBase64); if(isAdmin) { document.getElementById('preview-img-calc-icon').src = savedCalcIconBase64; document.getElementById('preview-img-calc-icon').style.display = 'block'; } } else { applyCalcIcon(null); }
-        if (globalSettings.furboshotImg) { savedFurboshotBase64 = globalSettings.furboshotImg; if(isAdmin) { document.getElementById('preview-img-furboshot-img').src = savedFurboshotBase64; document.getElementById('preview-img-furboshot-img').style.display = 'block'; } }
+        if (globalSettings.calendarIcon) {
+            savedCalendarIconBase64 = globalSettings.calendarIcon;
+            applyNavCalendarIcon(savedCalendarIconBase64);
+            if(isAdmin) {
+                document.getElementById('preview-img-calendar-icon').src = savedCalendarIconBase64;
+                document.getElementById('preview-img-calendar-icon').style.display = 'block';
+            }
+        } else {
+            applyNavCalendarIcon(null);
+        }
+        
+        if (globalSettings.furboshotImg) {
+            savedFurboshotBase64 = globalSettings.furboshotImg;
+            if(isAdmin) {
+                document.getElementById('preview-img-furboshot-img').src = savedFurboshotBase64;
+                document.getElementById('preview-img-furboshot-img').style.display = 'block';
+            }
+        }
 
+        // Setup Icone Globali da DB con Fallback Dinamico
         savedGlobalJadesBase64 = globalSettings.iconJadesImg || getFallbackIcon('iconJadesImg');
         savedGlobalPassesBase64 = globalSettings.iconPassesImg || getFallbackIcon('iconPassesImg');
         savedGlobalNamelessBase64 = globalSettings.iconNamelessImg || getFallbackIcon('iconNamelessImg');
 
         if (isAdmin) {
-            if (savedGlobalJadesBase64) { document.getElementById('preview-img-jades').src = savedGlobalJadesBase64; document.getElementById('preview-img-jades').style.display = 'block'; }
-            if (savedGlobalPassesBase64) { document.getElementById('preview-img-passes').src = savedGlobalPassesBase64; document.getElementById('preview-img-passes').style.display = 'block'; }
-            if (savedGlobalNamelessBase64) { document.getElementById('preview-img-nameless').src = savedGlobalNamelessBase64; document.getElementById('preview-img-nameless').style.display = 'block'; }
+            if (savedGlobalJadesBase64) {
+                document.getElementById('preview-img-jades').src = savedGlobalJadesBase64;
+                document.getElementById('preview-img-jades').style.display = 'block';
+            }
+            if (savedGlobalPassesBase64) {
+                document.getElementById('preview-img-passes').src = savedGlobalPassesBase64;
+                document.getElementById('preview-img-passes').style.display = 'block';
+            }
+            if (savedGlobalNamelessBase64) {
+                document.getElementById('preview-img-nameless').src = savedGlobalNamelessBase64;
+                document.getElementById('preview-img-nameless').style.display = 'block';
+            }
         }
 
+        // Caricamento Playlist BGM
         bgmPlaylist = [];
-        if (globalSettings.bgms && Array.isArray(globalSettings.bgms)) { bgmPlaylist = globalSettings.bgms.filter(a => a && a.startsWith('data:audio')); } else if (globalSettings.bgm && globalSettings.bgm.startsWith('data:audio')) { bgmPlaylist = [globalSettings.bgm]; }
-        if(isAdmin) { document.getElementById('admin-bgms-container').innerHTML = ''; if (bgmPlaylist.length > 0) { bgmPlaylist.forEach(b64 => window.addAdminBgmRow(b64)); } else { window.addAdminBgmRow(); } }
+        if (globalSettings.bgms && Array.isArray(globalSettings.bgms)) {
+            bgmPlaylist = globalSettings.bgms.filter(a => a && a.startsWith('data:audio'));
+        } else if (globalSettings.bgm && globalSettings.bgm.startsWith('data:audio')) {
+            bgmPlaylist = [globalSettings.bgm];
+        }
+
+        if(isAdmin) {
+            document.getElementById('admin-bgms-container').innerHTML = '';
+            if (bgmPlaylist.length > 0) {
+                bgmPlaylist.forEach(b64 => window.addAdminBgmRow(b64));
+            } else {
+                window.addAdminBgmRow();
+            }
+        }
 
         if (Object.keys(allPeriods).length > 0) {
+            // Seleziona la patch di default in base a disponibilità pubblica
             const publicIds = Object.keys(allPeriods).filter(id => allPeriods[id].isVisible !== false);
-            if (!currentPeriodId || !allPeriods[currentPeriodId] || (!isAdmin && allPeriods[currentPeriodId].isVisible === false && publicIds.length > 0)) {
+            
+            if (!currentPeriodId || !allPeriods[currentPeriodId] || (allPeriods[currentPeriodId].isVisible === false && publicIds.length > 0)) {
                 const sortedPublicIds = publicIds.sort((a,b) => new Date(allPeriods[b].startDate || '1970-01-01') - new Date(allPeriods[a].startDate || '1970-01-01'));
-                if (sortedPublicIds.length > 0) { currentPeriodId = sortedPublicIds[0]; } else {
+                if (sortedPublicIds.length > 0) {
+                    currentPeriodId = sortedPublicIds[0];
+                } else {
                     const allSorted = Object.keys(allPeriods).sort((a,b) => new Date(allPeriods[b].startDate || '1970-01-01') - new Date(allPeriods[a].startDate || '1970-01-01'));
                     currentPeriodId = allSorted.length > 0 ? allSorted[0] : null;
                 }
             }
+            
             if (currentPeriodId) {
                 globalData = allPeriods[currentPeriodId];
-                savedOdysseyBase64 = globalData.iconOdysseyImg || null; savedPatchIconBase64 = globalData.patchIconImg || null;
-                updateCustomDropdownUI(); rollRandomBanner(); renderDashboard();
+                
+                savedOdysseyBase64 = globalData.iconOdysseyImg || null; 
+                savedPatchIconBase64 = globalData.patchIconImg || null;
+                
+                updateCustomDropdownUI();
+                rollRandomBanner();
+                renderDashboard();
+    
                 if (isAdmin) {
-                    const adminLabel = document.getElementById('admin-active-patch-label'); if (adminLabel) adminLabel.innerText = globalData.periodName || "Senza Nome";
-                    populateAdminForm(globalData); populateCalendarAdminForm();
+                    const adminLabel = document.getElementById('admin-active-patch-label');
+                    if (adminLabel) adminLabel.innerText = globalData.periodName || "Senza Nome";
+                    populateAdminForm(globalData);
+                    populateCalendarAdminForm();
                 }
             }
         } else {
-            document.querySelectorAll('.fallback-title').forEach(el => { el.style.display = "block"; }); document.querySelectorAll('.period-title').forEach(el => { el.innerHTML = `Database vuoto`; });
+            document.querySelectorAll('.fallback-title').forEach(el => {
+                el.style.display = "block";
+            });
+            document.querySelectorAll('.period-title').forEach(el => {
+                el.innerHTML = `Database vuoto`;
+            });
             document.getElementById('events-list').innerHTML = '<li style="grid-column: 1/-1; text-align: center;">Nessun evento configurato. Vai al Pannello Admin.</li>';
-            if (isAdmin) { document.getElementById('nav-admin').style.display = 'block'; populateCalendarAdminForm(); }
-        }
-
-        if (audioInitialized && bgmPlaylist.length > 0) {
-            const bgmAudio = document.getElementById('bgm-audio');
-            if (!bgmAudio.src || bgmAudio.src === window.location.href) {
-                bgmAudio.src = bgmPlaylist[0]; bgmAudio.load(); currentBgmIndex = 0;
-                if (localStorage.getItem('hsr_bgm_muted') !== 'true') { bgmAudio.play().then(() => { isBgmPlaying = true; updateBgmIcon(true); }).catch(e => console.log("Autoplay nativo protetto.")); }
+            if (isAdmin) {
+                document.getElementById('nav-admin').style.display = 'block';
+                populateCalendarAdminForm();
             }
         }
 
+        // Autoplay BGM robusto
+        if (audioInitialized && bgmPlaylist.length > 0) {
+            const bgmAudio = document.getElementById('bgm-audio');
+            if (!bgmAudio.src || bgmAudio.src === window.location.href) {
+                bgmAudio.src = bgmPlaylist[0];
+                bgmAudio.load();
+                currentBgmIndex = 0;
+                if (localStorage.getItem('hsr_bgm_muted') !== 'true') {
+                    bgmAudio.play().then(() => {
+                        isBgmPlaying = true;
+                        updateBgmIcon(true);
+                    }).catch(e => console.log("Autoplay nativo protetto."));
+                }
+            }
+        }
+
+        // Inizializza vista salvata o mantieni blocco per lo splash screen
         let savedView = localStorage.getItem('hsr_tracker_last_view') || 'tracker';
         if (savedView === 'admin' && !isAdmin) savedView = 'tracker';
-        if (!isAdmin) {
-            if (savedView === 'tracker' && globalSettings.hideTracker) savedView = globalSettings.hideWarp ? 'calendar' : 'warp';
-            if (savedView === 'warp' && globalSettings.hideWarp) savedView = globalSettings.hideCalendar ? 'tracker' : 'calendar';
-            if (savedView === 'calendar' && globalSettings.hideCalendar) savedView = globalSettings.hideTracker ? 'warp' : 'tracker';
+        
+        const versionSelector = document.getElementById('version-selector-container');
+        if (versionSelector) {
+            versionSelector.style.display = (savedView === 'admin' || savedView === 'calendar') ? 'none' : 'flex';
         }
-        const versionSelector = document.getElementById('version-selector-container'); if (versionSelector) { versionSelector.style.display = (savedView === 'tracker') ? 'flex' : 'none'; }
+        
         switchView(savedView, false);
     });
 
@@ -1622,20 +1859,28 @@
             allPeriods[newId] = { periodName: "Nuova Patch", startDate: "", endDate: "", events: [], dailyBase: 60, dailyPass: 150, isVisible: true };
             window.changePeriod(newId);
             alert("Nuova Patch creata localmente. Ricorda di compilarla e cliccare 'Salva Patch nel Cloud'.");
-        } else { document.getElementById('import-single-patch-file').click(); }
+        } else {
+            document.getElementById('import-single-patch-file').click();
+        }
     };
 
     window.importSinglePatch = function(event) {
-        const file = event.target.files[0]; if (!file) return; const reader = new FileReader();
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
         reader.onload = function(e) {
             try {
                 const importedData = JSON.parse(e.target.result);
                 if (importedData.events !== undefined || importedData.periodName !== undefined) {
-                    const newId = 'patch_' + Date.now(); importedData.periodName = (importedData.periodName || "Patch") + " (Importata)";
-                    if (importedData.isVisible === undefined) importedData.isVisible = true; 
-                    allPeriods[newId] = importedData; window.changePeriod(newId);
+                    const newId = 'patch_' + Date.now();
+                    importedData.periodName = (importedData.periodName || "Patch") + " (Importata)";
+                    if (importedData.isVisible === undefined) importedData.isVisible = true; // Fallback sicurezza
+                    allPeriods[newId] = importedData;
+                    window.changePeriod(newId);
                     alert("Patch importata correttamente! Clicca su 'Salva Patch nel Cloud' per confermarla nel database.");
-                } else { alert("Il file non sembra essere una Patch valida."); }
+                } else {
+                    alert("Il file non sembra essere una Patch valida.");
+                }
             } catch (err) { alert("Errore nel file JSON della patch."); }
             event.target.value = ''; 
         };
@@ -1644,22 +1889,30 @@
 
     window.exportCurrentPatch = function() {
         if(!currentPeriodId || !allPeriods[currentPeriodId]) { alert("Nessuna patch selezionata."); return; }
-        const patchData = allPeriods[currentPeriodId]; const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(patchData, null, 2));
-        const downloadNode = document.createElement('a'); downloadNode.setAttribute("href", dataStr); downloadNode.setAttribute("download", `patch_${(patchData.periodName||"backup").replace(/[^a-z0-9]/gi, '_').toLowerCase()}.json`);
+        const patchData = allPeriods[currentPeriodId];
+        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(patchData, null, 2));
+        const downloadNode = document.createElement('a');
+        downloadNode.setAttribute("href", dataStr);
+        downloadNode.setAttribute("download", `patch_${(patchData.periodName||"backup").replace(/[^a-z0-9]/gi, '_').toLowerCase()}.json`);
         document.body.appendChild(downloadNode); downloadNode.click(); downloadNode.remove();
     };
 
     window.exportAllPatches = function() {
         if (!allPeriods || Object.keys(allPeriods).length === 0) { alert("Nessuna patch da esportare."); return; }
         const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(allPeriods, null, 2));
-        const downloadNode = document.createElement('a'); downloadNode.setAttribute("href", dataStr); downloadNode.setAttribute("download", `tutte_le_patch_backup.json`);
+        const downloadNode = document.createElement('a');
+        downloadNode.setAttribute("href", dataStr);
+        downloadNode.setAttribute("download", `tutte_le_patch_backup.json`);
         document.body.appendChild(downloadNode); downloadNode.click(); downloadNode.remove();
     };
 
     window.duplicatePeriod = function() {
         if (!globalData) return;
-        const newId = 'patch_' + Date.now(); const clonedData = JSON.parse(JSON.stringify(globalData)); clonedData.periodName = clonedData.periodName + " (Copia)";
-        allPeriods[newId] = clonedData; window.changePeriod(newId);
+        const newId = 'patch_' + Date.now();
+        const clonedData = JSON.parse(JSON.stringify(globalData));
+        clonedData.periodName = clonedData.periodName + " (Copia)";
+        allPeriods[newId] = clonedData;
+        window.changePeriod(newId);
         alert("Patch duplicata localmente. Apporta le modifiche e clicca 'Salva Patch nel Cloud'.");
     };
 
@@ -1668,13 +1921,16 @@
         if (confirm("Sei sicuro di voler eliminare definitivamente questa patch? L'azione è IRREVERSIBILE.")) {
             if (confirm("Sei ASSOLUTAMENTE sicuro? Tutti i dati di questa patch spariranno dal cloud.")) {
                 const specificDbRef = ref(db, `${DB_ROOT_PATH}/periods/${currentPeriodId}`);
-                remove(specificDbRef).then(() => { alert("Patch eliminata con successo dal cloud."); }).catch(err => alert("Errore durante l'eliminazione: " + err));
+                remove(specificDbRef).then(() => {
+                    alert("Patch eliminata con successo dal cloud.");
+                }).catch(err => alert("Errore durante l'eliminazione: " + err));
             }
         }
     };
 
     function handleFileUpload(inputId, previewId, callback) {
-        const inputEl = document.getElementById(inputId); if(!inputEl) return;
+        const inputEl = document.getElementById(inputId);
+        if(!inputEl) return;
         inputEl.addEventListener('change', function(event) {
             const file = event.target.files[0];
             if (file) {
@@ -1684,8 +1940,13 @@
                     const b64 = e.target.result;
                     if(previewId) {
                         const previewEl = document.getElementById(previewId);
-                        if(previewEl.tagName === 'IMG') { previewEl.src = b64; previewEl.style.display = 'block'; } 
-                        else if(previewEl.tagName === 'AUDIO') { previewEl.src = b64; previewEl.style.display = 'block'; }
+                        if(previewEl.tagName === 'IMG') {
+                            previewEl.src = b64;
+                            previewEl.style.display = 'block';
+                        } else if(previewEl.tagName === 'AUDIO') {
+                            previewEl.src = b64;
+                            previewEl.style.display = 'block';
+                        }
                     }
                     callback(b64);
                 }
@@ -1696,308 +1957,373 @@
 
     handleFileUpload('admin-file-favicon', 'preview-img-favicon', b64 => savedGlobalFaviconBase64 = b64);
     handleFileUpload('admin-file-calendar-icon', 'preview-img-calendar-icon', b64 => savedCalendarIconBase64 = b64);
-    handleFileUpload('admin-file-calc-icon', 'preview-img-calc-icon', b64 => savedCalcIconBase64 = b64);
     handleFileUpload('admin-file-screenshot-icon', 'preview-img-screenshot-icon', b64 => savedScreenshotIconBase64 = b64);
     handleFileUpload('admin-file-furboshot-img', 'preview-img-furboshot-img', b64 => savedFurboshotBase64 = b64);
+    
+    // Upload Icone Globali
     handleFileUpload('admin-file-jades', 'preview-img-jades', b64 => savedGlobalJadesBase64 = b64);
     handleFileUpload('admin-file-passes', 'preview-img-passes', b64 => savedGlobalPassesBase64 = b64);
     handleFileUpload('admin-file-nameless', 'preview-img-nameless', b64 => savedGlobalNamelessBase64 = b64);
+    
     handleFileUpload('admin-file-patch-icon', 'preview-img-patch-icon', b64 => savedPatchIconBase64 = b64);
     handleFileUpload('admin-file-odyssey', 'preview-img-odyssey', b64 => savedOdysseyBase64 = b64);
 
+    // BGM ADMIN
     window.addAdminBgmRow = function(base64Str = '') {
-        const rowId = 'bgm_' + Date.now() + Math.random().toString(16).slice(2); const div = document.createElement('div'); div.className = 'admin-bgm-row';
+        const rowId = 'bgm_' + Date.now() + Math.random().toString(16).slice(2);
+        const div = document.createElement('div');
+        div.className = 'admin-bgm-row';
         div.style.cssText = "display: flex; align-items: center; gap: 10px; background: #1c2135; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color);";
         div.setAttribute('data-audio', base64Str);
-        div.innerHTML = `<input type="file" id="file_${rowId}" accept="audio/*" style="flex: 1; margin: 0; padding: 5px; width: 100%;"><audio id="prev_${rowId}" controls src="${base64Str}" style="height: 35px; width: 200px; display: ${base64Str ? 'block' : 'none'}; flex-shrink: 0;"></audio><button type="button" onclick="this.parentElement.remove()" style="background-color: transparent; color: #ff5252; padding: 0 10px;">✖</button>`;
+
+        div.innerHTML = `
+            <input type="file" id="file_${rowId}" accept="audio/*" style="flex: 1; margin: 0; padding: 5px; width: 100%;">
+            <audio id="prev_${rowId}" controls src="${base64Str}" style="height: 35px; width: 200px; display: ${base64Str ? 'block' : 'none'}; flex-shrink: 0;"></audio>
+            <button type="button" onclick="this.parentElement.remove()" style="background-color: transparent; color: #ff5252; padding: 0 10px;">✖</button>
+        `;
+
         div.querySelector(`#file_${rowId}`).addEventListener('change', function(e) {
             const file = e.target.files[0];
             if(file) {
                 if(file.size > 5000000) alert("Attenzione: Audio > 5MB. È altamente sconsigliato caricare file così grandi su Firebase Realtime Database.");
                 const reader = new FileReader();
-                reader.onload = function(evt) { div.setAttribute('data-audio', evt.target.result); div.querySelector(`#prev_${rowId}`).src = evt.target.result; div.querySelector(`#prev_${rowId}`).style.display = 'block'; }
+                reader.onload = function(evt) {
+                    div.setAttribute('data-audio', evt.target.result);
+                    div.querySelector(`#prev_${rowId}`).src = evt.target.result;
+                    div.querySelector(`#prev_${rowId}`).style.display = 'block';
+                }
                 reader.readAsDataURL(file);
             }
         });
+
         document.getElementById('admin-bgms-container').appendChild(div);
     }
 
+    // Gestione Array Banners Admin
     window.addAdminBannerRow = function(base64Str = '') {
-        const rowId = 'bn_' + Date.now() + Math.random().toString(16).slice(2); const div = document.createElement('div'); div.className = 'admin-banner-row';
-        div.style.cssText = "display: flex; align-items: center; gap: 10px; background: #1c2135; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color);"; div.setAttribute('data-img', base64Str);
-        div.innerHTML = `<input type="file" id="file_${rowId}" accept="image/*" style="flex: 1; margin: 0; padding: 5px; width: 100%;"><img id="prev_${rowId}" src="${base64Str}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; display: ${base64Str ? 'block' : 'none'}; flex-shrink: 0;"><button type="button" onclick="this.parentElement.remove()" style="background-color: transparent; color: #ff5252; padding: 0 10px;">✖</button>`;
+        const rowId = 'bn_' + Date.now() + Math.random().toString(16).slice(2);
+        const div = document.createElement('div');
+        div.className = 'admin-banner-row';
+        div.style.cssText = "display: flex; align-items: center; gap: 10px; background: #1c2135; padding: 10px; border-radius: 6px; border: 1px solid var(--border-color);";
+        div.setAttribute('data-img', base64Str);
+
+        div.innerHTML = `
+            <input type="file" id="file_${rowId}" accept="image/*" style="flex: 1; margin: 0; padding: 5px; width: 100%;">
+            <img id="prev_${rowId}" src="${base64Str}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; display: ${base64Str ? 'block' : 'none'}; flex-shrink: 0;">
+            <button type="button" onclick="this.parentElement.remove()" style="background-color: transparent; color: #ff5252; padding: 0 10px;">✖</button>
+        `;
+
         div.querySelector(`#file_${rowId}`).addEventListener('change', function(e) {
             const file = e.target.files[0];
             if(file) {
                 if(file.size > 1500000) alert("Attenzione: Banner > 1.5MB.");
                 const reader = new FileReader();
-                reader.onload = function(evt) { div.setAttribute('data-img', evt.target.result); div.querySelector(`#prev_${rowId}`).src = evt.target.result; div.querySelector(`#prev_${rowId}`).style.display = 'block'; }
+                reader.onload = function(evt) {
+                    div.setAttribute('data-img', evt.target.result);
+                    div.querySelector(`#prev_${rowId}`).src = evt.target.result;
+                    div.querySelector(`#prev_${rowId}`).style.display = 'block';
+                }
                 reader.readAsDataURL(file);
             }
         });
+
         document.getElementById('admin-banners-container').appendChild(div);
     }
 
     const containerEvents = document.getElementById('admin-events-container');
-    if (containerEvents) {
-        containerEvents.addEventListener('dragover', e => {
-            e.preventDefault(); const afterElement = getDragAfterElement(containerEvents, e.clientY); const draggable = document.querySelector('.dragging');
-            if (draggable) { if (afterElement == null) { containerEvents.appendChild(draggable); } else { containerEvents.insertBefore(draggable, afterElement); } }
-        });
-    }
+    containerEvents.addEventListener('dragover', e => {
+        e.preventDefault();
+        const afterElement = getDragAfterElement(containerEvents, e.clientY);
+        const draggable = document.querySelector('.dragging');
+        if (draggable) {
+            if (afterElement == null) { containerEvents.appendChild(draggable); } 
+            else { containerEvents.insertBefore(draggable, afterElement); }
+        }
+    });
 
     function getDragAfterElement(container, y) {
         const draggableElements = [...container.querySelectorAll('.admin-event-row:not(.dragging)')];
         return draggableElements.reduce((closest, child) => {
-            const box = child.getBoundingClientRect(); const offset = y - box.top - box.height / 2;
-            if (offset < 0 && offset > closest.offset) return { offset: offset, element: child }; else return closest;
+            const box = child.getBoundingClientRect();
+            const offset = y - box.top - box.height / 2;
+            if (offset < 0 && offset > closest.offset) return { offset: offset, element: child };
+            else return closest;
         }, { offset: Number.NEGATIVE_INFINITY }).element;
     }
 
     window.addAdminEventRow = function(id = '', name = '', jades = '', passes = '', frequency = 'once', startDate = '') {
-        const rowId = id || 'evt_' + Date.now() + Math.random().toString(16).slice(2); const div = document.createElement('div'); div.className = 'admin-event-row';
-        div.innerHTML = `<div class="drag-handle" title="Trascina per riordinare">☰</div><input type="hidden" value="${rowId}" class="evt-id"><input type="text" placeholder="Nome Evento" value="${name}" class="evt-name" style="flex: 2; min-width: 150px;"><input type="date" value="${startDate}" class="evt-start" style="flex: 1; min-width: 120px;" title="Data Inizio Evento"><input type="number" placeholder="Jades (✦)" value="${jades}" class="evt-jades" style="flex: 1; min-width: 80px;" title="Stellar Jades"><input type="number" placeholder="Passes (🎫)" value="${passes}" class="evt-passes" style="flex: 1; min-width: 80px;" title="Special Passes"><select class="evt-freq" style="flex: 1; min-width: 110px; background-color: #2c3554;"><option value="once" ${frequency === 'once' ? 'selected' : ''}>Una Tantum</option><option value="daily" ${frequency === 'daily' ? 'selected' : ''}>Giornaliero</option></select><button type="button" onclick="this.parentElement.remove()" style="background-color: transparent; color: #ff5252; padding: 0 10px;">✖</button>`;
+        const rowId = id || 'evt_' + Date.now() + Math.random().toString(16).slice(2);
+        const div = document.createElement('div');
+        div.className = 'admin-event-row';
+        div.innerHTML = `
+            <div class="drag-handle" title="Trascina per riordinare">☰</div>
+            <input type="hidden" value="${rowId}" class="evt-id">
+            <input type="text" placeholder="Nome Evento" value="${name}" class="evt-name" style="flex: 2; min-width: 150px;">
+            <input type="date" value="${startDate}" class="evt-start" style="flex: 1; min-width: 120px;" title="Data Inizio Evento">
+            <input type="number" placeholder="Jades (✦)" value="${jades}" class="evt-jades" style="flex: 1; min-width: 80px;" title="Stellar Jades">
+            <input type="number" placeholder="Passes (🎫)" value="${passes}" class="evt-passes" style="flex: 1; min-width: 80px;" title="Special Passes">
+            <select class="evt-freq" style="flex: 1; min-width: 110px; background-color: #2c3554;">
+                <option value="once" ${frequency === 'once' ? 'selected' : ''}>Una Tantum</option>
+                <option value="daily" ${frequency === 'daily' ? 'selected' : ''}>Giornaliero</option>
+            </select>
+            <button type="button" onclick="this.parentElement.remove()" style="background-color: transparent; color: #ff5252; padding: 0 10px;">✖</button>
+        `;
+
         const handle = div.querySelector('.drag-handle');
-        handle.addEventListener('mousedown', () => div.setAttribute('draggable', 'true')); handle.addEventListener('mouseup', () => div.removeAttribute('draggable')); handle.addEventListener('mouseleave', () => div.removeAttribute('draggable'));
-        div.addEventListener('dragstart', () => div.classList.add('dragging')); div.addEventListener('dragend', () => { div.classList.remove('dragging'); div.removeAttribute('draggable'); });
-        document.getElementById('admin-events-container').appendChild(div);
+        handle.addEventListener('mousedown', () => div.setAttribute('draggable', 'true'));
+        handle.addEventListener('mouseup', () => div.removeAttribute('draggable'));
+        handle.addEventListener('mouseleave', () => div.removeAttribute('draggable'));
+        div.addEventListener('dragstart', () => div.classList.add('dragging'));
+        div.addEventListener('dragend', () => { div.classList.remove('dragging'); div.removeAttribute('draggable'); });
+
+        containerEvents.appendChild(div);
     }
 
-    window.clearAdminEvents = function() { if (confirm("Sei sicuro di voler rimuovere tutti gli eventi dalla lista?")) { document.getElementById('admin-events-container').innerHTML = ''; } }
-
-    window.exportEvents = function() {
-        const events = [];
-        document.querySelectorAll('#admin-events-container .admin-event-row').forEach(row => {
-            const name = row.querySelector('.evt-name').value; const jades = row.querySelector('.evt-jades').value; const passes = row.querySelector('.evt-passes').value; const frequency = row.querySelector('.evt-freq').value; const startDate = row.querySelector('.evt-start').value;
-            if (name && (jades || passes)) { events.push({ id: row.querySelector('.evt-id').value, name: name, jades: parseInt(jades) || 0, passes: parseInt(passes) || 0, frequency: frequency, startDate: startDate }); }
-        });
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(events, null, 2)); const downloadNode = document.createElement('a'); downloadNode.setAttribute("href", dataStr); downloadNode.setAttribute("download", `eventi_${currentPeriodId}.json`); document.body.appendChild(downloadNode); downloadNode.click(); downloadNode.remove();
+    window.clearAdminEvents = function() {
+        if (confirm("Sei sicuro di voler rimuovere tutti gli eventi dalla lista?")) { containerEvents.innerHTML = ''; }
     }
 
-    window.importEvents = function(event) {
-        const file = event.target.files[0]; if (!file) return; const reader = new FileReader();
-        reader.onload = function(e) {
-            try { const importedEvents = JSON.parse(e.target.result); if(Array.isArray(importedEvents)) { importedEvents.forEach(evt => window.addAdminEventRow(evt.id, evt.name, evt.jades, evt.passes, evt.frequency, evt.startDate)); alert("Eventi importati localmente! Clicca su 'Salva Patch nel Cloud' per confermare."); } } catch (err) { alert("Errore nel file JSON degli eventi."); }
-            event.target.value = ''; 
-        }; reader.readAsText(file);
-    }
+    function populateAdminForm(data) {
+        document.getElementById('admin-period-name').value = data.periodName || '';
+        document.getElementById('admin-start-date').value = data.startDate || '';
+        document.getElementById('admin-end-date').value = data.endDate || '';
+        document.getElementById('admin-daily-base').value = data.dailyBase || '60';
+        document.getElementById('admin-daily-pass').value = data.dailyPass || '150';
+        document.getElementById('admin-enable-odyssey').checked = data.enableOdyssey || false;
+        document.getElementById('admin-enable-nameless').checked = data.enableNameless || false;
+        document.getElementById('admin-patch-visible').checked = data.isVisible !== false; 
+        
+        if (data.patchIconImg) { document.getElementById('preview-img-patch-icon').src = data.patchIconImg; document.getElementById('preview-img-patch-icon').style.display = 'block'; } else { document.getElementById('preview-img-patch-icon').style.display = 'none'; }
+        if (data.iconOdysseyImg) { document.getElementById('preview-img-odyssey').src = data.iconOdysseyImg; document.getElementById('preview-img-odyssey').style.display = 'block'; } else { document.getElementById('preview-img-odyssey').style.display = 'none'; }
+        
+        // Banners multipli admin
+        document.getElementById('admin-banners-container').innerHTML = '';
+        if (data.bannerImgs && data.bannerImgs.length > 0) {
+            data.bannerImgs.forEach(b64 => window.addAdminBannerRow(b64));
+        } else if (data.bannerImg) { 
+            window.addAdminBannerRow(data.bannerImg);
+        } else {
+            window.addAdminBannerRow();
+        }
 
-    window.exportFullBackup = function() {
-        if (!allPeriods || Object.keys(allPeriods).length === 0) { alert("Nessun dato da esportare."); return; }
-        const fullBackup = { global: globalSettings || {}, periods: allPeriods, calendar: globalCalendarEvents || [] };
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(fullBackup, null, 2));
-        const downloadNode = document.createElement('a'); downloadNode.setAttribute("href", dataStr); downloadNode.setAttribute("download", "backup_totale_tracker_hsr.json"); document.body.appendChild(downloadNode); downloadNode.click(); downloadNode.remove();
-    }
-
-    window.importFullBackup = function(event) {
-        const file = event.target.files[0]; if (!file) return;
-        if (!confirm("⚠️ ATTENZIONE CRITICA ⚠️\n\nL'importazione di un backup totale cancellerà e SOVRASCRIVERÀ COMPLETAMENTE l'intero database cloud.\n\nVuoi davvero procedere?")) { event.target.value = ''; return; }
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            try {
-                const importedData = JSON.parse(e.target.result);
-                if (importedData && (importedData.periods || importedData.global || importedData.calendar)) {
-                    const fullDbRef = ref(db, DB_ROOT_PATH);
-                    set(fullDbRef, importedData).then(() => { alert("🎉 Backup globale ripristinato con successo nel cloud! La pagina verrà ricaricata."); window.location.reload(); }).catch(err => alert("Errore durante il caricamento su cloud: " + err));
-                } else { alert("File di backup globale non valido."); }
-            } catch (err) { alert("Errore nella lettura del file JSON globale."); }
-            event.target.value = ''; 
-        }; reader.readAsText(file);
+        containerEvents.innerHTML = '';
+        if (data.events) {
+            data.events.forEach(evt => window.addAdminEventRow(evt.id, evt.name, evt.jades, evt.passes, evt.frequency, evt.startDate));
+        }
     }
 
     window.saveGlobalSettings = function() {
-        const bgms = []; document.querySelectorAll('#admin-bgms-container .admin-bgm-row').forEach(row => { const b64 = row.getAttribute('data-audio'); if (b64 && b64.startsWith('data:audio')) { bgms.push(b64); } });
-        
-        const payload = {
-            maintenanceMode: document.getElementById('admin-maintenance-mode').checked,
-            hideTracker: document.getElementById('admin-hide-tracker').checked,
-            hideWarp: document.getElementById('admin-hide-warp').checked,
-            hideCalendar: document.getElementById('admin-hide-calendar').checked,
-            bgms: bgms,
-            bgm: bgms.length > 0 ? bgms[0] : null,
-            favicon: savedGlobalFaviconBase64 || null,
-            calendarIcon: savedCalendarIconBase64 || null,
-            calcIcon: savedCalcIconBase64 || null,
-            screenshotIcon: savedScreenshotIconBase64 || null,
-            furboshotImg: savedFurboshotBase64 || null,
-            iconJadesImg: savedGlobalJadesBase64 || null,
-            iconPassesImg: savedGlobalPassesBase64 || null,
-            iconNamelessImg: savedGlobalNamelessBase64 || null
-        };
-        
+        const maintMode = document.getElementById('admin-maintenance-mode').checked;
         const globalDbRef = ref(db, `${DB_ROOT_PATH}/global`);
-        set(globalDbRef, payload).then(() => {
-            globalSettings = payload; 
-            const statusMsg1 = document.getElementById('global-status'); const statusMsg2 = document.getElementById('visibility-status');
-            if(statusMsg1) { statusMsg1.style.display = 'inline'; setTimeout(() => statusMsg1.style.display = 'none', 3000); }
-            if(statusMsg2) { statusMsg2.style.display = 'inline'; setTimeout(() => statusMsg2.style.display = 'none', 3000); }
-            applyGlobalFavicon(savedGlobalFaviconBase64); applyNavCalendarIcon(savedCalendarIconBase64); applyCalcIcon(savedCalcIconBase64); applyScreenshotIcon(savedScreenshotIconBase64);
-            bgmPlaylist = bgms; const bgmAudio = document.getElementById('bgm-audio');
+        
+        const bgms = [];
+        document.querySelectorAll('#admin-bgms-container .admin-bgm-row').forEach(row => {
+            const b64 = row.getAttribute('data-audio');
+            if (b64 && b64.startsWith('data:audio')) {
+                bgms.push(b64);
+            }
+        });
+        
+        globalSettings.bgms = bgms;
+        globalSettings.bgm = bgms.length > 0 ? bgms[0] : null; 
+        globalSettings.favicon = savedGlobalFaviconBase64;
+        globalSettings.calendarIcon = savedCalendarIconBase64;
+        globalSettings.screenshotIcon = savedScreenshotIconBase64;
+        globalSettings.furboshotImg = savedFurboshotBase64;
+        globalSettings.maintenanceMode = maintMode;
+        
+        // Salvataggio Icone Globali
+        globalSettings.iconJadesImg = savedGlobalJadesBase64;
+        globalSettings.iconPassesImg = savedGlobalPassesBase64;
+        globalSettings.iconNamelessImg = savedGlobalNamelessBase64;
+
+        set(globalDbRef, globalSettings).then(() => {
+            const statusMsg = document.getElementById('global-status');
+            statusMsg.style.display = 'inline';
+            setTimeout(() => statusMsg.style.display = 'none', 3000);
+            applyGlobalFavicon(savedGlobalFaviconBase64);
+            applyNavCalendarIcon(savedCalendarIconBase64);
+            applyScreenshotIcon(savedScreenshotIconBase64);
+            
+            bgmPlaylist = bgms;
+            const bgmAudio = document.getElementById('bgm-audio');
+            
             if(bgmPlaylist.length > 0) {
-                if(!bgmAudio.src || !bgmAudio.src.startsWith('data:audio')) { bgmAudio.src = bgmPlaylist[0]; bgmAudio.load(); currentBgmIndex = 0; }
-                if (isBgmPlaying && localStorage.getItem('hsr_bgm_muted') !== 'true') { bgmAudio.play().then(() => { updateBgmIcon(true); }).catch(e => console.log(e)); }
-            } else { bgmAudio.pause(); bgmAudio.src = ""; updateBgmIcon(false); }
-        }).catch((error) => { alert("⚠️ Errore critico durante il salvataggio!\n\nDettaglio: " + error.message); });
+                if(!bgmAudio.src || !bgmAudio.src.startsWith('data:audio')) {
+                    bgmAudio.src = bgmPlaylist[0];
+                    bgmAudio.load();
+                    currentBgmIndex = 0;
+                }
+                if (isBgmPlaying && localStorage.getItem('hsr_bgm_muted') !== 'true') {
+                    bgmAudio.play().then(() => {
+                        updateBgmIcon(true);
+                    }).catch(e => console.log(e));
+                }
+            } else {
+                bgmAudio.pause();
+                bgmAudio.src = "";
+                updateBgmIcon(false);
+            }
+        });
     }
 
     window.savePatchToCloud = function() {
         if(!currentPeriodId) { alert("Nessuna patch selezionata."); return; }
-        const bannerImgs = []; document.querySelectorAll('#admin-banners-container .admin-banner-row').forEach(row => { const b64 = row.getAttribute('data-img'); if (b64 && b64.startsWith('data:image')) { bannerImgs.push(b64); } });
-        const events = []; document.querySelectorAll('#admin-events-container .admin-event-row').forEach(row => {
-            const name = row.querySelector('.evt-name').value; const jades = row.querySelector('.evt-jades').value; const passes = row.querySelector('.evt-passes').value; const frequency = row.querySelector('.evt-freq').value; const startDate = row.querySelector('.evt-start').value; 
-            if (name && (jades || passes)) { events.push({ id: row.querySelector('.evt-id').value, name: name, jades: parseInt(jades) || 0, passes: parseInt(passes) || 0, frequency: frequency, startDate: startDate }); }
+
+        const bannerImgs = [];
+        document.querySelectorAll('#admin-banners-container .admin-banner-row').forEach(row => {
+            const b64 = row.getAttribute('data-img');
+            if (b64 && b64.startsWith('data:image')) {
+                bannerImgs.push(b64);
+            }
         });
-        
+
+        const events = [];
+        document.querySelectorAll('#admin-events-container .admin-event-row').forEach(row => {
+            const name = row.querySelector('.evt-name').value;
+            const jades = row.querySelector('.evt-jades').value;
+            const passes = row.querySelector('.evt-passes').value;
+            const frequency = row.querySelector('.evt-freq').value;
+            const startDate = row.querySelector('.evt-start').value; 
+            
+            if (name && (jades || passes)) {
+                events.push({ id: row.querySelector('.evt-id').value, name: name, jades: parseInt(jades) || 0, passes: parseInt(passes) || 0, frequency: frequency, startDate: startDate });
+            }
+        });
+
+        const isVisible = document.getElementById('admin-patch-visible').checked;
+
         const newData = {
-            periodName: document.getElementById('admin-period-name').value || "Senza Nome",
+            periodName: document.getElementById('admin-period-name').value,
             dailyBase: parseInt(document.getElementById('admin-daily-base').value) || 0,
             dailyPass: parseInt(document.getElementById('admin-daily-pass').value) || 0,
             enableOdyssey: document.getElementById('admin-enable-odyssey').checked,
             enableNameless: document.getElementById('admin-enable-nameless').checked,
-            isVisible: document.getElementById('admin-patch-visible').checked,
-            patchIconImg: savedPatchIconBase64 || null,
-            bannerImgs: bannerImgs, bannerImg: bannerImgs.length > 0 ? bannerImgs[0] : null,
-            iconOdysseyImg: savedOdysseyBase64 || null, 
-            startDate: document.getElementById('admin-start-date').value || "", endDate: document.getElementById('admin-end-date').value || "",
+            isVisible: isVisible,
+            patchIconImg: savedPatchIconBase64,
+            bannerImgs: bannerImgs,
+            bannerImg: bannerImgs.length > 0 ? bannerImgs[0] : null,
+            iconOdysseyImg: savedOdysseyBase64, 
+            startDate: document.getElementById('admin-start-date').value,
+            endDate: document.getElementById('admin-end-date').value,
             events: events
         };
+
         const specificDbRef = ref(db, `${DB_ROOT_PATH}/periods/${currentPeriodId}`);
         set(specificDbRef, newData).then(() => {
-            const statusMsg = document.getElementById('admin-patch-status'); statusMsg.style.display = 'block'; setTimeout(() => statusMsg.style.display = 'none', 3000);
-            const adminLabel = document.getElementById('admin-active-patch-label'); if (adminLabel) adminLabel.innerText = newData.periodName;
-        }).catch((error) => { alert("⚠️ Errore nel salvataggio!\nDettaglio: " + error.message); });
+            const statusMsg = document.getElementById('admin-patch-status');
+            statusMsg.style.display = 'block';
+            setTimeout(() => statusMsg.style.display = 'none', 3000);
+            
+            const adminLabel = document.getElementById('admin-active-patch-label');
+            if (adminLabel) adminLabel.innerText = newData.periodName;
+        }).catch((error) => { alert("Errore nel cloud: " + error); });
     }
 
+    // ==========================================
+    // LOGICA ADMIN CALENDARIO (ESTESA)
+    // ==========================================
     function populateCalendarAdminForm() {
         document.getElementById('admin-cal-container').innerHTML = '';
-        globalCalendarEvents.forEach(ev => { window.addCalAdminRow(ev.id, ev.name, ev.date, ev.icon, ev.endDate || '', ev.jades || '', ev.passes || '', ev.rewards || ev.oldRewards || '', ev.type || 'reward', ev.link || ''); });
+        globalCalendarEvents.forEach(ev => {
+            window.addCalAdminRow(ev.id, ev.name, ev.date, ev.icon, ev.endDate || '', ev.jades || '', ev.passes || '', ev.rewards || ev.oldRewards || '', ev.type || 'reward', ev.link || '');
+        });
     }
 
     window.addCalAdminRow = function(id = '', name = '', date = '', iconBase64 = '', endDate = '', jades = '', passes = '', oldRewards = '', eventType = 'reward', link = '') {
-        const rowId = id || 'cal_' + Date.now() + Math.random().toString(16).slice(2); const div = document.createElement('div'); div.className = 'admin-event-row'; div.setAttribute('data-img', iconBase64 || '');
-        div.innerHTML = `<input type="hidden" class="cal-id" value="${rowId}"><input type="hidden" class="cal-old-rewards" value="${oldRewards}"><select class="cal-type" style="flex: 0.5; min-width: 100px; padding: 10px; background-color: #2c3554; border-radius: 6px; color: white;"><option value="reward" ${eventType === 'reward' ? 'selected' : ''}>Risorse</option><option value="link" ${eventType === 'link' ? 'selected' : ''}>Link</option></select><input type="text" class="cal-name" placeholder="Nome Evento" value="${name}" style="flex: 2; min-width: 150px;"><input type="date" class="cal-date" value="${date}" style="flex: 1; min-width: 120px;" title="Data Inizio Evento"><input type="date" class="cal-end-date" value="${endDate}" style="flex: 1; min-width: 120px;" title="Data Fine Evento (Opzionale)"><div class="cal-reward-fields" style="display: ${eventType === 'reward' ? 'flex' : 'none'}; flex: 1; gap: 5px;"><input type="number" class="cal-jades" placeholder="Jades (✦)" value="${jades}" style="width: 100%; min-width: 80px;" title="Stellar Jades"><input type="number" class="cal-passes" placeholder="Passes (🎫)" value="${passes}" style="width: 100%; min-width: 80px;" title="Special Passes"></div><div class="cal-link-fields" style="display: ${eventType === 'link' ? 'flex' : 'none'}; flex: 1;"><input type="url" class="cal-link" placeholder="https://..." value="${link}" style="width: 100%; min-width: 150px;" title="Link Evento"></div><div style="flex: 1.5; display: flex; align-items: center; gap: 10px; min-width: 140px;"><input type="file" id="cal_file_${rowId}" accept="image/*" style="margin: 0; padding: 5px; width: 100%;"><img id="cal_prev_${rowId}" src="${iconBase64 || ''}" style="width: 32px; height: 32px; object-fit: contain; border-radius: 4px; display: ${iconBase64 ? 'block' : 'none'}; flex-shrink: 0;"></div><button type="button" onclick="this.parentElement.remove()" style="background-color: transparent; color: #ff5252; padding: 0 10px;">✖</button>`;
-        div.querySelector('.cal-type').addEventListener('change', function(e) { const isLink = e.target.value === 'link'; div.querySelector('.cal-reward-fields').style.display = isLink ? 'none' : 'flex'; div.querySelector('.cal-link-fields').style.display = isLink ? 'flex' : 'none'; });
+        const rowId = id || 'cal_' + Date.now() + Math.random().toString(16).slice(2);
+        const div = document.createElement('div');
+        div.className = 'admin-event-row';
+        div.setAttribute('data-img', iconBase64 || '');
+
+        div.innerHTML = `
+            <input type="hidden" class="cal-id" value="${rowId}">
+            <input type="hidden" class="cal-old-rewards" value="${oldRewards}">
+            
+            <select class="cal-type" style="flex: 0.5; min-width: 100px; padding: 10px; background-color: #2c3554; border-radius: 6px; color: white;">
+                <option value="reward" ${eventType === 'reward' ? 'selected' : ''}>Risorse</option>
+                <option value="link" ${eventType === 'link' ? 'selected' : ''}>Link</option>
+            </select>
+            
+            <input type="text" class="cal-name" placeholder="Nome Evento" value="${name}" style="flex: 2; min-width: 150px;">
+            <input type="date" class="cal-date" value="${date}" style="flex: 1; min-width: 120px;" title="Data Inizio Evento">
+            <input type="date" class="cal-end-date" value="${endDate}" style="flex: 1; min-width: 120px;" title="Data Fine Evento (Opzionale)">
+            
+            <div class="cal-reward-fields" style="display: ${eventType === 'reward' ? 'flex' : 'none'}; flex: 1; gap: 5px;">
+                <input type="number" class="cal-jades" placeholder="Jades (✦)" value="${jades}" style="width: 100%; min-width: 80px;" title="Stellar Jades">
+                <input type="number" class="cal-passes" placeholder="Passes (🎫)" value="${passes}" style="width: 100%; min-width: 80px;" title="Special Passes">
+            </div>
+            
+            <div class="cal-link-fields" style="display: ${eventType === 'link' ? 'flex' : 'none'}; flex: 1;">
+                <input type="url" class="cal-link" placeholder="https://..." value="${link}" style="width: 100%; min-width: 150px;" title="Link Evento">
+            </div>
+
+            <div style="flex: 1.5; display: flex; align-items: center; gap: 10px; min-width: 140px;">
+                <input type="file" id="cal_file_${rowId}" accept="image/*" style="margin: 0; padding: 5px; width: 100%;">
+                <img id="cal_prev_${rowId}" src="${iconBase64 || ''}" style="width: 32px; height: 32px; object-fit: contain; border-radius: 4px; display: ${iconBase64 ? 'block' : 'none'}; flex-shrink: 0;">
+            </div>
+            <button type="button" onclick="this.parentElement.remove()" style="background-color: transparent; color: #ff5252; padding: 0 10px;">✖</button>
+        `;
+
+        div.querySelector('.cal-type').addEventListener('change', function(e) {
+            const isLink = e.target.value === 'link';
+            div.querySelector('.cal-reward-fields').style.display = isLink ? 'none' : 'flex';
+            div.querySelector('.cal-link-fields').style.display = isLink ? 'flex' : 'none';
+        });
+
         div.querySelector(`#cal_file_${rowId}`).addEventListener('change', function(e) {
             const file = e.target.files[0];
             if(file) {
                 if(file.size > 1000000) alert("Icona troppo pesante. Consigliato < 1MB.");
                 const reader = new FileReader();
-                reader.onload = function(evt) { div.setAttribute('data-img', evt.target.result); div.querySelector(`#cal_prev_${rowId}`).src = evt.target.result; div.querySelector(`#cal_prev_${rowId}`).style.display = 'block'; }
+                reader.onload = function(evt) {
+                    div.setAttribute('data-img', evt.target.result);
+                    div.querySelector(`#cal_prev_${rowId}`).src = evt.target.result;
+                    div.querySelector(`#cal_prev_${rowId}`).style.display = 'block';
+                }
                 reader.readAsDataURL(file);
             }
         });
+
         document.getElementById('admin-cal-container').appendChild(div);
     }
 
-    window.clearAdminCalendar = function() { if (confirm("Sei sicuro di voler rimuovere tutti gli eventi dal calendario?")) { document.getElementById('admin-cal-container').innerHTML = ''; } }
-
-    window.exportCalendarEvents = function() {
-        const events = []; document.querySelectorAll('#admin-cal-container .admin-event-row').forEach(row => {
-            const type = row.querySelector('.cal-type').value; const name = row.querySelector('.cal-name').value; const date = row.querySelector('.cal-date').value; const endDate = row.querySelector('.cal-end-date').value; const jades = parseInt(row.querySelector('.cal-jades').value) || 0; const passes = parseInt(row.querySelector('.cal-passes').value) || 0; const link = row.querySelector('.cal-link').value; const oldRewards = row.querySelector('.cal-old-rewards') ? row.querySelector('.cal-old-rewards').value : ''; const icon = row.getAttribute('data-img');
-            if (name && date) { events.push({ id: row.querySelector('.cal-id').value, type: type, name: name, date: date, endDate: endDate, jades: jades, passes: passes, link: link, oldRewards: oldRewards, icon: icon }); }
-        });
-        if(events.length === 0) { alert("Nessun evento del calendario da esportare."); return; }
-        const dataStr = "data:text/json;charset=utf-8," + encodeURIComponent(JSON.stringify(events, null, 2)); const downloadNode = document.createElement('a'); downloadNode.setAttribute("href", dataStr); downloadNode.setAttribute("download", `eventi_calendario.json`); document.body.appendChild(downloadNode); downloadNode.click(); downloadNode.remove();
-    }
-
-    window.importCalendarEvents = function(event) {
-        const file = event.target.files[0]; if (!file) return; const reader = new FileReader();
-        reader.onload = function(e) {
-            try { const importedEvents = JSON.parse(e.target.result); if(Array.isArray(importedEvents)) { importedEvents.forEach(evt => { window.addCalAdminRow(evt.id, evt.name, evt.date, evt.icon, evt.endDate || '', evt.jades || '', evt.passes || '', evt.oldRewards || evt.rewards || '', evt.type || 'reward', evt.link || ''); }); alert("Eventi calendario importati localmente! Clicca su 'Salva Calendario nel Cloud' per confermare."); } } catch (err) { alert("Errore nel file JSON del calendario."); }
-            event.target.value = ''; 
-        }; reader.readAsText(file);
-    }
-
     window.saveCalendarToCloud = function() {
-        const events = []; document.querySelectorAll('#admin-cal-container .admin-event-row').forEach(row => {
-            const type = row.querySelector('.cal-type').value; const name = row.querySelector('.cal-name').value; const date = row.querySelector('.cal-date').value; const endDate = row.querySelector('.cal-end-date').value || ""; const jades = parseInt(row.querySelector('.cal-jades').value) || 0; const passes = parseInt(row.querySelector('.cal-passes').value) || 0; const link = row.querySelector('.cal-link').value || ""; const oldRewards = row.querySelector('.cal-old-rewards') ? row.querySelector('.cal-old-rewards').value : ''; const icon = row.getAttribute('data-img') || null;
-            if (name && date) { events.push({ id: row.querySelector('.cal-id').value, type: type, name: name, date: date, endDate: endDate, jades: jades, passes: passes, link: link, oldRewards: oldRewards, icon: icon }); }
+        const events = [];
+        document.querySelectorAll('#admin-cal-container .admin-event-row').forEach(row => {
+            const type = row.querySelector('.cal-type').value;
+            const name = row.querySelector('.cal-name').value;
+            const date = row.querySelector('.cal-date').value;
+            const endDate = row.querySelector('.cal-end-date').value;
+            const jades = parseInt(row.querySelector('.cal-jades').value) || 0;
+            const passes = parseInt(row.querySelector('.cal-passes').value) || 0;
+            const link = row.querySelector('.cal-link').value;
+            const oldRewards = row.querySelector('.cal-old-rewards') ? row.querySelector('.cal-old-rewards').value : '';
+            const icon = row.getAttribute('data-img');
+            
+            if (name && date) {
+                events.push({ 
+                    id: row.querySelector('.cal-id').value, 
+                    type: type,
+                    name: name, 
+                    date: date, 
+                    endDate: endDate, 
+                    jades: jades,
+                    passes: passes,
+                    link: link,
+                    oldRewards: oldRewards,
+                    icon: icon 
+                });
+            }
         });
+
         const calDbRef = ref(db, `${DB_ROOT_PATH}/calendar`);
-        set(calDbRef, events).then(() => { const statusMsg = document.getElementById('admin-cal-status'); statusMsg.style.display = 'block'; setTimeout(() => statusMsg.style.display = 'none', 3000); }).catch((error) => { alert("⚠️ Errore durante il salvataggio del calendario!\n\nDettaglio: " + error.message); });
+        set(calDbRef, events).then(() => {
+            const statusMsg = document.getElementById('admin-cal-status');
+            statusMsg.style.display = 'block';
+            setTimeout(() => statusMsg.style.display = 'none', 3000);
+        }).catch((error) => { alert("Errore nel cloud (calendario): " + error); });
     }
-
-    // ==========================================
-    // CONNESSIONE AL CLOUD E ASCOLTO DATI
-    // ==========================================
-    onValue(dbRef, (snapshot) => {
-        const data = snapshot.val() || {};
-        allPeriods = data.periods || {}; globalSettings = data.global || {}; globalCalendarEvents = data.calendar || [];
-
-        if (globalSettings.maintenanceMode !== undefined) { const maintCheck = document.getElementById('admin-maintenance-mode'); if(maintCheck) maintCheck.checked = globalSettings.maintenanceMode; }
-        if (globalSettings.hideTracker !== undefined) { const ht = document.getElementById('admin-hide-tracker'); if(ht) ht.checked = globalSettings.hideTracker; }
-        if (globalSettings.hideWarp !== undefined) { const hw = document.getElementById('admin-hide-warp'); if(hw) hw.checked = globalSettings.hideWarp; }
-        if (globalSettings.hideCalendar !== undefined) { const hc = document.getElementById('admin-hide-calendar'); if(hc) hc.checked = globalSettings.hideCalendar; }
-
-        document.getElementById('nav-tracker').style.display = (globalSettings.hideTracker && !isAdmin) ? 'none' : 'block';
-        document.getElementById('splash-btn-tracker').style.display = (globalSettings.hideTracker && !isAdmin) ? 'none' : 'flex';
-        document.getElementById('nav-warp').style.display = (globalSettings.hideWarp && !isAdmin) ? 'none' : 'block';
-        document.getElementById('splash-btn-warp').style.display = (globalSettings.hideWarp && !isAdmin) ? 'none' : 'flex';
-        document.getElementById('nav-calendar').style.display = (globalSettings.hideCalendar && !isAdmin) ? 'none' : 'block';
-        document.getElementById('splash-btn-calendar').style.display = (globalSettings.hideCalendar && !isAdmin) ? 'none' : 'flex';
-
-        if (globalSettings.favicon) { savedGlobalFaviconBase64 = globalSettings.favicon; applyGlobalFavicon(savedGlobalFaviconBase64); if(isAdmin) { document.getElementById('preview-img-favicon').src = savedGlobalFaviconBase64; document.getElementById('preview-img-favicon').style.display = 'block'; } }
-        if (globalSettings.screenshotIcon) { savedScreenshotIconBase64 = globalSettings.screenshotIcon; applyScreenshotIcon(savedScreenshotIconBase64); if(isAdmin) { document.getElementById('preview-img-screenshot-icon').src = savedScreenshotIconBase64; document.getElementById('preview-img-screenshot-icon').style.display = 'block'; } } else { applyScreenshotIcon(null); }
-        if (globalSettings.calendarIcon) { savedCalendarIconBase64 = globalSettings.calendarIcon; applyNavCalendarIcon(savedCalendarIconBase64); if(isAdmin) { document.getElementById('preview-img-calendar-icon').src = savedCalendarIconBase64; document.getElementById('preview-img-calendar-icon').style.display = 'block'; } } else { applyNavCalendarIcon(null); }
-        if (globalSettings.calcIcon) { savedCalcIconBase64 = globalSettings.calcIcon; applyCalcIcon(savedCalcIconBase64); if(isAdmin) { document.getElementById('preview-img-calc-icon').src = savedCalcIconBase64; document.getElementById('preview-img-calc-icon').style.display = 'block'; } } else { applyCalcIcon(null); }
-        if (globalSettings.furboshotImg) { savedFurboshotBase64 = globalSettings.furboshotImg; if(isAdmin) { document.getElementById('preview-img-furboshot-img').src = savedFurboshotBase64; document.getElementById('preview-img-furboshot-img').style.display = 'block'; } }
-
-        savedGlobalJadesBase64 = globalSettings.iconJadesImg || getFallbackIcon('iconJadesImg');
-        savedGlobalPassesBase64 = globalSettings.iconPassesImg || getFallbackIcon('iconPassesImg');
-        savedGlobalNamelessBase64 = globalSettings.iconNamelessImg || getFallbackIcon('iconNamelessImg');
-
-        if (isAdmin) {
-            if (savedGlobalJadesBase64) { document.getElementById('preview-img-jades').src = savedGlobalJadesBase64; document.getElementById('preview-img-jades').style.display = 'block'; }
-            if (savedGlobalPassesBase64) { document.getElementById('preview-img-passes').src = savedGlobalPassesBase64; document.getElementById('preview-img-passes').style.display = 'block'; }
-            if (savedGlobalNamelessBase64) { document.getElementById('preview-img-nameless').src = savedGlobalNamelessBase64; document.getElementById('preview-img-nameless').style.display = 'block'; }
-        }
-
-        bgmPlaylist = [];
-        if (globalSettings.bgms && Array.isArray(globalSettings.bgms)) { bgmPlaylist = globalSettings.bgms.filter(a => a && a.startsWith('data:audio')); } else if (globalSettings.bgm && globalSettings.bgm.startsWith('data:audio')) { bgmPlaylist = [globalSettings.bgm]; }
-        if(isAdmin) { document.getElementById('admin-bgms-container').innerHTML = ''; if (bgmPlaylist.length > 0) { bgmPlaylist.forEach(b64 => window.addAdminBgmRow(b64)); } else { window.addAdminBgmRow(); } }
-
-        if (Object.keys(allPeriods).length > 0) {
-            const publicIds = Object.keys(allPeriods).filter(id => allPeriods[id].isVisible !== false);
-            if (!currentPeriodId || !allPeriods[currentPeriodId] || (!isAdmin && allPeriods[currentPeriodId].isVisible === false && publicIds.length > 0)) {
-                const sortedPublicIds = publicIds.sort((a,b) => new Date(allPeriods[b].startDate || '1970-01-01') - new Date(allPeriods[a].startDate || '1970-01-01'));
-                if (sortedPublicIds.length > 0) { currentPeriodId = sortedPublicIds[0]; } else {
-                    const allSorted = Object.keys(allPeriods).sort((a,b) => new Date(allPeriods[b].startDate || '1970-01-01') - new Date(allPeriods[a].startDate || '1970-01-01'));
-                    currentPeriodId = allSorted.length > 0 ? allSorted[0] : null;
-                }
-            }
-            if (currentPeriodId) {
-                globalData = allPeriods[currentPeriodId];
-                savedOdysseyBase64 = globalData.iconOdysseyImg || null; savedPatchIconBase64 = globalData.patchIconImg || null;
-                updateCustomDropdownUI(); rollRandomBanner(); renderDashboard();
-                if (isAdmin) {
-                    const adminLabel = document.getElementById('admin-active-patch-label'); if (adminLabel) adminLabel.innerText = globalData.periodName || "Senza Nome";
-                    populateAdminForm(globalData); populateCalendarAdminForm();
-                }
-            }
-        } else {
-            document.querySelectorAll('.fallback-title').forEach(el => { el.style.display = "block"; }); document.querySelectorAll('.period-title').forEach(el => { el.innerHTML = `Database vuoto`; });
-            document.getElementById('events-list').innerHTML = '<li style="grid-column: 1/-1; text-align: center;">Nessun evento configurato. Vai al Pannello Admin.</li>';
-            if (isAdmin) { document.getElementById('nav-admin').style.display = 'block'; populateCalendarAdminForm(); }
-        }
-
-        if (audioInitialized && bgmPlaylist.length > 0) {
-            const bgmAudio = document.getElementById('bgm-audio');
-            if (!bgmAudio.src || bgmAudio.src === window.location.href) {
-                bgmAudio.src = bgmPlaylist[0]; bgmAudio.load(); currentBgmIndex = 0;
-                if (localStorage.getItem('hsr_bgm_muted') !== 'true') { bgmAudio.play().then(() => { isBgmPlaying = true; updateBgmIcon(true); }).catch(e => console.log("Autoplay nativo protetto.")); }
-            }
-        }
-
-        let savedView = localStorage.getItem('hsr_tracker_last_view') || 'tracker';
-        if (savedView === 'admin' && !isAdmin) savedView = 'tracker';
-        if (!isAdmin) {
-            if (savedView === 'tracker' && globalSettings.hideTracker) savedView = globalSettings.hideWarp ? 'calendar' : 'warp';
-            if (savedView === 'warp' && globalSettings.hideWarp) savedView = globalSettings.hideCalendar ? 'tracker' : 'calendar';
-            if (savedView === 'calendar' && globalSettings.hideCalendar) savedView = globalSettings.hideTracker ? 'warp' : 'tracker';
-        }
-        const versionSelector = document.getElementById('version-selector-container'); if (versionSelector) { versionSelector.style.display = (savedView === 'tracker') ? 'flex' : 'none'; }
-        switchView(savedView, false);
-    });
 
 </script>
 </body>

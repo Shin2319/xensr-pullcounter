@@ -14,7 +14,7 @@
     <link id="dynamic-favicon" rel="icon" type="image/png" href="">
     <link id="dynamic-apple-icon" rel="apple-touch-icon" href="">
     
-    <!-- Libreria per lo screenshot del calendario -->
+    <!-- Libreria per lo screenshot del calendario/warp -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
@@ -35,13 +35,13 @@
         .container { max-width: 1100px; width: 100%; display: flex; flex-direction: column; min-height: 95vh; }
         h1, h2, h3 { color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); margin-bottom: 20px;}
         
-        /* SPLASH SCREEN */
+        /* SPLASH SCREEN (TENDINA) */
         .splash-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-color); z-index: 99999; display: flex; align-items: center; justify-content: center; transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); }
         .splash-screen.hidden { transform: translateY(-100%); }
         .splash-content { max-width: 700px; width: 90%; text-align: center; padding: 40px; border: 1px solid var(--border-color); box-shadow: 0 20px 50px rgba(0,0,0,0.8); border-radius: 16px; background-color: var(--surface-color); }
         .splash-banner { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border-color); box-shadow: 0 8px 16px rgba(0,0,0,0.4); display: none; }
         .splash-buttons { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
-        .splash-btn { padding: 20px 30px; font-size: 1.2em; flex: 1; min-width: 200px; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); color: white; cursor: pointer; font-weight: bold; }
+        .splash-btn { padding: 20px 30px; font-size: 1.2em; flex: 1; min-width: 180px; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); color: white; cursor: pointer; font-weight: bold; }
         .splash-btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); opacity: 1; }
         .splash-btn.primary-btn { background-color: var(--primary-color); }
         .splash-btn.secondary-btn { background-color: #4CAF50; }
@@ -207,6 +207,7 @@
         
         <input type="text" id="login-username" placeholder="Nome Utente" style="margin-bottom: 10px;">
         
+        <!-- Input Password con occhio -->
         <div style="position: relative; width: 100%; margin-bottom: 10px;">
             <input type="password" id="login-password" placeholder="Password" style="margin: 0; padding-right: 40px; width: 100%;">
             <span onclick="togglePassword()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 1.2em; user-select: none;" title="Mostra/Nascondi Password">👁️</span>
@@ -255,7 +256,7 @@
     <div class="card" style="text-align: center; max-width: 400px; width: 90%; background: var(--surface-color); padding: 30px; border-radius: 16px; border: 1px solid var(--primary-color); box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
         <img id="furboshot-img-display" style="width: 100%; max-height: 250px; object-fit: contain; margin-bottom: 20px; display: none; border-radius: 8px;">
         <h2 style="color: var(--primary-color); margin-top: 0; font-size: 1.8em;">Furboshot scattato!</h2>
-        <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.1em;">L'immagine del calendario è stata scaricata con successo.</p>
+        <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.1em;">L'immagine è stata scaricata con successo.</p>
         <button onclick="document.getElementById('furboshot-overlay').style.display = 'none';" style="font-size: 1.2em; padding: 12px 30px; border-radius: 8px;">Furbo!</button>
     </div>
 </div>
@@ -430,101 +431,111 @@
         <!-- VISTA: WARP PLANNER -->
         <!-- ============================================== -->
         <div id="view-warp" style="display: none;">
-            <div class="card" style="border-top: 4px solid #ab47bc;">
-                <h2 style="color: #ab47bc; margin-top: 0; display: flex; align-items: center; gap: 10px;">
-                    🎯 Warp Planner
-                </h2>
-                <p style="color: var(--text-muted); margin-bottom: 25px;">Scopri le reali probabilità percentuali di ottenere le configurazioni che desideri, basate esclusivamente su ciò che hai attualmente nel tuo inventario. Vengono effettuate in tempo reale 10.000 simulazioni statistiche per garantirti la massima precisione.</p>
+            <div id="warp-capture-area">
+                <div class="card" style="border-top: 4px solid #ab47bc;">
+                    <h2 style="color: #ab47bc; margin-top: 0; display: flex; align-items: center; gap: 10px;">
+                        🎯 Warp Planner
+                    </h2>
+                    <p style="color: var(--text-muted); margin-bottom: 25px;">Scopri le reali probabilità percentuali di ottenere le configurazioni che desideri, basate esclusivamente su ciò che hai attualmente nel tuo inventario. Vengono effettuate in tempo reale 10.000 simulazioni statistiche per garantirti la massima precisione.</p>
 
-                <div class="warp-grid">
-                    <!-- Input Inventario (Unico dato rilevante per i pull) -->
-                    <div class="warp-input-group" style="grid-column: 1 / -1; border-color: var(--primary-color);">
-                        <label class="group-title">1. Risorse Attuali in Inventario</label>
-                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                            <div style="flex: 1; min-width: 150px;">
-                                <span style="font-size: 0.85em; color: var(--text-muted);">Jades (✦)</span>
-                                <input type="number" id="warp-saved-jades" placeholder="Es. 16000" min="0" value="0">
-                            </div>
-                            <div style="flex: 1; min-width: 150px;">
-                                <span style="font-size: 0.85em; color: var(--text-muted);">Passes (🎫)</span>
-                                <input type="number" id="warp-saved-passes" placeholder="Es. 10" min="0" value="0">
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Input Pity Personaggio -->
-                    <div class="warp-input-group">
-                        <label class="group-title" style="color: var(--passes-color);">2. Banner Personaggio</label>
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <div>
-                                <span style="font-size: 0.85em; color: var(--text-muted);">Pity Attuale (0-89)</span>
-                                <input type="number" id="warp-char-pity" placeholder="Es. 40" min="0" max="89" value="0" style="margin-bottom: 0;">
-                            </div>
-                            <div style="padding-top: 5px;">
-                                <label style="display: flex; align-items: center; cursor: pointer; color: var(--passes-color); margin: 0; font-size: 0.95em;">
-                                    <input type="checkbox" id="warp-char-guaranteed" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: var(--passes-color);">
-                                    Hai il Personaggio Garantito? (Perso ultimo 50/50)
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Input Pity Light Cone -->
-                    <div class="warp-input-group">
-                        <label class="group-title" style="color: var(--jades-color);">3. Banner Light Cone</label>
-                        <div style="display: flex; flex-direction: column; gap: 10px;">
-                            <div>
-                                <span style="font-size: 0.85em; color: var(--text-muted);">Pity Attuale (0-79)</span>
-                                <input type="number" id="warp-lc-pity" placeholder="Es. 20" min="0" max="79" value="0" style="margin-bottom: 0;">
-                            </div>
-                            <div style="padding-top: 5px;">
-                                <label style="display: flex; align-items: center; cursor: pointer; color: var(--jades-color); margin: 0; font-size: 0.95em;">
-                                    <input type="checkbox" id="warp-lc-guaranteed" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: var(--jades-color);">
-                                    Hai la Light Cone Garantita? (Perso ultimo 75/25)
-                                </label>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Strategia di Priorità -->
-                    <div class="warp-input-group" style="grid-column: 1 / -1;">
-                        <label class="group-title">4. Strategia Desiderata</label>
-                        <p style="font-size: 0.85em; color: var(--text-muted); margin-top: -5px; margin-bottom: 15px;">Decidi come il simulatore deve investire i tuoi pull dopo aver trovato la prima copia del personaggio (E0).</p>
-                        
-                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
-                            <label style="display: flex; align-items: center; cursor: pointer; background: #1a2032; padding: 15px; border-radius: 8px; flex: 1; border: 1px solid var(--border-color);">
-                                <input type="radio" name="warp-priority" value="s1" checked style="width: auto; margin: 0 15px 0 0; transform: scale(1.3); accent-color: #ab47bc;">
-                                <div>
-                                    <div style="font-weight: bold;">Priorità all'Arma (S1 prima)</div>
-                                    <div style="font-size: 0.8em; color: var(--text-muted);">E0S0 → E0S1 → E1S1...</div>
+                    <div class="warp-grid">
+                        <!-- Input Inventario (Unico dato rilevante per i pull) -->
+                        <div class="warp-input-group" style="grid-column: 1 / -1; border-color: var(--primary-color);">
+                            <label class="group-title">1. Risorse Attuali in Inventario</label>
+                            <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                                <div style="flex: 1; min-width: 150px;">
+                                    <span style="font-size: 0.85em; color: var(--text-muted);" id="warp-jades-label">Jades (✦)</span>
+                                    <input type="number" id="warp-saved-jades" placeholder="Es. 16000" min="0" value="0">
                                 </div>
-                            </label>
+                                <div style="flex: 1; min-width: 150px;">
+                                    <span style="font-size: 0.85em; color: var(--text-muted);" id="warp-passes-label">Passes (🎫)</span>
+                                    <input type="number" id="warp-saved-passes" placeholder="Es. 10" min="0" value="0">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input Pity Personaggio -->
+                        <div class="warp-input-group">
+                            <label class="group-title" style="color: var(--passes-color);">2. Banner Personaggio</label>
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <div>
+                                    <span style="font-size: 0.85em; color: var(--text-muted);">Pity Attuale (0-89)</span>
+                                    <input type="number" id="warp-char-pity" placeholder="Es. 40" min="0" max="89" value="0" style="margin-bottom: 0;">
+                                </div>
+                                <div style="padding-top: 5px;">
+                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--passes-color); margin: 0; font-size: 0.95em;">
+                                        <input type="checkbox" id="warp-char-guaranteed" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: var(--passes-color);">
+                                        Hai il Personaggio Garantito? (Perso ultimo 50/50)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Input Pity Light Cone -->
+                        <div class="warp-input-group">
+                            <label class="group-title" style="color: var(--jades-color);">3. Banner Light Cone</label>
+                            <div style="display: flex; flex-direction: column; gap: 10px;">
+                                <div>
+                                    <span style="font-size: 0.85em; color: var(--text-muted);">Pity Attuale (0-79)</span>
+                                    <input type="number" id="warp-lc-pity" placeholder="Es. 20" min="0" max="79" value="0" style="margin-bottom: 0;">
+                                </div>
+                                <div style="padding-top: 5px;">
+                                    <label style="display: flex; align-items: center; cursor: pointer; color: var(--jades-color); margin: 0; font-size: 0.95em;">
+                                        <input type="checkbox" id="warp-lc-guaranteed" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: var(--jades-color);">
+                                        Hai la Light Cone Garantita? (Perso ultimo 75/25)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Strategia di Priorità -->
+                        <div class="warp-input-group" style="grid-column: 1 / -1;">
+                            <label class="group-title">4. Strategia Desiderata</label>
+                            <p style="font-size: 0.85em; color: var(--text-muted); margin-top: -5px; margin-bottom: 15px;">Decidi come il simulatore deve calcolare le probabilità dopo aver trovato la prima copia del personaggio (E0).</p>
                             
-                            <label style="display: flex; align-items: center; cursor: pointer; background: #1a2032; padding: 15px; border-radius: 8px; flex: 1; border: 1px solid var(--border-color);">
-                                <input type="radio" name="warp-priority" value="eidolons" style="width: auto; margin: 0 15px 0 0; transform: scale(1.3); accent-color: #ab47bc;">
-                                <div>
-                                    <div style="font-weight: bold;">Priorità agli Eidolon (E prima)</div>
-                                    <div style="font-size: 0.8em; color: var(--text-muted);">E0S0 → E1S0... → E6S0 → E6S1</div>
-                                </div>
-                            </label>
+                            <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                                <label style="display: flex; align-items: center; cursor: pointer; background: #1a2032; padding: 15px; border-radius: 8px; flex: 1; border: 1px solid var(--border-color);">
+                                    <input type="radio" name="warp-priority" value="s1" checked style="width: auto; margin: 0 15px 0 0; transform: scale(1.3); accent-color: #ab47bc;">
+                                    <div>
+                                        <div style="font-weight: bold;">Priorità all'Arma (S1 prima)</div>
+                                        <div style="font-size: 0.8em; color: var(--text-muted);">E0S0 → E0S1 → E1S1...</div>
+                                    </div>
+                                </label>
+                                
+                                <label style="display: flex; align-items: center; cursor: pointer; background: #1a2032; padding: 15px; border-radius: 8px; flex: 1; border: 1px solid var(--border-color);">
+                                    <input type="radio" name="warp-priority" value="eidolons" style="width: auto; margin: 0 15px 0 0; transform: scale(1.3); accent-color: #ab47bc;">
+                                    <div>
+                                        <div style="font-weight: bold;">Priorità agli Eidolon (E prima)</div>
+                                        <div style="font-size: 0.8em; color: var(--text-muted);">E0S0 → E1S0... → E6S0 → E6S1</div>
+                                    </div>
+                                </label>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
 
-            <!-- RISULTATI GRAFICO -->
-            <div class="card" style="border: 1px solid var(--primary-color);">
-                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 10px;">
-                    <h3 style="margin: 0; color: var(--primary-color);">Probabilità di Successo</h3>
-                    <div style="font-size: 1.2em; font-weight: bold; background: rgba(74, 144, 226, 0.1); padding: 8px 15px; border-radius: 8px;">
-                        Pulls totali analizzati: <span id="warp-display-total-pulls" style="color: var(--primary-color);">0</span>
+                <!-- RISULTATI GRAFICO -->
+                <div class="card" style="border: 1px solid var(--primary-color);">
+                    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 10px;">
+                        <h3 style="margin: 0; color: var(--primary-color);">Probabilità di Successo</h3>
+                        <div style="font-size: 1.2em; font-weight: bold; background: rgba(74, 144, 226, 0.1); padding: 8px 15px; border-radius: 8px;">
+                            Pulls totali analizzati: <span id="warp-display-total-pulls" style="color: var(--primary-color);">0</span>
+                        </div>
+                    </div>
+                    
+                    <div id="warp-chart-container" class="warp-chart">
+                        <!-- Il grafico verrà generato dinamicamente qui -->
                     </div>
                 </div>
-                
-                <div id="warp-chart-container" class="warp-chart">
-                    <!-- Il grafico verrà generato dinamicamente qui -->
-                </div>
+            </div> <!-- Fine capture area Warp Planner -->
+
+            <!-- PULSANTE SCREENSHOT WARP PLANNER -->
+            <div style="text-align: right; margin-bottom: 20px;">
+                <button onclick="downloadWarpImage(event)" style="background-color: #ab47bc; color: white; display: inline-flex; align-items: center; gap: 8px;">
+                    <span class="screenshot-btn-icon" style="font-size:1.2em; display: flex; align-items: center;">📸</span> Salva Screenshot Planner
+                </button>
             </div>
+
         </div>
         <!-- FINE VISTA WARP PLANNER -->
 
@@ -557,7 +568,7 @@
 
             <div style="text-align: right; margin-bottom: 20px;">
                 <button onclick="downloadCalendarImage(event)" style="background-color: #4CAF50; color: white; display: inline-flex; align-items: center; gap: 8px;">
-                    <span id="screenshot-btn-icon" style="font-size:1.2em; display: flex; align-items: center;">📸</span> Salva Screenshot Calendario
+                    <span class="screenshot-btn-icon" style="font-size:1.2em; display: flex; align-items: center;">📸</span> Salva Screenshot Calendario
                 </button>
             </div>
 
@@ -604,7 +615,7 @@
                         </div>
                     </div>
                     <div>
-                        <label style="color: var(--text-main);">Icona Calendario (Menù/Splash):</label>
+                        <label style="color: var(--text-main);">Icona Navigazione Calendario (Menù/Splash):</label>
                         <input type="file" id="admin-file-calendar-icon" accept="image/*">
                         <div class="preview-icon-box">
                             <img id="preview-img-calendar-icon" class="preview-img" style="max-height: 40px; max-width: 40px; border-radius: 4px;" alt="Calendar">
@@ -614,14 +625,14 @@
                         <label style="color: var(--text-main);">Icona Warp Planner (Menù/Splash):</label>
                         <input type="file" id="admin-file-calc-icon" accept="image/*">
                         <div class="preview-icon-box">
-                            <img id="preview-img-calc-icon" class="preview-img" style="max-height: 40px; max-width: 40px; border-radius: 4px;" alt="Calculator">
+                            <img id="preview-img-calc-icon" class="preview-img" style="max-height: 40px; max-width: 40px; border-radius: 4px;" alt="Warp Planner">
                         </div>
                     </div>
                 </div>
 
                 <div class="admin-icons-row" style="margin-bottom: 15px;">
                     <div>
-                        <label style="color: var(--text-main);">Icona Pulsante Screenshot:</label>
+                        <label style="color: var(--text-main);">Icona Pulsanti Screenshot:</label>
                         <input type="file" id="admin-file-screenshot-icon" accept="image/*">
                         <div class="preview-icon-box">
                             <img id="preview-img-screenshot-icon" class="preview-img" style="max-height: 40px; max-width: 40px; border-radius: 4px;" alt="Screenshot">
@@ -917,7 +928,6 @@
 
     let savedOdysseyBase64 = null; 
     let savedPatchIconBase64 = null;
-    window.currentGrandTotalPulls = 0; // Usata per il Warp Planner (anche se ignoriamo il futuro, teniamo l'inventario)
 
     // ==========================================
     // FUNZIONI DI RECUPERO FALLBACK PER ICONE
@@ -978,7 +988,7 @@
     let isBgmPlaying = false;
     let audioInitialized = false;
     
-    const svgVolOn = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`;
+    const svgVolOn = `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`;
     const svgVolOff = `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>`;
 
     function updateBgmIcon(isPlaying) {
@@ -1166,10 +1176,9 @@
         const priority = document.querySelector('input[name="warp-priority"]:checked').value;
         localStorage.setItem('warp-priority', priority);
         
-        warpTimeout = setTimeout(renderWarpPlanner, 200); // 200ms debounce
+        warpTimeout = setTimeout(renderWarpPlanner, 200); 
     }
 
-    // Ascoltatori Input Planner
     ['warp-saved-jades', 'warp-saved-passes', 'warp-char-pity', 'warp-lc-pity'].forEach(id => {
         document.getElementById(id).addEventListener('input', saveWarpData);
     });
@@ -1184,7 +1193,6 @@
         const ITERATIONS = 10000;
         let results = {};
         
-        // Definiamo i target in base alla strategia scelta
         let targets = priority === 's1' ? 
             ['E0S0', 'E0S1', 'E1S1', 'E2S1', 'E3S1', 'E4S1', 'E5S1', 'E6S1'] : 
             ['E0S0', 'E1S0', 'E2S0', 'E3S0', 'E4S0', 'E5S0', 'E6S0', 'E6S1'];
@@ -1195,13 +1203,11 @@
             let cp = cPity, cg = cGuar;
             let lp = lcPity, lg = lcGuar;
             
-            // Generiamo i costi (in pulls) per ottenere 7 copie (E0 -> E6)
             let charCosts = [];
             for (let c = 0; c < 7; c++) {
                 let cost = 0; let won = false;
                 while (!won) {
                     cost++; cp++;
-                    // Soft pity character starts around 74, scales up
                     let chance = cp < 74 ? 0.006 : 0.006 + (cp - 73) * 0.06;
                     if (Math.random() < chance || cp >= 90) {
                         if (cg || Math.random() < 0.5) { won = true; cg = false; } 
@@ -1212,11 +1218,9 @@
                 charCosts.push(cost);
             }
             
-            // Generiamo il costo per la prima copia dell'arma (S1)
             let lcCost = 0; let wonLc = false;
             while (!wonLc) {
                 lcCost++; lp++;
-                // Soft pity LC starts around 66, scales up
                 let chance = lp < 66 ? 0.008 : 0.008 + (lp - 65) * 0.07;
                 if (Math.random() < chance || lp >= 80) {
                     if (lg || Math.random() < 0.75) { wonLc = true; lg = false; } 
@@ -1225,7 +1229,6 @@
                 }
             }
 
-            // Verifichiamo quali target sono raggiungibili con i pulls attuali dell'utente
             let spent = 0;
             if (priority === 's1') {
                 if (pulls >= (spent += charCosts[0])) results['E0S0']++;
@@ -1248,7 +1251,6 @@
             }
         }
         
-        // Trasformiamo i risultati grezzi in percentuali per il grafico
         return targets.map(t => ({
             label: t,
             pct: (results[t] / ITERATIONS) * 100
@@ -1256,7 +1258,6 @@
     }
 
     function renderWarpPlanner() {
-        // Ripristino dati salvati
         document.getElementById('warp-saved-jades').value = localStorage.getItem('warp-saved-jades') || '0';
         document.getElementById('warp-saved-passes').value = localStorage.getItem('warp-saved-passes') || '0';
         document.getElementById('warp-char-pity').value = localStorage.getItem('warp-char-pity') || '0';
@@ -1274,7 +1275,15 @@
         const lcPity = parseInt(document.getElementById('warp-lc-pity').value) || 0;
         const lcGuar = document.getElementById('warp-lc-guaranteed').checked;
 
-        // I pull considerati sono esclusivamente quelli nell'inventario (IGNORIAMO futurePulls da patch)
+        // Inserimento Icone Dinamiche (✦ / 🎫)
+        const activeJade = globalSettings.iconJadesImg || getFallbackIcon('iconJadesImg');
+        const activePass = globalSettings.iconPassesImg || getFallbackIcon('iconPassesImg');
+        const iconJ_HTML = createIconImg(activeJade, '✦');
+        const iconP_HTML = createIconImg(activePass, '🎫');
+        
+        document.getElementById('warp-jades-label').innerHTML = `Jades ${iconJ_HTML}`;
+        document.getElementById('warp-passes-label').innerHTML = `Passes ${iconP_HTML}`;
+
         const totalPulls = Math.floor(savedJades / 160) + savedPasses;
         
         document.getElementById('warp-display-total-pulls').innerText = totalPulls;
@@ -1287,16 +1296,12 @@
             return;
         }
 
-        // Simulazione
         const data = simulateWarp(totalPulls, cPity, cGuar, lcPity, lcGuar, savedPriority);
 
-        // Generazione Barre CSS
         data.forEach(item => {
-            // Colore sfumato dal rosso (0%) al verde acceso (120 gradi in HSL = 100%)
             let hue = (item.pct * 1.2); 
             let color = `hsl(${hue}, 80%, 45%)`;
             
-            // Per percentuali vicine allo zero (es 0%), assicuriamo un rosso scuro visibile
             if (item.pct === 0) color = 'rgba(244, 67, 54, 0.2)';
 
             const row = document.createElement('div');
@@ -1310,6 +1315,48 @@
                 </div>
             `;
             chartContainer.appendChild(row);
+        });
+    }
+
+    // ==========================================
+    // FUNZIONE DOWNLOAD SCREENSHOT WARP PLANNER
+    // ==========================================
+    window.downloadWarpImage = function(event) {
+        const captureArea = document.getElementById('warp-capture-area');
+        
+        const btn = event.currentTarget;
+        const originalText = btn.innerHTML;
+        
+        const iconHtml = document.querySelector('.screenshot-btn-icon').innerHTML;
+        btn.innerHTML = `<span class="screenshot-btn-icon" style="font-size:1.2em; display: flex; align-items: center;">${iconHtml}</span> <span style="margin-left:8px;">⏳ Generazione...</span>`;
+        btn.disabled = true;
+
+        html2canvas(captureArea, {
+            backgroundColor: "#1c2135", 
+            scale: 2
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = `HSR_WarpPlanner.png`;
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+            
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            
+            // Attiva il Furboshot
+            const furboImg = document.getElementById('furboshot-img-display');
+            if (savedFurboshotBase64) {
+                furboImg.src = savedFurboshotBase64;
+                furboImg.style.display = 'block';
+            } else {
+                furboImg.style.display = 'none';
+            }
+            document.getElementById('furboshot-overlay').style.display = 'flex';
+
+        }).catch(err => {
+            alert("Errore durante la generazione dell'immagine.");
+            btn.innerHTML = originalText;
+            btn.disabled = false;
         });
     }
 
@@ -1514,14 +1561,13 @@
     }
 
     function applyScreenshotIcon(base64Str) {
-        const iconContainer = document.getElementById('screenshot-btn-icon');
-        if (iconContainer) {
-            if (base64Str && base64Str.startsWith('data:image')) {
-                iconContainer.innerHTML = `<img src="${base64Str}" style="height: 1.2em; width: 1.2em; object-fit: contain; vertical-align: middle;">`;
-            } else {
-                iconContainer.innerHTML = '📸';
-            }
-        }
+        const iconHtml = (base64Str && base64Str.startsWith('data:image')) 
+            ? `<img src="${base64Str}" style="height: 1.2em; width: 1.2em; object-fit: contain; vertical-align: middle;">` 
+            : '📸';
+        
+        document.querySelectorAll('.screenshot-btn-icon').forEach(el => {
+            el.innerHTML = iconHtml;
+        });
     }
 
     function checkLockStatus() {
@@ -1948,7 +1994,7 @@
     }
 
     // ==========================================
-    // FUNZIONE DOWNLOAD SCREENSHOT CALENDARIO
+    // FUNZIONE DOWNLOAD SCREENSHOT CALENDARIO E WARP
     // ==========================================
     window.downloadCalendarImage = function(event) {
         const captureArea = document.getElementById('calendar-capture-area');
@@ -1958,8 +2004,8 @@
         const btn = event.currentTarget;
         const originalText = btn.innerHTML;
         
-        const iconHtml = document.getElementById('screenshot-btn-icon').outerHTML;
-        btn.innerHTML = `${iconHtml} <span style="margin-left:8px;">⏳ Generazione...</span>`;
+        const iconHtml = document.querySelector('.screenshot-btn-icon').innerHTML;
+        btn.innerHTML = `<span class="screenshot-btn-icon" style="font-size:1.2em; display: flex; align-items: center;">${iconHtml}</span> <span style="margin-left:8px;">⏳ Generazione...</span>`;
         btn.disabled = true;
 
         const originalWidth = captureArea.style.width;
@@ -1985,7 +2031,6 @@
             btn.innerHTML = originalText;
             btn.disabled = false;
             
-            // Attiva il Furboshot
             const furboImg = document.getElementById('furboshot-img-display');
             if (savedFurboshotBase64) {
                 furboImg.src = savedFurboshotBase64;
@@ -1998,6 +2043,44 @@
         }).catch(err => {
             captureArea.style.width = originalWidth;
             scrollWrapper.style.overflowX = originalOverflow;
+            alert("Errore durante la generazione dell'immagine.");
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
+    }
+
+    window.downloadWarpImage = function(event) {
+        const captureArea = document.getElementById('warp-capture-area');
+        
+        const btn = event.currentTarget;
+        const originalText = btn.innerHTML;
+        
+        const iconHtml = document.querySelector('.screenshot-btn-icon').innerHTML;
+        btn.innerHTML = `<span class="screenshot-btn-icon" style="font-size:1.2em; display: flex; align-items: center;">${iconHtml}</span> <span style="margin-left:8px;">⏳ Generazione...</span>`;
+        btn.disabled = true;
+
+        html2canvas(captureArea, {
+            backgroundColor: "#1c2135", 
+            scale: 2
+        }).then(canvas => {
+            const link = document.createElement('a');
+            link.download = `HSR_WarpPlanner.png`;
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+            
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            
+            const furboImg = document.getElementById('furboshot-img-display');
+            if (savedFurboshotBase64) {
+                furboImg.src = savedFurboshotBase64;
+                furboImg.style.display = 'block';
+            } else {
+                furboImg.style.display = 'none';
+            }
+            document.getElementById('furboshot-overlay').style.display = 'flex';
+
+        }).catch(err => {
             alert("Errore durante la generazione dell'immagine.");
             btn.innerHTML = originalText;
             btn.disabled = false;
@@ -2168,7 +2251,7 @@
             }
         }
 
-        // Inizializza vista salvata o mantieni blocco per lo splash screen
+        // Inizializza vista salvata
         let savedView = localStorage.getItem('hsr_tracker_last_view') || 'tracker';
         if (savedView === 'admin' && !isAdmin) savedView = 'tracker';
         

@@ -14,7 +14,7 @@
     <link id="dynamic-favicon" rel="icon" type="image/png" href="">
     <link id="dynamic-apple-icon" rel="apple-touch-icon" href="">
     
-    <!-- Libreria per lo screenshot del calendario/warp -->
+    <!-- Libreria per lo screenshot del calendario -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
@@ -35,13 +35,13 @@
         .container { max-width: 1100px; width: 100%; display: flex; flex-direction: column; min-height: 95vh; }
         h1, h2, h3 { color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); margin-bottom: 20px;}
         
-        /* SPLASH SCREEN (TENDINA) */
+        /* SPLASH SCREEN */
         .splash-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-color); z-index: 99999; display: flex; align-items: center; justify-content: center; transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); }
         .splash-screen.hidden { transform: translateY(-100%); }
         .splash-content { max-width: 700px; width: 90%; text-align: center; padding: 40px; border: 1px solid var(--border-color); box-shadow: 0 20px 50px rgba(0,0,0,0.8); border-radius: 16px; background-color: var(--surface-color); }
         .splash-banner { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border-color); box-shadow: 0 8px 16px rgba(0,0,0,0.4); display: none; }
         .splash-buttons { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
-        .splash-btn { padding: 20px 30px; font-size: 1.2em; flex: 1; min-width: 180px; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); color: white; cursor: pointer; font-weight: bold; }
+        .splash-btn { padding: 20px 30px; font-size: 1.2em; flex: 1; min-width: 200px; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); color: white; cursor: pointer; font-weight: bold; }
         .splash-btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); opacity: 1; }
         .splash-btn.primary-btn { background-color: var(--primary-color); }
         .splash-btn.secondary-btn { background-color: #4CAF50; }
@@ -156,7 +156,7 @@
         .preview-icon-box { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
         .preview-img { max-height: 32px; max-width: 32px; display: none; }
 
-        /* CALENDARIO STYLES */
+        /* CALENDARIO STYLES (Migliorato per Mobile) */
         .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 10px; }
         .calendar-header h2 { font-size: 1.3em; margin: 0; line-height: 1.2; text-align: center; }
         .calendar-header button { padding: 8px 12px; font-size: 0.9em; flex-shrink: 0; }
@@ -227,15 +227,15 @@
         <p style="color: var(--text-muted); font-size: 1.1em; margin-bottom: 25px;">Benvenuto! Cosa desideri visualizzare?</p>
         
         <div class="splash-buttons">
-            <button onclick="enterSite('tracker')" class="splash-btn primary-btn">
+            <button id="splash-btn-tracker" onclick="enterSite('tracker')" class="splash-btn primary-btn">
                 <span style="font-size: 1.5em; display: block; margin-bottom: 5px;" id="splash-icon-tracker">✦</span>
                 Pull Counter
             </button>
-            <button onclick="enterSite('warp')" class="splash-btn calc-btn">
+            <button id="splash-btn-warp" onclick="enterSite('warp')" class="splash-btn calc-btn">
                 <span style="font-size: 1.5em; display: block; margin-bottom: 5px;" id="splash-icon-warp">🎯</span>
                 Warp Planner
             </button>
-            <button onclick="enterSite('calendar')" class="splash-btn secondary-btn">
+            <button id="splash-btn-calendar" onclick="enterSite('calendar')" class="splash-btn secondary-btn">
                 <span style="font-size: 1.5em; display: block; margin-bottom: 5px;" id="splash-icon-calendar">📅</span>
                 Calendario
             </button>
@@ -519,7 +519,7 @@
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 10px;">
                         <h3 style="margin: 0; color: var(--primary-color);">Probabilità di Successo</h3>
                         <div style="font-size: 1.2em; font-weight: bold; background: rgba(74, 144, 226, 0.1); padding: 8px 15px; border-radius: 8px;">
-                            Pulls totali analizzati: <span id="warp-display-total-pulls" style="color: var(--primary-color);">0</span>
+                            Pulls totali in inventario: <span id="warp-display-total-pulls" style="color: var(--primary-color);">0</span>
                         </div>
                     </div>
                     
@@ -587,6 +587,30 @@
             
             <h1 style="color: #ff5252; margin-bottom: 5px;">⚙️ Hub Amministrazione</h1>
             <p style="color: var(--text-muted); margin-bottom: 25px;">Benvenuto. Gestisci qui tutte le configurazioni del sito, delle patch e del calendario.</p>
+
+            <!-- CARD: VISIBILITÀ SEZIONI PUBBLICHE -->
+            <div class="card" style="border: 1px solid #ff9800;">
+                <h2 style="color: #ff9800; margin-top: 0;">👁️ Visibilità Sezioni</h2>
+                <p style="color: var(--text-muted); margin-bottom: 20px;">Nascondi le singole sezioni agli utenti normali per lavorarci in segreto. Come Admin, continuerai a vederle e ad accedervi normalmente.</p>
+                
+                <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                    <label style="display: flex; align-items: center; cursor: pointer; color: white; font-weight: bold;">
+                        <input type="checkbox" id="admin-hide-tracker" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: #ff9800;">
+                        Nascondi Pull Counter
+                    </label>
+                    <label style="display: flex; align-items: center; cursor: pointer; color: white; font-weight: bold;">
+                        <input type="checkbox" id="admin-hide-warp" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: #ff9800;">
+                        Nascondi Warp Planner
+                    </label>
+                    <label style="display: flex; align-items: center; cursor: pointer; color: white; font-weight: bold;">
+                        <input type="checkbox" id="admin-hide-calendar" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: #ff9800;">
+                        Nascondi Calendario Eventi
+                    </label>
+                </div>
+                
+                <button onclick="saveGlobalSettings()" style="background-color: #ff9800; color: white; padding: 10px 20px; margin-top: 25px;">💾 Salva Impostazioni</button>
+                <span id="visibility-status" style="color: var(--success-color); display: none; margin-left: 10px; font-weight: bold;">Salvato!</span>
+            </div>
 
             <!-- CARD: GLOBALI E BACKUP -->
             <div class="card" style="border: 1px solid var(--primary-color);">
@@ -1275,7 +1299,6 @@
         const lcPity = parseInt(document.getElementById('warp-lc-pity').value) || 0;
         const lcGuar = document.getElementById('warp-lc-guaranteed').checked;
 
-        // Inserimento Icone Dinamiche (✦ / 🎫)
         const activeJade = globalSettings.iconJadesImg || getFallbackIcon('iconJadesImg');
         const activePass = globalSettings.iconPassesImg || getFallbackIcon('iconPassesImg');
         const iconJ_HTML = createIconImg(activeJade, '✦');
@@ -1319,682 +1342,7 @@
     }
 
     // ==========================================
-    // FUNZIONE DOWNLOAD SCREENSHOT WARP PLANNER
-    // ==========================================
-    window.downloadWarpImage = function(event) {
-        const captureArea = document.getElementById('warp-capture-area');
-        
-        const btn = event.currentTarget;
-        const originalText = btn.innerHTML;
-        
-        const iconHtml = document.querySelector('.screenshot-btn-icon').innerHTML;
-        btn.innerHTML = `<span class="screenshot-btn-icon" style="font-size:1.2em; display: flex; align-items: center;">${iconHtml}</span> <span style="margin-left:8px;">⏳ Generazione...</span>`;
-        btn.disabled = true;
-
-        html2canvas(captureArea, {
-            backgroundColor: "#1c2135", 
-            scale: 2
-        }).then(canvas => {
-            const link = document.createElement('a');
-            link.download = `HSR_WarpPlanner.png`;
-            link.href = canvas.toDataURL("image/png");
-            link.click();
-            
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-            
-            // Attiva il Furboshot
-            const furboImg = document.getElementById('furboshot-img-display');
-            if (savedFurboshotBase64) {
-                furboImg.src = savedFurboshotBase64;
-                furboImg.style.display = 'block';
-            } else {
-                furboImg.style.display = 'none';
-            }
-            document.getElementById('furboshot-overlay').style.display = 'flex';
-
-        }).catch(err => {
-            alert("Errore durante la generazione dell'immagine.");
-            btn.innerHTML = originalText;
-            btn.disabled = false;
-        });
-    }
-
-    // ==========================================
-    // CHIAVI LOCALI DINAMICHE TRACKER
-    // ==========================================
-    const getLocalKey = (base) => `${base}_v14_${currentPeriodId}`;
-
-    function getUserPassStatus() { return localStorage.getItem(getLocalKey('pass')) === "true"; }
-    function setUserPassStatus(val) { localStorage.setItem(getLocalKey('pass'), val); renderDashboard(); }
-
-    function getUserNamelessOwned() { return localStorage.getItem(getLocalKey('nameless_owned')) === "true"; }
-    function setUserNamelessOwned(val) { localStorage.setItem(getLocalKey('nameless_owned'), val); renderDashboard(); }
-
-    function getNamelessState() { return JSON.parse(localStorage.getItem(getLocalKey('nameless_state')) || "[]"); }
-    window.toggleNameless = function(id, isCompleted) {
-        if(isLocked) return;
-        let state = getNamelessState();
-        if (isCompleted) { if (!state.includes(id)) state.push(id); } else { state = state.filter(x => x !== id); }
-        localStorage.setItem(getLocalKey('nameless_state'), JSON.stringify(state));
-        renderDashboard();
-    }
-
-    function getCompletedEvents() { return JSON.parse(localStorage.getItem(getLocalKey('events')) || "[]"); }
-    function toggleEvent(eventId, isCompleted) {
-        if(isLocked) return;
-        let completed = getCompletedEvents();
-        if (isCompleted) { if (!completed.includes(eventId)) completed.push(eventId); } else { completed = completed.filter(id => id !== eventId); }
-        localStorage.setItem(getLocalKey('events'), JSON.stringify(completed));
-        renderDashboard();
-    }
-
-    function getOdysseyState() { return JSON.parse(localStorage.getItem(getLocalKey('odyssey')) || "[]"); }
-    function toggleOdyssey(dayIndex, isCompleted) {
-        if(isLocked) return;
-        let completed = getOdysseyState();
-        if (isCompleted) { if (!completed.includes(dayIndex)) completed.push(dayIndex); } else { completed = completed.filter(d => d !== dayIndex); }
-        localStorage.setItem(getLocalKey('odyssey'), JSON.stringify(completed));
-        renderDashboard();
-    }
-
-    window.selectAllEvents = function() {
-        if (isLocked || !globalData || !globalData.events) return;
-        const allEventIds = globalData.events.map(event => event.id);
-        localStorage.setItem(getLocalKey('events'), JSON.stringify(allEventIds));
-        renderDashboard();
-    }
-
-    window.deselectAllEvents = function() {
-        if (isLocked) return;
-        localStorage.setItem(getLocalKey('events'), JSON.stringify([]));
-        renderDashboard();
-    }
-
-    // ==========================================
-    // LOGICA CUSTOM DROPDOWN E ADMIN SELECTOR
-    // ==========================================
-    const customSelectTrigger = document.getElementById('custom-select-trigger');
-    const customSelectOptions = document.getElementById('custom-select-options');
-    const customSelectDisplay = document.getElementById('custom-select-display');
-
-    customSelectTrigger.addEventListener('click', () => {
-        customSelectOptions.classList.toggle('open');
-    });
-
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('#custom-version-select') && !e.target.closest('.sidebar-toggle')) {
-            customSelectOptions.classList.remove('open');
-        }
-    });
-
-    function updateCustomDropdownUI() {
-        customSelectOptions.innerHTML = '';
-        const adminSelector = document.getElementById('admin-patch-selector');
-        if (adminSelector) adminSelector.innerHTML = '';
-
-        const visibleIds = Object.keys(allPeriods).filter(id => isAdmin || allPeriods[id].isVisible !== false);
-        
-        const sortedIds = visibleIds.sort((a,b) => {
-            const dateA = new Date(allPeriods[a].startDate || '1970-01-01');
-            const dateB = new Date(allPeriods[b].startDate || '1970-01-01');
-            return dateB - dateA;
-        });
-
-        if (adminSelector) {
-            const allSortedIdsAdmin = Object.keys(allPeriods).sort((a,b) => {
-                const dateA = new Date(allPeriods[a].startDate || '1970-01-01');
-                const dateB = new Date(allPeriods[b].startDate || '1970-01-01');
-                return dateB - dateA;
-            });
-            allSortedIdsAdmin.forEach(id => {
-                const period = allPeriods[id];
-                const option = document.createElement('option');
-                option.value = id;
-                option.innerText = period.periodName || "Patch senza nome";
-                if(period.isVisible === false) option.innerText += " 👁️ (Nascosta)";
-                if(id === currentPeriodId) option.selected = true;
-                adminSelector.appendChild(option);
-            });
-        }
-
-        sortedIds.forEach(id => {
-            const period = allPeriods[id];
-            const name = period.periodName || "Patch senza nome";
-            const iconHtml = (period.patchIconImg && period.patchIconImg.startsWith('data:image')) 
-                            ? `<img src="${period.patchIconImg}" class="dropdown-icon">` 
-                            : `<div style="width:24px; text-align:center;">📘</div>`;
-
-            const item = document.createElement('div');
-            item.className = 'dropdown-item';
-            if(id === currentPeriodId) item.classList.add('selected');
-            item.innerHTML = `${iconHtml} <span>${name}</span>`;
-            item.addEventListener('click', () => {
-                customSelectOptions.classList.remove('open');
-                window.changePeriod(id);
-            });
-            customSelectOptions.appendChild(item);
-
-            if (id === currentPeriodId) {
-                customSelectDisplay.innerHTML = `${iconHtml} <span>${name}</span>`;
-            }
-        });
-    }
-
-    window.changePeriod = function(newId) {
-        currentPeriodId = newId;
-        globalData = allPeriods[newId] || {};
-        
-        savedOdysseyBase64 = globalData.iconOdysseyImg || null; 
-        savedPatchIconBase64 = globalData.patchIconImg || null;
-
-        updateCustomDropdownUI();
-        rollRandomBanner(); 
-        renderDashboard();
-        
-        if(isAdmin) {
-            const label = document.getElementById('admin-active-patch-label');
-            if(label) label.innerText = globalData.periodName || "Senza Nome";
-            populateAdminForm(globalData);
-        }
-    }
-
-    function applyGlobalFavicon(base64Str) {
-        if (!base64Str) return;
-        document.getElementById('dynamic-favicon').href = base64Str;
-        document.getElementById('dynamic-apple-icon').href = base64Str;
-        
-        const manifest = {
-            name: "HSR Tracker",
-            short_name: "HSR Tracker",
-            start_url: ".",
-            display: "standalone",
-            background_color: "#121622",
-            theme_color: "#1c2135",
-            icons: [
-                { src: base64Str, sizes: "192x192", type: "image/png" },
-                { src: base64Str, sizes: "512x512", type: "image/png" }
-            ]
-        };
-        const manifestBlob = new Blob([JSON.stringify(manifest)], {type: 'application/json'});
-        const manifestURL = URL.createObjectURL(manifestBlob);
-        let manifestLink = document.getElementById('dynamic-manifest');
-        if (!manifestLink) {
-            manifestLink = document.createElement('link');
-            manifestLink.id = 'dynamic-manifest';
-            manifestLink.rel = 'manifest';
-            document.head.appendChild(manifestLink);
-        }
-        manifestLink.href = manifestURL;
-    }
-    
-    function applyNavCalendarIcon(base64Str) {
-        const iconHtml = (base64Str && base64Str.startsWith('data:image')) 
-            ? `<img src="${base64Str}" style="height: 1.2em; width: 1.2em; object-fit: contain; vertical-align: middle;">` 
-            : '📅';
-            
-        const imgHtmlBig = (base64Str && base64Str.startsWith('data:image')) 
-            ? `<img src="${base64Str}" style="height: 40px; width: 40px; object-fit: contain; vertical-align: middle;">` 
-            : '📅';
-        
-        const navCal = document.getElementById('nav-calendar');
-        if (navCal) navCal.innerHTML = `${iconHtml} Calendario Eventi`;
-
-        const splashCal = document.getElementById('splash-icon-calendar');
-        if (splashCal) splashCal.innerHTML = imgHtmlBig;
-    }
-
-    function applyCalcIcon(base64Str) {
-        const iconHtml = (base64Str && base64Str.startsWith('data:image')) 
-            ? `<img src="${base64Str}" style="height: 1.2em; width: 1.2em; object-fit: contain; vertical-align: middle;">` 
-            : '🎯';
-            
-        const imgHtmlBig = (base64Str && base64Str.startsWith('data:image')) 
-            ? `<img src="${base64Str}" style="height: 40px; width: 40px; object-fit: contain; vertical-align: middle;">` 
-            : '🎯';
-        
-        const navCalc = document.getElementById('nav-warp');
-        if (navCalc) navCalc.innerHTML = `${iconHtml} Warp Planner`;
-
-        const splashCalc = document.getElementById('splash-icon-warp');
-        if (splashCalc) splashCalc.innerHTML = imgHtmlBig;
-    }
-
-    function applyScreenshotIcon(base64Str) {
-        const iconHtml = (base64Str && base64Str.startsWith('data:image')) 
-            ? `<img src="${base64Str}" style="height: 1.2em; width: 1.2em; object-fit: contain; vertical-align: middle;">` 
-            : '📸';
-        
-        document.querySelectorAll('.screenshot-btn-icon').forEach(el => {
-            el.innerHTML = iconHtml;
-        });
-    }
-
-    function checkLockStatus() {
-        if (!globalData || !globalData.endDate) return false;
-        const end = new Date(globalData.endDate);
-        end.setHours(23, 59, 59, 999);
-        return new Date() > end; 
-    }
-
-    function calculateDaysRemaining(startDateStr, endDateStr) {
-        if (!startDateStr || !endDateStr) return 0;
-        const start = new Date(startDateStr);
-        const end = new Date(endDateStr);
-        const today = new Date();
-        start.setHours(0,0,0,0);
-        end.setHours(0,0,0,0);
-        today.setHours(0,0,0,0);
-        let effectiveStart = today < start ? start : today;
-        if (today > end) return 0; 
-        
-        const timeDiff = end.getTime() - effectiveStart.getTime();
-        return Math.max(0, Math.round(timeDiff / (1000 * 3600 * 24)) + 1);
-    }
-
-    function calculateTotalDays(startDateStr, endDateStr) {
-        if (!startDateStr || !endDateStr) return 0;
-        const start = new Date(startDateStr);
-        const end = new Date(endDateStr);
-        start.setHours(0,0,0,0);
-        end.setHours(0,0,0,0);
-        if (end < start) return 0;
-        
-        const timeDiff = end.getTime() - start.getTime();
-        return Math.round(timeDiff / (1000 * 3600 * 24)) + 1;
-    }
-
-    // ==========================================
-    // INTERFACCIA E CALCOLI TRACKER
-    // ==========================================
-    function renderDashboard() {
-        if (!globalData) return;
-
-        const maintMode = globalSettings.maintenanceMode || false;
-        
-        if (maintMode && !isAdmin) {
-            document.getElementById('main-app-content').style.display = 'none';
-            document.getElementById('maintenance-screen').style.display = 'block';
-            
-            const maintBannerEl = document.getElementById('maintenance-banner');
-            let firstBanner = null;
-            if (globalData.bannerImgs && globalData.bannerImgs.length > 0) firstBanner = globalData.bannerImgs[0];
-            else if (globalData.bannerImg) firstBanner = globalData.bannerImg;
-
-            if (firstBanner && firstBanner.startsWith('data:image')) {
-                maintBannerEl.src = firstBanner;
-                maintBannerEl.style.display = 'block';
-            } else { maintBannerEl.style.display = 'none'; }
-            return; 
-        } else {
-            document.getElementById('main-app-content').style.display = 'block';
-            document.getElementById('maintenance-screen').style.display = 'none';
-            document.getElementById('admin-maintenance-warning').style.display = (maintMode && isAdmin) ? 'block' : 'none';
-        }
-
-        isLocked = checkLockStatus();
-        document.getElementById('locked-banner').style.display = isLocked ? 'flex' : 'none';
-
-        document.getElementById('btn-select-all').disabled = isLocked;
-        document.getElementById('btn-deselect-all').disabled = isLocked;
-        
-        const passCheckboxEl = document.getElementById('user-has-pass');
-        const namelessCheckboxEl = document.getElementById('user-has-nameless');
-        passCheckboxEl.disabled = false; 
-        if(namelessCheckboxEl) namelessCheckboxEl.disabled = false;
-
-        const activeJade = globalSettings.iconJadesImg || getFallbackIcon('iconJadesImg');
-        const activePass = globalSettings.iconPassesImg || getFallbackIcon('iconPassesImg');
-        const activeNameless = globalSettings.iconNamelessImg || getFallbackIcon('iconNamelessImg');
-
-        const iconJ_HTML = createIconImg(activeJade, '✦');
-        const iconP_HTML = createIconImg(activePass, '🎫');
-        const iconN_HTML = activeNameless;
-        
-        const splashImgJadesBig = (activeJade && activeJade.startsWith('data:image')) 
-            ? `<img src="${activeJade}" style="height: 40px; width: 40px; object-fit: contain; vertical-align: middle;">` 
-            : '✦';
-
-        document.getElementById('nav-tracker').innerHTML = `${iconJ_HTML} Pull Counter`;
-        
-        const splashTracker = document.getElementById('splash-icon-tracker');
-        if(splashTracker) splashTracker.innerHTML = splashImgJadesBig;
-
-        document.querySelectorAll('.period-title').forEach(el => {
-            el.innerHTML = `${globalData.periodName || "Periodo Non Denominato"}`;
-        });
-        
-        document.getElementById('display-dates').innerText = `${globalData.startDate} fino al ${globalData.endDate}`;
-        
-        const baseDailyAmount = parseInt(globalData.dailyBase) || 60;
-        const passDailyAmount = parseInt(globalData.dailyPass) || 150;
-        
-        passCheckboxEl.checked = getUserPassStatus();
-        document.getElementById('pass-label-text').innerHTML = `Possiedi l'Express Supply Pass? (Attivalo per calcolare ${passDailyAmount} ${iconJ_HTML} al giorno invece di ${baseDailyAmount})`;
-
-        const daysRemaining = calculateDaysRemaining(globalData.startDate, globalData.endDate);
-        const totalDaysInPeriod = calculateTotalDays(globalData.startDate, globalData.endDate);
-        const baseDailyMultiplier = passCheckboxEl.checked ? passDailyAmount : baseDailyAmount;
-        
-        let extraDailyJadesRemaining = 0;
-        let extraDailyPassesRemaining = 0;
-        let eventsJadesRemaining = 0;
-        let eventsPassesRemaining = 0;
-
-        let absoluteExtraJades = 0;
-        let absoluteExtraPasses = 0;
-
-        // ODYSSEY
-        if (globalData.enableOdyssey) {
-            document.getElementById('odyssey-card').style.display = 'block';
-            const odysseyIconEl = document.getElementById('odyssey-icon-display');
-            if (globalData.iconOdysseyImg && globalData.iconOdysseyImg.startsWith('data:image')) {
-                odysseyIconEl.src = globalData.iconOdysseyImg;
-                odysseyIconEl.style.display = 'block';
-            } else { odysseyIconEl.style.display = 'none'; }
-
-            const odysseyList = document.getElementById('odyssey-list');
-            odysseyList.innerHTML = '';
-            
-            let claimedOdysseyPasses = 0;
-            const odysseyState = getOdysseyState();
-            
-            ODYSSEY_REWARDS.forEach((reward, index) => {
-                const isCompleted = odysseyState.includes(index);
-                if (isCompleted) claimedOdysseyPasses += reward;
-                
-                const div = document.createElement('div');
-                div.className = `odyssey-day ${isCompleted ? 'completed' : ''}`;
-                div.innerHTML = `
-                    <label style="display: flex; flex-direction: column; align-items: center; cursor: ${isLocked ? 'not-allowed' : 'pointer'}; height: 100%; width: 100%;">
-                        <span style="color: var(--text-muted); font-size: 0.85em; margin-bottom: 8px;">Giorno ${index + 1}</span>
-                        <span class="reward-badge passes" style="margin-bottom: 12px; font-size: 1.1em;">${reward} ${iconP_HTML}</span>
-                        <input type="checkbox" ${isCompleted ? 'checked' : ''} ${isLocked ? 'disabled' : ''} data-day="${index}" style="transform: scale(1.4); accent-color: var(--passes-color); margin-top: auto;">
-                    </label>
-                `;
-                div.querySelector('input').addEventListener('change', (e) => toggleOdyssey(parseInt(e.target.dataset.day), e.target.checked));
-                odysseyList.appendChild(div);
-            });
-            
-            absoluteExtraPasses += 10;
-            eventsPassesRemaining += (10 - claimedOdysseyPasses);
-        } else {
-            document.getElementById('odyssey-card').style.display = 'none';
-        }
-
-        // NAMELESS
-        const namelessCardEl = document.getElementById('nameless-card');
-        if (globalData.enableNameless) {
-            namelessCardEl.style.display = 'block';
-            const namelessCheckboxEl = document.getElementById('user-has-nameless');
-            namelessCheckboxEl.disabled = false; 
-            
-            const ownsNameless = getUserNamelessOwned();
-            namelessCheckboxEl.checked = ownsNameless;
-
-            const namelessIconEl = document.getElementById('nameless-icon-display');
-            if (iconN_HTML && iconN_HTML.startsWith('data:image')) {
-                namelessIconEl.src = iconN_HTML;
-                namelessIconEl.style.display = 'block';
-            } else { namelessIconEl.style.display = 'none'; }
-
-            const namelessList = document.getElementById('nameless-list');
-            namelessList.innerHTML = '';
-
-            const descNameless = document.getElementById('desc-nameless');
-            if(descNameless) descNameless.innerHTML = `Battlepass facoltativo (+680 ${iconJ_HTML} e +4 ${iconP_HTML})`;
-
-            if (ownsNameless) {
-                namelessList.style.display = 'grid';
-                const namelessState = getNamelessState();
-
-                absoluteExtraJades += 680;
-
-                const divJades = document.createElement('div');
-                divJades.className = `odyssey-day completed`;
-                divJades.innerHTML = `
-                    <label style="display: flex; flex-direction: column; align-items: center; height: 100%; width: 100%; cursor: not-allowed;">
-                        <span style="color: var(--text-muted); font-size: 0.85em; margin-bottom: 8px;">Stellar Jades</span>
-                        <span class="reward-badge jades" style="margin-bottom: 12px; font-size: 1.1em;">680 ${iconJ_HTML}</span>
-                        <input type="checkbox" checked disabled style="transform: scale(1.4); margin-top: auto;">
-                    </label>
-                `;
-                namelessList.appendChild(divJades);
-
-                const passTiers = [
-                    { id: 'pass_base', label: 'Lv.10', amount: 1 },
-                    { id: 'pass_30', label: 'Liv. 30', amount: 2 },
-                    { id: 'pass_40', label: 'Liv. 40', amount: 1 }
-                ];
-
-                passTiers.forEach(tier => {
-                    const isCompleted = namelessState.includes(tier.id);
-                    absoluteExtraPasses += tier.amount;
-                    if (!isCompleted) eventsPassesRemaining += tier.amount;
-
-                    const div = document.createElement('div');
-                    div.className = `odyssey-day ${isCompleted ? 'completed' : ''}`;
-                    div.innerHTML = `
-                        <label style="display: flex; flex-direction: column; align-items: center; cursor: pointer; height: 100%; width: 100%;">
-                            <span style="color: var(--text-muted); font-size: 0.85em; margin-bottom: 8px;">${tier.label}</span>
-                            <span class="reward-badge passes" style="margin-bottom: 12px; font-size: 1.1em;">${tier.amount} ${iconP_HTML}</span>
-                            <input type="checkbox" ${isCompleted ? 'checked' : ''} data-id="${tier.id}" style="transform: scale(1.4); accent-color: var(--passes-color); margin-top: auto;">
-                        </label>
-                    `;
-                    div.querySelector('input').addEventListener('change', (e) => window.toggleNameless(e.target.dataset.id, e.target.checked));
-                    namelessList.appendChild(div);
-                });
-            } else { namelessList.style.display = 'none'; }
-        } else {
-            namelessCardEl.style.display = 'none';
-        }
-
-        // EVENTI NORMALI
-        const completedEvents = getCompletedEvents();
-        const eventsListEl = document.getElementById('events-list');
-        eventsListEl.innerHTML = '';
-
-        if (globalData.events && globalData.events.length > 0) {
-            globalData.events.forEach(event => {
-                const isCompleted = completedEvents.includes(event.id);
-                const jadesAmount = parseInt(event.jades) || 0;
-                const passesAmount = parseInt(event.passes) || 0;
-                const frequency = event.frequency || 'once';
-
-                if (frequency === 'daily') {
-                    absoluteExtraJades += (jadesAmount * totalDaysInPeriod);
-                    absoluteExtraPasses += (passesAmount * totalDaysInPeriod);
-                } else {
-                    absoluteExtraJades += jadesAmount;
-                    absoluteExtraPasses += passesAmount;
-                }
-
-                if (!isCompleted) {
-                    if (frequency === 'daily') {
-                        extraDailyJadesRemaining += jadesAmount;
-                        extraDailyPassesRemaining += passesAmount;
-                    } else {
-                        eventsJadesRemaining += jadesAmount;
-                        eventsPassesRemaining += passesAmount;
-                    }
-                }
-
-                let badgesHTML = '';
-                if (jadesAmount > 0) badgesHTML += `<span class="reward-badge jades">${frequency === 'daily' ? jadesAmount + ' ' + iconJ_HTML + ' / giorno' : jadesAmount + ' ' + iconJ_HTML}</span>`;
-                if (passesAmount > 0) badgesHTML += `<span class="reward-badge passes">${frequency === 'daily' ? passesAmount + ' ' + iconP_HTML + ' / giorno' : passesAmount + ' ' + iconP_HTML}</span>`;
-
-                let dateHtml = '';
-                if (event.startDate) {
-                    const dateObj = new Date(event.startDate);
-                    const formattedDate = dateObj.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
-                    dateHtml = `<div style="font-size: 0.75em; color: var(--text-muted); margin-top: 4px;">Inizio: ${formattedDate}</div>`;
-                }
-
-                const li = document.createElement('li');
-                li.className = `event-item ${isCompleted ? 'completed' : ''}`;
-                li.innerHTML = `
-                    <label style="cursor: ${isLocked ? 'not-allowed' : 'pointer'};">
-                        <input type="checkbox" ${isCompleted ? 'checked' : ''} ${isLocked ? 'disabled' : ''} data-id="${event.id}">
-                        <span style="flex-grow: 1; padding-right: 10px;">
-                            <div style="font-weight: 500;">${event.name}</div>
-                            ${dateHtml}
-                        </span>
-                        <div style="display: flex; gap: 5px; flex-wrap: wrap; justify-content: flex-end;">${badgesHTML}</div>
-                    </label>
-                `;
-                
-                li.querySelector('input').addEventListener('change', (e) => toggleEvent(e.target.dataset.id, e.target.checked));
-                eventsListEl.appendChild(li);
-            });
-        } else {
-            eventsListEl.innerHTML = '<li style="grid-column: 1/-1; text-align: center;">Nessun evento configurato.</li>';
-        }
-
-        const dailyJadesRemaining = (baseDailyMultiplier + extraDailyJadesRemaining) * daysRemaining;
-        const dailyPassesRemaining = extraDailyPassesRemaining * daysRemaining;
-        const totalJadesRemaining = dailyJadesRemaining + eventsJadesRemaining;
-        const totalPassesRemaining = dailyPassesRemaining + eventsPassesRemaining;
-
-        const eqDailyRemaining = (dailyJadesRemaining / 160).toFixed(1).replace('.0', '');
-        const eqEventsRemaining = (eventsJadesRemaining / 160).toFixed(1).replace('.0', '');
-        const eqTotalRemaining = (totalJadesRemaining / 160).toFixed(1).replace('.0', '');
-
-        const absoluteTotalJades = (baseDailyMultiplier * totalDaysInPeriod) + absoluteExtraJades;
-        const eqAbsoluteTotalFloat = absoluteTotalJades / 160;
-        const grandTotalAbsolutePulls = (eqAbsoluteTotalFloat + absoluteExtraPasses).toFixed(1).replace('.0', '');
-
-        document.getElementById('stat-daily-jades').innerHTML = `<span>${dailyJadesRemaining}</span> ${iconJ_HTML} <span class="conversion-text">(≈ ${eqDailyRemaining} ${iconP_HTML})</span>`;
-        document.getElementById('stat-events-jades').innerHTML = `<span>${eventsJadesRemaining}</span> ${iconJ_HTML} <span class="conversion-text">(≈ ${eqEventsRemaining} ${iconP_HTML})</span>`;
-        document.getElementById('stat-total-jades').innerHTML = `<span>${totalJadesRemaining}</span> ${iconJ_HTML} <span class="conversion-text">(≈ ${eqTotalRemaining} ${iconP_HTML})</span>`;
-        document.getElementById('stat-total-passes').innerHTML = `<span>${totalPassesRemaining}</span> ${iconP_HTML}`;
-        document.getElementById('stat-grand-total').innerHTML = `<span>${grandTotalAbsolutePulls}</span> ${iconP_HTML}`;
-    }
-
-    document.getElementById('user-has-pass').addEventListener('change', (e) => setUserPassStatus(e.target.checked));
-    const namelessCheckUser = document.getElementById('user-has-nameless');
-    if(namelessCheckUser) namelessCheckUser.addEventListener('change', (e) => setUserNamelessOwned(e.target.checked));
-
-    // ==========================================
-    // LOGICA CALENDARIO MESE E DETTAGLI
-    // ==========================================
-    const monthNames = ["Gennaio", "Febbraio", "Marzo", "Aprile", "Maggio", "Giugno", "Luglio", "Agosto", "Settembre", "Ottobre", "Novembre", "Dicembre"];
-    let currentCalDate = new Date(); 
-
-    window.renderCalendar = function() {
-        const year = currentCalDate.getFullYear();
-        const month = currentCalDate.getMonth();
-        
-        document.getElementById('title-calendar').innerHTML = `${monthNames[month]} ${year}`;
-
-        const firstDay = new Date(year, month, 1).getDay(); 
-        const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-        let startDay = firstDay === 0 ? 6 : firstDay - 1;
-
-        const grid = document.getElementById('cal-grid');
-        grid.innerHTML = '';
-
-        for(let i=0; i < startDay; i++) {
-            const empty = document.createElement('div');
-            empty.className = 'calendar-day empty';
-            grid.appendChild(empty);
-        }
-
-        const today = new Date();
-
-        for(let d=1; d <= daysInMonth; d++) {
-            const cell = document.createElement('div');
-            cell.className = 'calendar-day';
-            cell.style.cursor = 'pointer';
-            
-            if(year === today.getFullYear() && month === today.getMonth() && d === today.getDate()) {
-                cell.classList.add('today');
-            }
-
-            const dateStr = `${year}-${String(month+1).padStart(2,'0')}-${String(d).padStart(2,'0')}`;
-            let cellHTML = `<span class="calendar-date">${d}</span>`;
-
-            const dayEvents = globalCalendarEvents.filter(ev => ev.date === dateStr);
-            dayEvents.forEach(ev => {
-                const img = ev.icon ? `<img src="${ev.icon}">` : '';
-                cellHTML += `<div class="cal-event">${img} <span>${ev.name}</span></div>`;
-            });
-
-            cell.innerHTML = cellHTML;
-            cell.addEventListener('click', () => window.showDayDetails(dateStr));
-            grid.appendChild(cell);
-        }
-    }
-
-    window.changeCalMonth = function(offset) {
-        currentCalDate.setMonth(currentCalDate.getMonth() + offset);
-        renderCalendar();
-        document.getElementById('calendar-details-card').style.display = 'none'; 
-    }
-
-    window.showDayDetails = function(dateStr) {
-        const dayEvents = globalCalendarEvents.filter(ev => ev.date === dateStr);
-        const dateObj = new Date(dateStr);
-        const formattedDate = dateObj.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
-        
-        document.getElementById('cal-details-title').innerText = `📅 Inizio Eventi del ${formattedDate}`;
-        const contentEl = document.getElementById('cal-details-content');
-        contentEl.innerHTML = '';
-        
-        const activeJade = globalSettings.iconJadesImg || getFallbackIcon('iconJadesImg');
-        const activePass = globalSettings.iconPassesImg || getFallbackIcon('iconPassesImg');
-        
-        const iconJ_HTML = createIconImg(activeJade, '✦');
-        const iconP_HTML = createIconImg(activePass, '🎫');
-        
-        if (dayEvents.length === 0) {
-            contentEl.innerHTML = `<div style="color: var(--text-muted); font-style: italic; text-align: center; padding: 10px 0;">Nessun evento programmato in partenza per questo giorno.</div>`;
-        } else {
-            dayEvents.forEach(ev => {
-                const iconHtml = (ev.icon && ev.icon.startsWith('data:image'))
-                    ? `<img src="${ev.icon}" style="width: 55px; height: 55px; object-fit: contain; border-radius: 8px; border: 1px solid var(--border-color); background: #121622;">`
-                    : `<div style="font-size: 2em; width: 55px; text-align: center;">📘</div>`;
-                
-                let endHtml = '';
-                if (ev.endDate) {
-                    const endObj = new Date(ev.endDate);
-                    const formattedEnd = endObj.toLocaleDateString('it-IT', { day: '2-digit', month: '2-digit', year: 'numeric' });
-                    endHtml = `<span style="color: var(--passes-color); font-weight: bold;">⌛ Termina il: ${formattedEnd}</span>`;
-                } else {
-                    endHtml = `<span style="color: var(--text-muted);">⌛ Fine: Non specificata</span>`;
-                }
-                
-                let detailsHtml = '';
-                if (ev.type === 'link' && ev.link) {
-                    detailsHtml = `<div style="margin-top: 6px;"><a href="${ev.link}" target="_blank" style="display: inline-block; background-color: var(--primary-color); color: white; padding: 5px 12px; border-radius: 6px; text-decoration: none; font-size: 0.85em; font-weight: bold;">🔗 Vai al Link dell'Evento</a></div>`;
-                } else {
-                    if (ev.jades > 0 || ev.passes > 0 || ev.oldRewards) {
-                        detailsHtml = `<div style="margin-top: 6px; color: var(--jades-color); font-weight: bold;">🎁 Ricompense previste: <div style="display: flex; gap: 8px; margin-top: 5px; align-items: center; flex-wrap: wrap;">`;
-                        if (ev.jades > 0) detailsHtml += `<span class="reward-badge jades" style="background: rgba(255, 215, 0, 0.15);">${ev.jades} ${iconJ_HTML}</span>`;
-                        if (ev.passes > 0) detailsHtml += `<span class="reward-badge passes" style="background: rgba(255, 107, 107, 0.15);">${ev.passes} ${iconP_HTML}</span>`;
-                        if (ev.oldRewards) detailsHtml += `<span style="color: #fff; font-weight: normal; margin-left: 5px;">${ev.oldRewards}</span>`;
-                        detailsHtml += `</div></div>`;
-                    }
-                }
-                
-                const div = document.createElement('div');
-                div.style.cssText = "display: flex; align-items: center; gap: 15px; background: #121622; padding: 15px; border-radius: 10px; border: 1px solid var(--border-color);";
-                div.innerHTML = `
-                    ${iconHtml}
-                    <div style="flex-grow: 1; min-width: 0;">
-                        <div style="font-size: 1.15em; font-weight: bold; margin-bottom: 4px; color: var(--primary-color); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;">${ev.name}</div>
-                        <div style="font-size: 0.9em;">${endHtml}</div>
-                        ${detailsHtml}
-                    </div>
-                `;
-                contentEl.appendChild(div);
-            });
-        }
-        document.getElementById('calendar-details-card').style.display = 'block';
-    }
-
-    // ==========================================
-    // FUNZIONE DOWNLOAD SCREENSHOT CALENDARIO E WARP
+    // FUNZIONI DOWNLOAD SCREENSHOT
     // ==========================================
     window.downloadCalendarImage = function(event) {
         const captureArea = document.getElementById('calendar-capture-area');
@@ -2103,6 +1451,30 @@
             if(maintCheck) maintCheck.checked = globalSettings.maintenanceMode;
         }
 
+        // Applica stati alle checkbox admin visibilità
+        if (globalSettings.hideTracker !== undefined) {
+            const ht = document.getElementById('admin-hide-tracker');
+            if(ht) ht.checked = globalSettings.hideTracker;
+        }
+        if (globalSettings.hideWarp !== undefined) {
+            const hw = document.getElementById('admin-hide-warp');
+            if(hw) hw.checked = globalSettings.hideWarp;
+        }
+        if (globalSettings.hideCalendar !== undefined) {
+            const hc = document.getElementById('admin-hide-calendar');
+            if(hc) hc.checked = globalSettings.hideCalendar;
+        }
+
+        // Nascondi / Mostra le sezioni in base alle impostazioni e allo stato admin
+        document.getElementById('nav-tracker').style.display = (globalSettings.hideTracker && !isAdmin) ? 'none' : 'block';
+        document.getElementById('splash-btn-tracker').style.display = (globalSettings.hideTracker && !isAdmin) ? 'none' : 'flex';
+
+        document.getElementById('nav-warp').style.display = (globalSettings.hideWarp && !isAdmin) ? 'none' : 'block';
+        document.getElementById('splash-btn-warp').style.display = (globalSettings.hideWarp && !isAdmin) ? 'none' : 'flex';
+
+        document.getElementById('nav-calendar').style.display = (globalSettings.hideCalendar && !isAdmin) ? 'none' : 'block';
+        document.getElementById('splash-btn-calendar').style.display = (globalSettings.hideCalendar && !isAdmin) ? 'none' : 'flex';
+
         if (globalSettings.favicon) {
             savedGlobalFaviconBase64 = globalSettings.favicon;
             applyGlobalFavicon(savedGlobalFaviconBase64);
@@ -2191,7 +1563,6 @@
         }
 
         if (Object.keys(allPeriods).length > 0) {
-            // Seleziona la patch di default in base a disponibilità pubblica
             const publicIds = Object.keys(allPeriods).filter(id => allPeriods[id].isVisible !== false);
             
             if (!currentPeriodId || !allPeriods[currentPeriodId] || (allPeriods[currentPeriodId].isVisible === false && publicIds.length > 0)) {
@@ -2235,7 +1606,6 @@
             }
         }
 
-        // Autoplay BGM robusto
         if (audioInitialized && bgmPlaylist.length > 0) {
             const bgmAudio = document.getElementById('bgm-audio');
             if (!bgmAudio.src || bgmAudio.src === window.location.href) {
@@ -2251,9 +1621,16 @@
             }
         }
 
-        // Inizializza vista salvata
+        // Inizializza vista salvata o fallback
         let savedView = localStorage.getItem('hsr_tracker_last_view') || 'tracker';
         if (savedView === 'admin' && !isAdmin) savedView = 'tracker';
+        
+        // Fallback se la sezione salvata è stata nascosta
+        if (!isAdmin) {
+            if (savedView === 'tracker' && globalSettings.hideTracker) savedView = globalSettings.hideWarp ? 'calendar' : 'warp';
+            if (savedView === 'warp' && globalSettings.hideWarp) savedView = globalSettings.hideCalendar ? 'tracker' : 'calendar';
+            if (savedView === 'calendar' && globalSettings.hideCalendar) savedView = globalSettings.hideTracker ? 'warp' : 'tracker';
+        }
         
         const versionSelector = document.getElementById('version-selector-container');
         if (versionSelector) {
@@ -2547,15 +1924,21 @@
         globalSettings.furboshotImg = savedFurboshotBase64;
         globalSettings.maintenanceMode = maintMode;
         
+        globalSettings.hideTracker = document.getElementById('admin-hide-tracker').checked;
+        globalSettings.hideWarp = document.getElementById('admin-hide-warp').checked;
+        globalSettings.hideCalendar = document.getElementById('admin-hide-calendar').checked;
+
         // Salvataggio Icone Globali
         globalSettings.iconJadesImg = savedGlobalJadesBase64;
         globalSettings.iconPassesImg = savedGlobalPassesBase64;
         globalSettings.iconNamelessImg = savedGlobalNamelessBase64;
 
         set(globalDbRef, globalSettings).then(() => {
-            const statusMsg = document.getElementById('global-status');
-            statusMsg.style.display = 'inline';
-            setTimeout(() => statusMsg.style.display = 'none', 3000);
+            const statusMsg1 = document.getElementById('global-status');
+            const statusMsg2 = document.getElementById('visibility-status');
+            if(statusMsg1) { statusMsg1.style.display = 'inline'; setTimeout(() => statusMsg1.style.display = 'none', 3000); }
+            if(statusMsg2) { statusMsg2.style.display = 'inline'; setTimeout(() => statusMsg2.style.display = 'none', 3000); }
+            
             applyGlobalFavicon(savedGlobalFaviconBase64);
             applyNavCalendarIcon(savedCalendarIconBase64);
             applyCalcIcon(savedCalcIconBase64);

@@ -5,13 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Honkai: Star Rail Resource Tracker</title>
     
+    <!-- Meta tag per Web App / Home Screen -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#1c2135">
     
+    <!-- Favicon Dinamica -->
     <link id="dynamic-favicon" rel="icon" type="image/png" href="">
     <link id="dynamic-apple-icon" rel="apple-touch-icon" href="">
     
+    <!-- Libreria per lo screenshot del calendario -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
@@ -32,13 +35,13 @@
         .container { max-width: 1100px; width: 100%; display: flex; flex-direction: column; min-height: 95vh; }
         h1, h2, h3 { color: #ffffff; text-shadow: 0 2px 4px rgba(0,0,0,0.5); margin-bottom: 20px;}
         
-        /* SPLASH SCREEN (TENDINA) */
+        /* SPLASH SCREEN */
         .splash-screen { position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background-color: var(--bg-color); z-index: 99999; display: flex; align-items: center; justify-content: center; transition: transform 0.8s cubic-bezier(0.77, 0, 0.175, 1); }
         .splash-screen.hidden { transform: translateY(-100%); }
         .splash-content { max-width: 700px; width: 90%; text-align: center; padding: 40px; border: 1px solid var(--border-color); box-shadow: 0 20px 50px rgba(0,0,0,0.8); border-radius: 16px; background-color: var(--surface-color); }
         .splash-banner { width: 100%; height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; border: 1px solid var(--border-color); box-shadow: 0 8px 16px rgba(0,0,0,0.4); display: none; }
         .splash-buttons { display: flex; gap: 20px; flex-wrap: wrap; justify-content: center; margin-top: 30px; }
-        .splash-btn { padding: 20px 30px; font-size: 1.2em; flex: 1; min-width: 180px; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); color: white; cursor: pointer; font-weight: bold; }
+        .splash-btn { padding: 20px 30px; font-size: 1.2em; flex: 1; min-width: 200px; display: flex; flex-direction: column; align-items: center; transition: transform 0.2s ease, box-shadow 0.2s ease, opacity 0.2s ease; border-radius: 12px; border: 1px solid rgba(255, 255, 255, 0.1); color: white; cursor: pointer; font-weight: bold; }
         .splash-btn:hover { transform: translateY(-5px); box-shadow: 0 10px 20px rgba(0,0,0,0.5); opacity: 1; }
         .splash-btn.primary-btn { background-color: var(--primary-color); }
         .splash-btn.secondary-btn { background-color: #4CAF50; }
@@ -153,7 +156,7 @@
         .preview-icon-box { display: flex; align-items: center; gap: 10px; margin-top: 10px; }
         .preview-img { max-height: 32px; max-width: 32px; display: none; }
 
-        /* CALENDARIO STYLES (Migliorato per Mobile) */
+        /* CALENDARIO STYLES */
         .calendar-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; gap: 10px; }
         .calendar-header h2 { font-size: 1.3em; margin: 0; line-height: 1.2; text-align: center; }
         .calendar-header button { padding: 8px 12px; font-size: 0.9em; flex-shrink: 0; }
@@ -174,11 +177,18 @@
         .cal-event img { width: 22px; height: 22px; object-fit: contain; border-radius: 4px; flex-shrink: 0;}
         .cal-event span { white-space: nowrap; overflow: hidden; text-overflow: ellipsis; display: block; }
         
-        /* CALCOLATORE PITY */
-        .calc-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        @media (max-width: 768px) { .calc-grid { grid-template-columns: 1fr; } }
-        .calc-input-group { background: #121622; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 15px;}
-        .calc-input-group label { display: block; font-weight: bold; margin-bottom: 10px; color: var(--text-muted); }
+        /* WARP PLANNER STYLES */
+        .warp-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        @media (max-width: 768px) { .warp-grid { grid-template-columns: 1fr; } }
+        .warp-input-group { background: #121622; padding: 15px; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 15px;}
+        .warp-input-group label.group-title { display: block; font-weight: bold; margin-bottom: 15px; color: var(--primary-color); font-size: 1.1em;}
+        
+        .warp-chart { display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+        .warp-row { display: flex; align-items: center; gap: 10px; }
+        .warp-label { width: 60px; font-weight: bold; color: var(--text-main); font-size: 1.1em; text-align: right; flex-shrink: 0; }
+        .warp-bar-wrapper { flex-grow: 1; background: #121622; height: 32px; border-radius: 6px; overflow: hidden; position: relative; border: 1px solid var(--border-color); box-shadow: inset 0 2px 5px rgba(0,0,0,0.5); }
+        .warp-bar-fill { height: 100%; transition: width 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), background-color 0.8s ease; display: flex; align-items: center; justify-content: flex-end; padding-right: 10px; box-sizing: border-box; }
+        .warp-pct { font-weight: bold; color: white; text-shadow: 1px 1px 2px black; font-size: 0.95em; z-index: 2; }
         
         .scroll-top-btn { position: fixed; bottom: 30px; right: 30px; background-color: var(--primary-color); color: white; border: none; border-radius: 50%; width: 50px; height: 50px; font-size: 1.5em; cursor: pointer; box-shadow: 0 4px 10px rgba(0,0,0,0.5); z-index: 1000; display: none; align-items: center; justify-content: center; transition: opacity 0.3s, transform 0.2s; }
         .scroll-top-btn:hover { transform: scale(1.1); }
@@ -189,6 +199,7 @@
 </head>
 <body>
 
+<!-- SCHEDA LOGIN ADMIN -->
 <div id="login-overlay" class="login-overlay">
     <div class="login-card">
         <h2 style="color: var(--primary-color); margin-top: 0;">Accesso Admin</h2>
@@ -206,6 +217,7 @@
     </div>
 </div>
 
+<!-- SPLASH SCREEN TENDINA -->
 <div id="splash-screen" class="splash-screen">
     <div class="splash-content card">
         <h1 id="splash-fallback-title" class="fallback-title" style="font-size: 2.2em; margin-bottom: 20px; color: var(--primary-color);">Honkai: Star Rail Tracker</h1>
@@ -218,9 +230,9 @@
                 <span style="font-size: 1.5em; display: block; margin-bottom: 5px;" id="splash-icon-tracker">✦</span>
                 Pull Counter
             </button>
-            <button onclick="enterSite('calculator')" class="splash-btn calc-btn">
-                <span style="font-size: 1.5em; display: block; margin-bottom: 5px;" id="splash-icon-calculator">🎯</span>
-                Pity Calculator
+            <button onclick="enterSite('warp')" class="splash-btn calc-btn">
+                <span style="font-size: 1.5em; display: block; margin-bottom: 5px;" id="splash-icon-warp">🎯</span>
+                Warp Planner
             </button>
             <button onclick="enterSite('calendar')" class="splash-btn secondary-btn">
                 <span style="font-size: 1.5em; display: block; margin-bottom: 5px;" id="splash-icon-calendar">📅</span>
@@ -238,6 +250,7 @@
     </div>
 </div>
 
+<!-- FURBOSHOT MODAL -->
 <div id="furboshot-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 100000; align-items: center; justify-content: center; flex-direction: column;">
     <div class="card" style="text-align: center; max-width: 400px; width: 90%; background: var(--surface-color); padding: 30px; border-radius: 16px; border: 1px solid var(--primary-color); box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
         <img id="furboshot-img-display" style="width: 100%; max-height: 250px; object-fit: contain; margin-bottom: 20px; display: none; border-radius: 8px;">
@@ -247,33 +260,44 @@
     </div>
 </div>
 
+<!-- PULSANTE SCROLL-TO-TOP -->
 <button id="scroll-to-stats-btn" class="scroll-top-btn" onclick="scrollToStats()" title="Torna alle risorse">↑</button>
 
 <audio id="bgm-audio" preload="none"></audio>
 
+<!-- OVERLAY E SIDEBAR -->
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
 <div class="sidebar" id="sidebar">
     <a class="sidebar-item active" id="nav-tracker" onclick="switchView('tracker')">✦ Pull Counter</a>
-    <a class="sidebar-item" id="nav-calculator" onclick="switchView('calculator')">🎯 Pity Calculator</a>
+    <a class="sidebar-item" id="nav-warp" onclick="switchView('warp')">🎯 Warp Planner</a>
     <a class="sidebar-item" id="nav-calendar" onclick="switchView('calendar')">📅 Calendario Eventi</a>
     <a class="sidebar-item admin-link" id="nav-admin" onclick="switchView('admin')" style="display: none;">⚙️ Pannello Admin</a>
 </div>
 
 <div class="container">
     
+    <!-- AVVISO MANUTENZIONE PER ADMIN -->
     <div id="admin-maintenance-warning" style="display: none; background-color: #ff5252; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
         ⚠️ ATTENZIONE: Il sito è in MANUTENZIONE. Gli utenti normali vedono la schermata di blocco.
     </div>
 
+    <!-- SCHERMATA DI MANUTENZIONE (Utenti) -->
     <div id="maintenance-screen" class="card" style="display: none; text-align: center; padding-top: 40px; padding-bottom: 40px;">
         <img id="maintenance-banner" alt="Banner Manutenzione" style="width: 100%; height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 8px 16px rgba(0,0,0,0.4); border: 1px solid var(--border-color); display: none;">
         <h2 style="color: var(--jades-color); display: inline-block;">🛠️ Lavori in corso...</h2>
         <p style="color: var(--text-muted); font-size: 1.1em; line-height: 1.5; margin-top: 10px;">Stiamo aggiornando il database per la nuova patch.<br>Ti preghiamo di attendere la fine della manutenzione!</p>
+        
+        <!-- Tasto per Admin in Manutenzione -->
+        <button onclick="document.getElementById('login-overlay').style.display='flex'" class="admin-login-btn-ui" style="margin-top: 25px; background-color: #ff5252; color: white; padding: 12px 25px; border-radius: 8px; border: none; cursor: pointer; font-weight: bold; font-size: 1.1em; display: inline-flex; align-items: center; gap: 8px; justify-content: center;">
+            🔒 Login Admin
+        </button>
     </div>
 
+    <!-- CONTENUTO PRINCIPALE -->
     <div id="main-app-content">
 
+        <!-- BARRA SUPERIORE -->
         <div class="top-bar">
             <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
             
@@ -293,6 +317,7 @@
             <button id="top-btn-login" onclick="document.getElementById('login-overlay').style.display='flex'" class="top-action-btn admin-login-btn-ui" style="margin-left: auto;">🔒 Login</button>
             <button id="top-btn-logout" onclick="logoutAdmin()" class="top-action-btn admin-enter-btn-ui" style="margin-left: auto; display: none; background-color: #ff5252;">🔓 Esci</button>
 
+            <!-- CONTROLLO MUSICA UTENTE -->
             <div class="music-player" id="music-player-ui">
                 <button id="bgm-toggle" onclick="toggleBgm()" title="Attiva/Disattiva Musica">
                     <svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
@@ -301,6 +326,9 @@
             </div>
         </div>
 
+        <!-- ============================================== -->
+        <!-- VISTA: PULL COUNTER (TRACKER) -->
+        <!-- ============================================== -->
         <div id="view-tracker">
             <h1 style="display: none;" class="fallback-title">Honkai: Star Rail Tracker</h1>
             
@@ -311,8 +339,9 @@
             <img class="period-banner" alt="Banner Evento">
             <div class="period-title">Caricamento periodo...</div>
 
+            <!-- PANNELLO UTENTE -->
             <div id="user-panel">
-                <div class="pass-selector">
+                <div class="pass-selector" style="margin-bottom: 25px;">
                     <input type="checkbox" id="user-has-pass">
                     <label id="pass-label-text" for="user-has-pass">Possiedi l'Express Supply Pass?</label>
                 </div>
@@ -345,6 +374,7 @@
                     </div>
                 </div>
 
+                <!-- SEZIONE GIFT OF ODYSSEY -->
                 <div class="card" id="odyssey-card" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 10px;">
                         <div style="display: flex; align-items: center;">
@@ -358,6 +388,7 @@
                     <div class="odyssey-grid" id="odyssey-list"></div>
                 </div>
 
+                <!-- SEZIONE NAMELESS GLORY -->
                 <div class="card" id="nameless-card" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
                         <div style="display: flex; align-items: center;">
@@ -375,6 +406,7 @@
                     <div class="nameless-grid" id="nameless-list" style="display: none;"></div>
                 </div>
 
+                <!-- SEZIONE EVENTI -->
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
                         <div>
@@ -392,98 +424,113 @@
                 </div>
             </div>
         </div>
-        <div id="view-calculator" style="display: none;">
+        <!-- FINE VISTA TRACKER -->
+
+        <!-- ============================================== -->
+        <!-- VISTA: WARP PLANNER -->
+        <!-- ============================================== -->
+        <div id="view-warp" style="display: none;">
             <div class="card" style="border-top: 4px solid #ab47bc;">
                 <h2 style="color: #ab47bc; margin-top: 0; display: flex; align-items: center; gap: 10px;">
-                    🎯 Calcolatore Obiettivi & Pity
+                    🎯 Warp Planner
                 </h2>
-                <p style="color: var(--text-muted); margin-bottom: 25px;">Scopri se riuscirai a ottenere il personaggio o l'arma dei tuoi sogni con i pull che hai da parte sommati a quelli che otterrai in questa patch.</p>
+                <p style="color: var(--text-muted); margin-bottom: 25px;">Scopri le reali probabilità percentuali di ottenere le configurazioni che desideri, basate esclusivamente su ciò che hai attualmente nel tuo inventario. Vengono effettuate in tempo reale 10.000 simulazioni statistiche per garantirti la massima precisione.</p>
 
-                <div class="calc-grid">
-                    <div class="calc-input-group">
-                        <label>1. Cosa hai già in inventario?</label>
-                        <div style="display: flex; gap: 10px;">
-                            <div style="flex: 1;">
+                <div class="warp-grid">
+                    <!-- Input Inventario (Unico dato rilevante per i pull) -->
+                    <div class="warp-input-group" style="grid-column: 1 / -1; border-color: var(--primary-color);">
+                        <label class="group-title">1. Risorse Attuali in Inventario</label>
+                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
+                            <div style="flex: 1; min-width: 150px;">
                                 <span style="font-size: 0.85em; color: var(--text-muted);">Jades (✦)</span>
-                                <input type="number" id="calc-saved-jades" placeholder="Es. 1600" min="0" value="0">
+                                <input type="number" id="warp-saved-jades" placeholder="Es. 16000" min="0" value="0">
                             </div>
-                            <div style="flex: 1;">
+                            <div style="flex: 1; min-width: 150px;">
                                 <span style="font-size: 0.85em; color: var(--text-muted);">Passes (🎫)</span>
-                                <input type="number" id="calc-saved-passes" placeholder="Es. 10" min="0" value="0">
+                                <input type="number" id="warp-saved-passes" placeholder="Es. 10" min="0" value="0">
                             </div>
                         </div>
                     </div>
 
-                    <div class="calc-input-group">
-                        <label>2. Stato del tuo Pity System</label>
-                        <div style="display: flex; gap: 10px; align-items: center;">
-                            <div style="flex: 1;">
+                    <!-- Input Pity Personaggio -->
+                    <div class="warp-input-group">
+                        <label class="group-title" style="color: var(--passes-color);">2. Banner Personaggio</label>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div>
                                 <span style="font-size: 0.85em; color: var(--text-muted);">Pity Attuale (0-89)</span>
-                                <input type="number" id="calc-pity" placeholder="Es. 40" min="0" max="89" value="0">
+                                <input type="number" id="warp-char-pity" placeholder="Es. 40" min="0" max="89" value="0" style="margin-bottom: 0;">
                             </div>
-                            <div style="flex: 1; padding-top: 15px;">
-                                <label style="display: flex; align-items: center; cursor: pointer; color: var(--jades-color); margin: 0; font-size: 0.95em;">
-                                    <input type="checkbox" id="calc-guaranteed" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5);">
-                                    È Garantito?
+                            <div style="padding-top: 5px;">
+                                <label style="display: flex; align-items: center; cursor: pointer; color: var(--passes-color); margin: 0; font-size: 0.95em;">
+                                    <input type="checkbox" id="warp-char-guaranteed" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: var(--passes-color);">
+                                    Hai il Personaggio Garantito? (Perso ultimo 50/50)
                                 </label>
                             </div>
                         </div>
                     </div>
 
-                    <div class="calc-input-group" style="grid-column: 1 / -1;">
-                        <label>3. Qual è il tuo obiettivo?</label>
-                        <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                            <select id="calc-banner-type" style="flex: 1; margin: 0; font-size: 1.1em; background-color: #1a2032;">
-                                <option value="char">Personaggio Limitatato (Hard Pity 90 - 50/50)</option>
-                                <option value="lc">Light Cone Limitato (Hard Pity 80 - 75/25)</option>
-                            </select>
+                    <!-- Input Pity Light Cone -->
+                    <div class="warp-input-group">
+                        <label class="group-title" style="color: var(--jades-color);">3. Banner Light Cone</label>
+                        <div style="display: flex; flex-direction: column; gap: 10px;">
+                            <div>
+                                <span style="font-size: 0.85em; color: var(--text-muted);">Pity Attuale (0-79)</span>
+                                <input type="number" id="warp-lc-pity" placeholder="Es. 20" min="0" max="79" value="0" style="margin-bottom: 0;">
+                            </div>
+                            <div style="padding-top: 5px;">
+                                <label style="display: flex; align-items: center; cursor: pointer; color: var(--jades-color); margin: 0; font-size: 0.95em;">
+                                    <input type="checkbox" id="warp-lc-guaranteed" style="width: auto; margin: 0 10px 0 0; transform: scale(1.5); accent-color: var(--jades-color);">
+                                    Hai la Light Cone Garantita? (Perso ultimo 75/25)
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Strategia di Priorità -->
+                    <div class="warp-input-group" style="grid-column: 1 / -1;">
+                        <label class="group-title">4. Strategia Desiderata</label>
+                        <p style="font-size: 0.85em; color: var(--text-muted); margin-top: -5px; margin-bottom: 15px;">Decidi come il simulatore deve investire i tuoi pull dopo aver trovato la prima copia del personaggio (E0).</p>
+                        
+                        <div style="display: flex; gap: 20px; flex-wrap: wrap;">
+                            <label style="display: flex; align-items: center; cursor: pointer; background: #1a2032; padding: 15px; border-radius: 8px; flex: 1; border: 1px solid var(--border-color);">
+                                <input type="radio" name="warp-priority" value="s1" checked style="width: auto; margin: 0 15px 0 0; transform: scale(1.3); accent-color: #ab47bc;">
+                                <div>
+                                    <div style="font-weight: bold;">Priorità all'Arma (S1 prima)</div>
+                                    <div style="font-size: 0.8em; color: var(--text-muted);">E0S0 → E0S1 → E1S1...</div>
+                                </div>
+                            </label>
                             
-                            <select id="calc-target" style="flex: 1; margin: 0; font-size: 1.1em; background-color: #1a2032;">
-                                <option value="1">1 Copia (E0 / S1)</option>
-                                <option value="2">2 Copie (E1 / S2)</option>
-                                <option value="3">3 Copie (E2 / S3)</option>
-                                <option value="4">4 Copie (E3 / S4)</option>
-                                <option value="5">5 Copie (E4 / S5)</option>
-                                <option value="6">6 Copie (E5)</option>
-                                <option value="7">7 Copie (E6)</option>
-                            </select>
+                            <label style="display: flex; align-items: center; cursor: pointer; background: #1a2032; padding: 15px; border-radius: 8px; flex: 1; border: 1px solid var(--border-color);">
+                                <input type="radio" name="warp-priority" value="eidolons" style="width: auto; margin: 0 15px 0 0; transform: scale(1.3); accent-color: #ab47bc;">
+                                <div>
+                                    <div style="font-weight: bold;">Priorità agli Eidolon (E prima)</div>
+                                    <div style="font-size: 0.8em; color: var(--text-muted);">E0S0 → E1S0... → E6S0 → E6S1</div>
+                                </div>
+                            </label>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="card" id="calc-result-card" style="display: none; border: 1px solid var(--primary-color);">
-                <h3 style="margin-top: 0; color: var(--primary-color);">Esito Calcolo</h3>
+            <!-- RISULTATI GRAFICO -->
+            <div class="card" style="border: 1px solid var(--primary-color);">
+                <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; margin-bottom: 10px;">
+                    <h3 style="margin: 0; color: var(--primary-color);">Probabilità di Successo</h3>
+                    <div style="font-size: 1.2em; font-weight: bold; background: rgba(74, 144, 226, 0.1); padding: 8px 15px; border-radius: 8px;">
+                        Pulls totali analizzati: <span id="warp-display-total-pulls" style="color: var(--primary-color);">0</span>
+                    </div>
+                </div>
                 
-                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 15px; margin-bottom: 20px;">
-                    <div style="background: #121622; padding: 15px; border-radius: 8px; flex: 1; min-width: 200px; text-align: center; border: 1px dashed var(--border-color);">
-                        <div style="font-size: 0.9em; color: var(--text-muted);">Pull Accumulati</div>
-                        <div style="font-size: 1.5em; font-weight: bold; color: white;" id="res-saved-pulls">0</div>
-                    </div>
-                    <div style="background: #121622; padding: 15px; border-radius: 8px; flex: 1; min-width: 200px; text-align: center; border: 1px dashed var(--border-color);">
-                        <div style="font-size: 0.9em; color: var(--text-muted);">Pull Previsti in Patch</div>
-                        <div style="font-size: 1.5em; font-weight: bold; color: var(--success-color);" id="res-future-pulls">0</div>
-                    </div>
-                    <div style="background: #1a2032; padding: 15px; border-radius: 8px; flex: 1; min-width: 200px; text-align: center; border: 2px solid var(--primary-color);">
-                        <div style="font-size: 0.9em; color: white; font-weight: bold;">Totale Disponibile</div>
-                        <div style="font-size: 1.8em; font-weight: bold; color: var(--primary-color);" id="res-total-pulls">0</div>
-                    </div>
-                </div>
-
-                <div style="display: flex; flex-direction: column; gap: 10px;">
-                    <div style="background: rgba(255, 107, 107, 0.1); padding: 15px; border-radius: 8px; border-left: 4px solid var(--passes-color);">
-                        <strong>Peggior Scenario Possibile (Hard Pity + Perso il 50/50):</strong> Ti servono in totale <span id="res-worst" style="color: var(--passes-color); font-weight: bold; font-size: 1.2em;">0</span> pulls.
-                    </div>
-                    <div style="background: rgba(255, 215, 0, 0.1); padding: 15px; border-radius: 8px; border-left: 4px solid var(--jades-color);">
-                        <strong>Scenario Medio Realistico (Soft Pity):</strong> Ti serviranno circa <span id="res-avg" style="color: var(--jades-color); font-weight: bold; font-size: 1.2em;">0</span> pulls.
-                    </div>
-                </div>
-
-                <div id="res-verdict" style="margin-top: 20px; padding: 20px; border-radius: 8px; text-align: center; font-size: 1.2em; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);">
-                    Verdetto
+                <div id="warp-chart-container" class="warp-chart">
+                    <!-- Il grafico verrà generato dinamicamente qui -->
                 </div>
             </div>
         </div>
+        <!-- FINE VISTA WARP PLANNER -->
+
+        <!-- ============================================== -->
+        <!-- VISTA: CALENDARIO -->
+        <!-- ============================================== -->
         <div id="view-calendar" style="display: none;">
             <div class="card" id="calendar-capture-area">
                 <div class="calendar-header">
@@ -519,11 +566,18 @@
                 <div id="cal-details-content" style="display: flex; flex-direction: column; gap: 15px;"></div>
             </div>
         </div>
+        <!-- FINE VISTA CALENDARIO -->
+
+
+        <!-- ============================================== -->
+        <!-- VISTA: PANNELLO ADMIN (SOLO ADMIN) -->
+        <!-- ============================================== -->
         <div id="view-admin" style="display: none;">
             
             <h1 style="color: #ff5252; margin-bottom: 5px;">⚙️ Hub Amministrazione</h1>
             <p style="color: var(--text-muted); margin-bottom: 25px;">Benvenuto. Gestisci qui tutte le configurazioni del sito, delle patch e del calendario.</p>
 
+            <!-- CARD: GLOBALI E BACKUP -->
             <div class="card" style="border: 1px solid var(--primary-color);">
                 <h2 style="color: var(--primary-color); margin-top: 0;">🌐 Impostazioni Globali e Backup</h2>
                 
@@ -550,14 +604,14 @@
                         </div>
                     </div>
                     <div>
-                        <label style="color: var(--text-main);">Icona Navigazione Calendario (Menù/Splash):</label>
+                        <label style="color: var(--text-main);">Icona Calendario (Menù/Splash):</label>
                         <input type="file" id="admin-file-calendar-icon" accept="image/*">
                         <div class="preview-icon-box">
                             <img id="preview-img-calendar-icon" class="preview-img" style="max-height: 40px; max-width: 40px; border-radius: 4px;" alt="Calendar">
                         </div>
                     </div>
                     <div>
-                        <label style="color: var(--text-main);">Icona Calcolatore Pity (Menù/Splash):</label>
+                        <label style="color: var(--text-main);">Icona Warp Planner (Menù/Splash):</label>
                         <input type="file" id="admin-file-calc-icon" accept="image/*">
                         <div class="preview-icon-box">
                             <img id="preview-img-calc-icon" class="preview-img" style="max-height: 40px; max-width: 40px; border-radius: 4px;" alt="Calculator">
@@ -617,6 +671,7 @@
                 </div>
             </div>
 
+            <!-- CARD: TRACKER (PATCH SELEZIONATA) -->
             <div class="card" style="border: 1px solid var(--jades-color);">
                 <h2 style="color: var(--jades-color); margin-top: 0;">📊 Impostazioni Patch (Pull Counter)</h2>
                 
@@ -637,6 +692,7 @@
                     </div>
                 </div>
 
+                <!-- CONTROLLO VISIBILITÀ PATCH -->
                 <div style="background: rgba(0, 230, 118, 0.1); padding: 15px; border-radius: 8px; border: 1px solid var(--success-color); margin-bottom: 20px;">
                     <label style="display: flex; align-items: center; cursor: pointer; color: var(--success-color); font-weight: bold;">
                         <input type="checkbox" id="admin-patch-visible" style="width: auto; margin: 0 15px 0 0; transform: scale(1.5); accent-color: var(--success-color);">
@@ -707,6 +763,7 @@
                 <p id="admin-patch-status" style="color: var(--success-color); display: none; text-align: center; margin-top: 15px; font-weight: bold;">Patch salvata!</p>
             </div>
 
+            <!-- CARD: CALENDARIO (GLOBALE) -->
             <div class="card" style="border: 1px solid #4CAF50;">
                 <h2 style="color: #4CAF50; margin-top: 0;">📅 Impostazioni Calendario Eventi</h2>
                 <p style="color: var(--text-muted); margin-bottom: 20px;">Questi eventi verranno visualizzati da tutti gli utenti nel calendario mensile.</p>
@@ -727,7 +784,12 @@
             </div>
 
         </div>
-        </div> <footer class="site-footer" data-html2canvas-ignore="true">
+        <!-- FINE VISTA ADMIN -->
+
+    </div> <!-- FINE MAIN APP CONTENT -->
+
+    <!-- PIÈ DI PAGINA -->
+    <footer class="site-footer" data-html2canvas-ignore="true">
         Developed by Xen for friends.
     </footer>
 
@@ -855,7 +917,7 @@
 
     let savedOdysseyBase64 = null; 
     let savedPatchIconBase64 = null;
-    window.currentGrandTotalPulls = 0; // Usata per il Pity Calculator
+    window.currentGrandTotalPulls = 0; // Usata per il Warp Planner (anche se ignoriamo il futuro, teniamo l'inventario)
 
     // ==========================================
     // FUNZIONI DI RECUPERO FALLBACK PER ICONE
@@ -916,7 +978,7 @@
     let isBgmPlaying = false;
     let audioInitialized = false;
     
-    const svgVolOn = `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`;
+    const svgVolOn = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`;
     const svgVolOff = `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>`;
 
     function updateBgmIcon(isPlaying) {
@@ -1057,7 +1119,7 @@
 
     window.switchView = function(view, fromClick = true) {
         document.getElementById('view-tracker').style.display = view === 'tracker' ? 'block' : 'none';
-        document.getElementById('view-calculator').style.display = view === 'calculator' ? 'block' : 'none';
+        document.getElementById('view-warp').style.display = view === 'warp' ? 'block' : 'none';
         document.getElementById('view-calendar').style.display = view === 'calendar' ? 'block' : 'none';
         document.getElementById('view-admin').style.display = view === 'admin' ? 'block' : 'none';
         
@@ -1067,7 +1129,7 @@
         }
 
         document.getElementById('nav-tracker').classList.toggle('active', view === 'tracker');
-        document.getElementById('nav-calculator').classList.toggle('active', view === 'calculator');
+        document.getElementById('nav-warp').classList.toggle('active', view === 'warp');
         document.getElementById('nav-calendar').classList.toggle('active', view === 'calendar');
         if(document.getElementById('nav-admin')) document.getElementById('nav-admin').classList.toggle('active', view === 'admin');
         
@@ -1078,7 +1140,7 @@
 
         if (view === 'tracker') rollRandomBanner(); 
         if (view === 'calendar') renderCalendar();
-        if (view === 'calculator') renderCalculator();
+        if (view === 'warp') renderWarpPlanner();
         
         if (fromClick) {
             const sb = document.getElementById('sidebar');
@@ -1087,101 +1149,172 @@
     }
 
     // ==========================================
-    // PITY CALCULATOR LOGICA
+    // WARP PLANNER LOGIC (Monte Carlo)
     // ==========================================
     
-    function saveCalcData() {
-        localStorage.setItem('calc-saved-jades', document.getElementById('calc-saved-jades').value);
-        localStorage.setItem('calc-saved-passes', document.getElementById('calc-saved-passes').value);
-        localStorage.setItem('calc-pity', document.getElementById('calc-pity').value);
-        localStorage.setItem('calc-guaranteed', document.getElementById('calc-guaranteed').checked);
-        localStorage.setItem('calc-banner-type', document.getElementById('calc-banner-type').value);
-        localStorage.setItem('calc-target', document.getElementById('calc-target').value);
-        renderCalculator();
-    }
-
-    // Ascoltatori per salvare in tempo reale
-    ['calc-saved-jades', 'calc-saved-passes', 'calc-pity'].forEach(id => {
-        document.getElementById(id).addEventListener('input', saveCalcData);
-    });
-    ['calc-guaranteed', 'calc-banner-type', 'calc-target'].forEach(id => {
-        document.getElementById(id).addEventListener('change', saveCalcData);
-    });
-
-    function renderCalculator() {
-        // Carica dati salvati
-        document.getElementById('calc-saved-jades').value = localStorage.getItem('calc-saved-jades') || '0';
-        document.getElementById('calc-saved-passes').value = localStorage.getItem('calc-saved-passes') || '0';
-        document.getElementById('calc-pity').value = localStorage.getItem('calc-pity') || '0';
-        document.getElementById('calc-guaranteed').checked = localStorage.getItem('calc-guaranteed') === 'true';
-        const type = localStorage.getItem('calc-banner-type') || 'char';
-        document.getElementById('calc-banner-type').value = type;
-        document.getElementById('calc-target').value = localStorage.getItem('calc-target') || '1';
-
-        const savedJades = parseInt(document.getElementById('calc-saved-jades').value) || 0;
-        const savedPasses = parseInt(document.getElementById('calc-saved-passes').value) || 0;
-        const pity = parseInt(document.getElementById('calc-pity').value) || 0;
-        const guaranteed = document.getElementById('calc-guaranteed').checked;
-        const copies = parseInt(document.getElementById('calc-target').value) || 1;
-
-        const inventoryPulls = Math.floor(savedJades / 160) + savedPasses;
-        const futurePulls = Math.floor(window.currentGrandTotalPulls) || 0;
-        const totalPulls = inventoryPulls + futurePulls;
-
-        let worstCase = 0;
-        let avgCase = 0;
-
-        if (type === 'char') {
-            // Personaggio: Hard 90, Soft ~75, Medio ~94 senza garanzia, Medio ~75 con garanzia
-            let pullCopy1Worst = guaranteed ? (90 - pity) : (180 - pity);
-            let pullCopy1Avg = guaranteed ? Math.max(0, 75 - pity) : Math.max(0, 94 - pity);
-            
-            worstCase = pullCopy1Worst + ((copies - 1) * 180);
-            avgCase = pullCopy1Avg + ((copies - 1) * 94);
-        } else {
-            // Arma: Hard 80, Soft ~65, Medio ~68 senza garanzia (75/25), Medio ~65 con garanzia
-            let pullCopy1Worst = guaranteed ? (80 - pity) : (160 - pity);
-            let pullCopy1Avg = guaranteed ? Math.max(0, 65 - pity) : Math.max(0, 68 - pity);
-            
-            worstCase = pullCopy1Worst + ((copies - 1) * 160);
-            avgCase = pullCopy1Avg + ((copies - 1) * 68);
-        }
-
-        // Evita numeri negativi
-        worstCase = Math.max(0, worstCase);
-        avgCase = Math.max(0, avgCase);
-
-        document.getElementById('res-saved-pulls').innerText = inventoryPulls;
-        document.getElementById('res-future-pulls').innerText = futurePulls;
-        document.getElementById('res-total-pulls').innerText = totalPulls;
-        document.getElementById('res-worst').innerText = worstCase;
-        document.getElementById('res-avg').innerText = avgCase;
-
-        const verdictBox = document.getElementById('res-verdict');
+    let warpTimeout;
+    
+    window.saveWarpData = function() {
+        clearTimeout(warpTimeout);
+        localStorage.setItem('warp-saved-jades', document.getElementById('warp-saved-jades').value);
+        localStorage.setItem('warp-saved-passes', document.getElementById('warp-saved-passes').value);
+        localStorage.setItem('warp-char-pity', document.getElementById('warp-char-pity').value);
+        localStorage.setItem('warp-char-guaranteed', document.getElementById('warp-char-guaranteed').checked);
+        localStorage.setItem('warp-lc-pity', document.getElementById('warp-lc-pity').value);
+        localStorage.setItem('warp-lc-guaranteed', document.getElementById('warp-lc-guaranteed').checked);
         
-        if (totalPulls >= worstCase) {
-            verdictBox.style.backgroundColor = "rgba(0, 230, 118, 0.15)";
-            verdictBox.style.color = "var(--success-color)";
-            verdictBox.style.border = "1px solid var(--success-color)";
-            verdictBox.innerText = "🎯 GARANTITO! Hai già accumulato abbastanza pull per centrare l'obiettivo anche con la peggior sfortuna possibile.";
-        } else if (totalPulls >= avgCase) {
-            verdictBox.style.backgroundColor = "rgba(255, 215, 0, 0.15)";
-            verdictBox.style.color = "var(--jades-color)";
-            verdictBox.style.border = "1px solid var(--jades-color)";
-            verdictBox.innerText = "✨ BUONE POSSIBILITÀ! I tuoi pull coprono lo scenario medio. Se non sei estremamente sfortunato col 50/50, ce la farai.";
-        } else {
-            verdictBox.style.backgroundColor = "rgba(255, 107, 107, 0.15)";
-            verdictBox.style.color = "var(--passes-color)";
-            verdictBox.style.border = "1px solid var(--passes-color)";
-            verdictBox.innerText = "⚠️ A RISCHIO! Sei sotto la media. Ti servirà un po' di fortuna (Early pity o vincere i 50/50) per farcela.";
-        }
-
-        document.getElementById('calc-result-card').style.display = 'block';
+        const priority = document.querySelector('input[name="warp-priority"]:checked').value;
+        localStorage.setItem('warp-priority', priority);
+        
+        warpTimeout = setTimeout(renderWarpPlanner, 200); // 200ms debounce
     }
 
+    // Ascoltatori Input Planner
+    ['warp-saved-jades', 'warp-saved-passes', 'warp-char-pity', 'warp-lc-pity'].forEach(id => {
+        document.getElementById(id).addEventListener('input', saveWarpData);
+    });
+    ['warp-char-guaranteed', 'warp-lc-guaranteed'].forEach(id => {
+        document.getElementById(id).addEventListener('change', saveWarpData);
+    });
+    document.querySelectorAll('input[name="warp-priority"]').forEach(radio => {
+        radio.addEventListener('change', saveWarpData);
+    });
+
+    function simulateWarp(pulls, cPity, cGuar, lcPity, lcGuar, priority) {
+        const ITERATIONS = 10000;
+        let results = {};
+        
+        // Definiamo i target in base alla strategia scelta
+        let targets = priority === 's1' ? 
+            ['E0S0', 'E0S1', 'E1S1', 'E2S1', 'E3S1', 'E4S1', 'E5S1', 'E6S1'] : 
+            ['E0S0', 'E1S0', 'E2S0', 'E3S0', 'E4S0', 'E5S0', 'E6S0', 'E6S1'];
+        
+        targets.forEach(t => results[t] = 0);
+
+        for (let i = 0; i < ITERATIONS; i++) {
+            let cp = cPity, cg = cGuar;
+            let lp = lcPity, lg = lcGuar;
+            
+            // Generiamo i costi (in pulls) per ottenere 7 copie (E0 -> E6)
+            let charCosts = [];
+            for (let c = 0; c < 7; c++) {
+                let cost = 0; let won = false;
+                while (!won) {
+                    cost++; cp++;
+                    // Soft pity character starts around 74, scales up
+                    let chance = cp < 74 ? 0.006 : 0.006 + (cp - 73) * 0.06;
+                    if (Math.random() < chance || cp >= 90) {
+                        if (cg || Math.random() < 0.5) { won = true; cg = false; } 
+                        else { cg = true; }
+                        cp = 0;
+                    }
+                }
+                charCosts.push(cost);
+            }
+            
+            // Generiamo il costo per la prima copia dell'arma (S1)
+            let lcCost = 0; let wonLc = false;
+            while (!wonLc) {
+                lcCost++; lp++;
+                // Soft pity LC starts around 66, scales up
+                let chance = lp < 66 ? 0.008 : 0.008 + (lp - 65) * 0.07;
+                if (Math.random() < chance || lp >= 80) {
+                    if (lg || Math.random() < 0.75) { wonLc = true; lg = false; } 
+                    else { lg = true; }
+                    lp = 0;
+                }
+            }
+
+            // Verifichiamo quali target sono raggiungibili con i pulls attuali dell'utente
+            let spent = 0;
+            if (priority === 's1') {
+                if (pulls >= (spent += charCosts[0])) results['E0S0']++;
+                if (pulls >= (spent += lcCost)) results['E0S1']++;
+                if (pulls >= (spent += charCosts[1])) results['E1S1']++;
+                if (pulls >= (spent += charCosts[2])) results['E2S1']++;
+                if (pulls >= (spent += charCosts[3])) results['E3S1']++;
+                if (pulls >= (spent += charCosts[4])) results['E4S1']++;
+                if (pulls >= (spent += charCosts[5])) results['E5S1']++;
+                if (pulls >= (spent += charCosts[6])) results['E6S1']++;
+            } else {
+                if (pulls >= (spent += charCosts[0])) results['E0S0']++;
+                if (pulls >= (spent += charCosts[1])) results['E1S0']++;
+                if (pulls >= (spent += charCosts[2])) results['E2S0']++;
+                if (pulls >= (spent += charCosts[3])) results['E3S0']++;
+                if (pulls >= (spent += charCosts[4])) results['E4S0']++;
+                if (pulls >= (spent += charCosts[5])) results['E5S0']++;
+                if (pulls >= (spent += charCosts[6])) results['E6S0']++;
+                if (pulls >= (spent += lcCost)) results['E6S1']++;
+            }
+        }
+        
+        // Trasformiamo i risultati grezzi in percentuali per il grafico
+        return targets.map(t => ({
+            label: t,
+            pct: (results[t] / ITERATIONS) * 100
+        }));
+    }
+
+    function renderWarpPlanner() {
+        // Ripristino dati salvati
+        document.getElementById('warp-saved-jades').value = localStorage.getItem('warp-saved-jades') || '0';
+        document.getElementById('warp-saved-passes').value = localStorage.getItem('warp-saved-passes') || '0';
+        document.getElementById('warp-char-pity').value = localStorage.getItem('warp-char-pity') || '0';
+        document.getElementById('warp-char-guaranteed').checked = localStorage.getItem('warp-char-guaranteed') === 'true';
+        document.getElementById('warp-lc-pity').value = localStorage.getItem('warp-lc-pity') || '0';
+        document.getElementById('warp-lc-guaranteed').checked = localStorage.getItem('warp-lc-guaranteed') === 'true';
+        
+        const savedPriority = localStorage.getItem('warp-priority') || 's1';
+        document.querySelector(`input[name="warp-priority"][value="${savedPriority}"]`).checked = true;
+
+        const savedJades = parseInt(document.getElementById('warp-saved-jades').value) || 0;
+        const savedPasses = parseInt(document.getElementById('warp-saved-passes').value) || 0;
+        const cPity = parseInt(document.getElementById('warp-char-pity').value) || 0;
+        const cGuar = document.getElementById('warp-char-guaranteed').checked;
+        const lcPity = parseInt(document.getElementById('warp-lc-pity').value) || 0;
+        const lcGuar = document.getElementById('warp-lc-guaranteed').checked;
+
+        // I pull considerati sono esclusivamente quelli nell'inventario (IGNORIAMO futurePulls da patch)
+        const totalPulls = Math.floor(savedJades / 160) + savedPasses;
+        
+        document.getElementById('warp-display-total-pulls').innerText = totalPulls;
+
+        const chartContainer = document.getElementById('warp-chart-container');
+        chartContainer.innerHTML = '';
+
+        if (totalPulls === 0) {
+            chartContainer.innerHTML = `<div style="text-align: center; color: var(--text-muted); padding: 20px;">Inserisci dei fondi nel tuo inventario per calcolare le probabilità!</div>`;
+            return;
+        }
+
+        // Simulazione
+        const data = simulateWarp(totalPulls, cPity, cGuar, lcPity, lcGuar, savedPriority);
+
+        // Generazione Barre CSS
+        data.forEach(item => {
+            // Colore sfumato dal rosso (0%) al verde acceso (120 gradi in HSL = 100%)
+            let hue = (item.pct * 1.2); 
+            let color = `hsl(${hue}, 80%, 45%)`;
+            
+            // Per percentuali vicine allo zero (es 0%), assicuriamo un rosso scuro visibile
+            if (item.pct === 0) color = 'rgba(244, 67, 54, 0.2)';
+
+            const row = document.createElement('div');
+            row.className = 'warp-row';
+            row.innerHTML = `
+                <div class="warp-label">${item.label}</div>
+                <div class="warp-bar-wrapper">
+                    <div class="warp-bar-fill" style="width: ${item.pct === 0 ? '100' : Math.max(2, item.pct)}%; background-color: ${item.pct === 0 ? 'transparent' : color};">
+                        <span class="warp-pct">${item.pct.toFixed(2)}%</span>
+                    </div>
+                </div>
+            `;
+            chartContainer.appendChild(row);
+        });
+    }
 
     // ==========================================
-    // CHIAVI LOCALI DINAMICHE
+    // CHIAVI LOCALI DINAMICHE TRACKER
     // ==========================================
     const getLocalKey = (base) => `${base}_v14_${currentPeriodId}`;
 
@@ -1373,10 +1506,10 @@
             ? `<img src="${base64Str}" style="height: 40px; width: 40px; object-fit: contain; vertical-align: middle;">` 
             : '🎯';
         
-        const navCalc = document.getElementById('nav-calculator');
-        if (navCalc) navCalc.innerHTML = `${iconHtml} Pity Calculator`;
+        const navCalc = document.getElementById('nav-warp');
+        if (navCalc) navCalc.innerHTML = `${iconHtml} Warp Planner`;
 
-        const splashCalc = document.getElementById('splash-icon-calculator');
+        const splashCalc = document.getElementById('splash-icon-warp');
         if (splashCalc) splashCalc.innerHTML = imgHtmlBig;
     }
 
@@ -1684,15 +1817,11 @@
         const eqAbsoluteTotalFloat = absoluteTotalJades / 160;
         const grandTotalAbsolutePulls = (eqAbsoluteTotalFloat + absoluteExtraPasses).toFixed(1).replace('.0', '');
 
-        window.currentGrandTotalPulls = grandTotalAbsolutePulls; // Salva per il Pity Calc
-
         document.getElementById('stat-daily-jades').innerHTML = `<span>${dailyJadesRemaining}</span> ${iconJ_HTML} <span class="conversion-text">(≈ ${eqDailyRemaining} ${iconP_HTML})</span>`;
         document.getElementById('stat-events-jades').innerHTML = `<span>${eventsJadesRemaining}</span> ${iconJ_HTML} <span class="conversion-text">(≈ ${eqEventsRemaining} ${iconP_HTML})</span>`;
         document.getElementById('stat-total-jades').innerHTML = `<span>${totalJadesRemaining}</span> ${iconJ_HTML} <span class="conversion-text">(≈ ${eqTotalRemaining} ${iconP_HTML})</span>`;
         document.getElementById('stat-total-passes').innerHTML = `<span>${totalPassesRemaining}</span> ${iconP_HTML}`;
         document.getElementById('stat-grand-total').innerHTML = `<span>${grandTotalAbsolutePulls}</span> ${iconP_HTML}`;
-        
-        renderCalculator();
     }
 
     document.getElementById('user-has-pass').addEventListener('change', (e) => setUserPassStatus(e.target.checked));
@@ -2039,7 +2168,7 @@
             }
         }
 
-        // Inizializza vista salvata
+        // Inizializza vista salvata o mantieni blocco per lo splash screen
         let savedView = localStorage.getItem('hsr_tracker_last_view') || 'tracker';
         if (savedView === 'admin' && !isAdmin) savedView = 'tracker';
         

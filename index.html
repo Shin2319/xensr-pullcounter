@@ -230,7 +230,7 @@
     <div class="card" style="text-align: center; max-width: 400px; width: 90%; background: var(--surface-color); padding: 30px; border-radius: 16px; border: 1px solid var(--primary-color); box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
         <img id="furboshot-img-display" style="width: 100%; max-height: 250px; object-fit: contain; margin-bottom: 20px; display: none; border-radius: 8px;">
         <h2 style="color: var(--primary-color); margin-top: 0; font-size: 1.8em;">Furboshot scattato!</h2>
-        <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.1em;">L'immagine del calendario è stata scaricata con successo.</p>
+        <p style="color: var(--text-muted); margin-bottom: 25px; font-size: 1.1em;">L'immagine è stata scaricata con successo.</p>
         <button onclick="document.getElementById('furboshot-overlay').style.display = 'none';" style="font-size: 1.2em; padding: 12px 30px; border-radius: 8px;">Furbo!</button>
     </div>
 </div>
@@ -282,7 +282,7 @@
 
             <div class="music-player" id="music-player-ui">
                 <button id="bgm-toggle" onclick="toggleBgm()" title="Attiva/Disattiva Musica">
-                    <svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
+                    <svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>
                 </button>
                 <input type="range" id="bgm-volume" min="0" max="1" step="0.05" value="0.3" oninput="changeBgmVolume(this.value)" title="Volume">
             </div>
@@ -304,7 +304,7 @@
                     <label id="pass-label-text" for="user-has-pass">Possiedi l'Express Supply Pass?</label>
                 </div>
 
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-bottom: 20px;">
+                <div id="tracker-capture-area" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-bottom: 20px;">
                     
                     <div class="card" id="stats-card-container" style="margin-bottom: 0;">
                         <h2 id="title-dashboard">Pull Counter</h2>
@@ -336,7 +336,11 @@
 
                     <div class="card" id="inventory-card-container" style="margin-bottom: 0; border: 1px solid #00bcd4; display: flex; flex-direction: column;">
                         <h2 style="color: #00bcd4; margin-top: 0;">Inventario Personale</h2>
-                        <p style="color: var(--text-muted); margin-top: -5px;">Aggiungi le tue risorse attuali.</p>
+                        
+                        <p style="color: var(--text-muted); margin-top: -5px; line-height: 1.4;">
+                            Aggiungi le tue risorse attuali.<br>
+                            <span style="font-size: 0.85em; color: var(--locked-color);">⚠️ Prima di calcolare le tue pulls a fine patch, assicurati di aver spuntato tutti gli eventi che hai già completato e le ricompense già riscattate per avere un numero corretto.</span>
+                        </p>
                         
                         <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
                             <div>
@@ -353,10 +357,14 @@
                             </div>
                         </div>
 
-                        <div class="stat-box" style="border: 2px solid var(--success-color); background-color: #1a2032; margin-top: auto;">
-                            <div style="font-size: 0.95em;">Totale Pulls a fine patch</div>
+                        <div class="stat-box" style="border: 2px solid var(--success-color); background-color: #1a2032; margin-top: auto; margin-bottom: 15px;">
+                            <div style="font-size: 0.95em;">Grand Total (Inventario + Patch Rimanente)</div>
                             <div class="value passes" id="stat-inventory-grand-total" style="color: var(--success-color);">0</div>
                         </div>
+
+                        <button onclick="downloadTrackerImage(event)" data-html2canvas-ignore="true" style="background-color: #4CAF50; color: white; display: flex; align-items: center; justify-content: center; gap: 8px; width: 100%; padding: 12px; font-size: 1.05em;">
+                            <span id="screenshot-btn-icon-tracker" style="font-size:1.2em; display: flex; align-items: center;">📸</span> Salva Screenshot Tracker
+                        </button>
                     </div>
                 </div>
                 <div class="card" id="odyssey-card" style="display: none;">
@@ -1178,14 +1186,20 @@
     }
 
     function applyScreenshotIcon(base64Str) {
-        const iconContainer = document.getElementById('screenshot-btn-icon');
-        if (iconContainer) {
-            if (base64Str && base64Str.startsWith('data:image')) {
-                iconContainer.innerHTML = `<img src="${base64Str}" style="height: 1.2em; width: 1.2em; object-fit: contain; vertical-align: middle;">`;
-            } else {
-                iconContainer.innerHTML = '📸';
+        // Applica l'icona a entrambi i bottoni di screenshot
+        const iconContainers = [
+            document.getElementById('screenshot-btn-icon'),
+            document.getElementById('screenshot-btn-icon-tracker')
+        ];
+        iconContainers.forEach(iconContainer => {
+            if (iconContainer) {
+                if (base64Str && base64Str.startsWith('data:image')) {
+                    iconContainer.innerHTML = `<img src="${base64Str}" style="height: 1.2em; width: 1.2em; object-fit: contain; vertical-align: middle;">`;
+                } else {
+                    iconContainer.innerHTML = '📸';
+                }
             }
-        }
+        });
     }
 
     function checkLockStatus() {
@@ -1642,7 +1656,7 @@
     }
 
     // ==========================================
-    // FUNZIONE DOWNLOAD SCREENSHOT CALENDARIO
+    // FUNZIONI DOWNLOAD SCREENSHOT (CALENDARIO)
     // ==========================================
     window.downloadCalendarImage = function(event) {
         const captureArea = document.getElementById('calendar-capture-area');
@@ -1692,6 +1706,106 @@
         }).catch(err => {
             captureArea.style.width = originalWidth;
             scrollWrapper.style.overflowX = originalOverflow;
+            alert("Errore durante la generazione dell'immagine.");
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+        });
+    }
+
+    // ==========================================
+    // FUNZIONI DOWNLOAD SCREENSHOT (TRACKER)
+    // ==========================================
+    window.downloadTrackerImage = function(event) {
+        const captureArea = document.getElementById('tracker-capture-area');
+        
+        let patchName = "patch";
+        if (globalData && globalData.periodName) {
+            patchName = globalData.periodName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+        }
+
+        const btn = event.currentTarget;
+        const originalText = btn.innerHTML;
+
+        const iconHtml = document.getElementById('screenshot-btn-icon-tracker').outerHTML;
+        btn.innerHTML = `${iconHtml} <span style="margin-left:8px;">⏳ Generazione...</span>`;
+        btn.disabled = true;
+
+        // Salva stili originali per ripristino
+        const originalWidth = captureArea.style.width;
+        const originalPadding = captureArea.style.padding;
+        
+        // Forza una larghezza fissa in modo da forzare la visualizzazione a due colonne "PC"
+        // anche se catturato da cellulare, e imposta il padding per evitare tagli sui bordi.
+        captureArea.style.width = '850px';
+        captureArea.style.padding = '20px';
+
+        // Fix per html2canvas: gli input di tipo number spesso vengono tagliati. 
+        // Sostituiamoli temporaneamente con dei div testuali identici.
+        const inputs = captureArea.querySelectorAll('input[type="number"]');
+        const inputReplacements = [];
+        inputs.forEach(input => {
+            const div = document.createElement('div');
+            div.style.width = '100%';
+            div.style.padding = '10px';
+            div.style.margin = '5px 0 0 0';
+            div.style.backgroundColor = '#121622';
+            div.style.border = '1px solid #2c3554'; // var(--border-color)
+            div.style.color = 'white';
+            div.style.borderRadius = '6px';
+            div.style.boxSizing = 'border-box';
+            div.style.height = input.offsetHeight + 'px';
+            div.style.display = 'flex';
+            div.style.alignItems = 'center';
+            div.innerText = input.value || '0';
+            
+            input.parentNode.insertBefore(div, input);
+            input.style.display = 'none';
+            inputReplacements.push({ input, div });
+        });
+
+        html2canvas(captureArea, {
+            backgroundColor: "#121622", // Sfondo della pagina
+            scale: 2, 
+            windowWidth: 900 // Simula larghezza viewport ampia
+        }).then(canvas => {
+            // Ripristina inputs
+            inputReplacements.forEach(({ input, div }) => {
+                input.style.display = '';
+                div.remove();
+            });
+
+            // Ripristina stili originari
+            captureArea.style.width = originalWidth;
+            captureArea.style.padding = originalPadding;
+
+            const link = document.createElement('a');
+            link.download = `HSR_Tracker_${patchName}.png`;
+            link.href = canvas.toDataURL("image/png");
+            link.click();
+            
+            btn.innerHTML = originalText;
+            btn.disabled = false;
+            
+            // Attiva il Furboshot (Overlay custom di notifica)
+            const furboImg = document.getElementById('furboshot-img-display');
+            if (savedFurboshotBase64) {
+                furboImg.src = savedFurboshotBase64;
+                furboImg.style.display = 'block';
+            } else {
+                furboImg.style.display = 'none';
+            }
+            document.getElementById('furboshot-overlay').style.display = 'flex';
+
+        }).catch(err => {
+            // Ripristina inputs
+            inputReplacements.forEach(({ input, div }) => {
+                input.style.display = '';
+                div.remove();
+            });
+
+            // Ripristina stili in caso di errore
+            captureArea.style.width = originalWidth;
+            captureArea.style.padding = originalPadding;
             alert("Errore durante la generazione dell'immagine.");
             btn.innerHTML = originalText;
             btn.disabled = false;

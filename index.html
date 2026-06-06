@@ -5,16 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Honkai: Star Rail Resource Tracker</title>
     
-    <!-- Meta tag per Web App / Home Screen -->
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-capable" content="yes">
     <meta name="theme-color" content="#1c2135">
     
-    <!-- Favicon Dinamica -->
     <link id="dynamic-favicon" rel="icon" type="image/png" href="">
     <link id="dynamic-apple-icon" rel="apple-touch-icon" href="">
     
-    <!-- Libreria per lo screenshot del calendario -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
     
     <style>
@@ -184,7 +181,6 @@
 </head>
 <body>
 
-<!-- SCHEDA LOGIN ADMIN -->
 <div id="login-overlay" class="login-overlay">
     <div class="login-card">
         <h2 style="color: var(--primary-color); margin-top: 0;">Accesso Admin</h2>
@@ -192,7 +188,6 @@
         
         <input type="text" id="login-username" placeholder="Nome Utente" style="margin-bottom: 10px;">
         
-        <!-- Input Password con occhio -->
         <div style="position: relative; width: 100%; margin-bottom: 10px;">
             <input type="password" id="login-password" placeholder="Password" style="margin: 0; padding-right: 40px; width: 100%;">
             <span onclick="togglePassword()" style="position: absolute; right: 10px; top: 50%; transform: translateY(-50%); cursor: pointer; font-size: 1.2em; user-select: none;" title="Mostra/Nascondi Password">👁️</span>
@@ -203,7 +198,6 @@
     </div>
 </div>
 
-<!-- SPLASH SCREEN TENDINA -->
 <div id="splash-screen" class="splash-screen">
     <div class="splash-content card">
         <h1 id="splash-fallback-title" class="fallback-title" style="font-size: 2.2em; margin-bottom: 20px; color: var(--primary-color);">Honkai: Star Rail Tracker</h1>
@@ -232,7 +226,6 @@
     </div>
 </div>
 
-<!-- FURBOSHOT MODAL -->
 <div id="furboshot-overlay" style="display: none; position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; background: rgba(0,0,0,0.8); z-index: 100000; align-items: center; justify-content: center; flex-direction: column;">
     <div class="card" style="text-align: center; max-width: 400px; width: 90%; background: var(--surface-color); padding: 30px; border-radius: 16px; border: 1px solid var(--primary-color); box-shadow: 0 10px 30px rgba(0,0,0,0.8);">
         <img id="furboshot-img-display" style="width: 100%; max-height: 250px; object-fit: contain; margin-bottom: 20px; display: none; border-radius: 8px;">
@@ -242,15 +235,12 @@
     </div>
 </div>
 
-<!-- PULSANTE SCROLL-TO-TOP (SOLO PC) -->
 <button id="scroll-to-stats-btn" class="scroll-top-btn" onclick="scrollToStats()" title="Torna alle risorse">↑</button>
 
 <audio id="bgm-audio" preload="none"></audio>
 
-<!-- OVERLAY SIDEBAR -->
 <div class="sidebar-overlay" id="sidebar-overlay" onclick="toggleSidebar()"></div>
 
-<!-- SIDEBAR -->
 <div class="sidebar" id="sidebar">
     <a class="sidebar-item active" id="nav-tracker" onclick="switchView('tracker')">✦ Pull Counter</a>
     <a class="sidebar-item" id="nav-calendar" onclick="switchView('calendar')">📅 Calendario Eventi</a>
@@ -259,22 +249,18 @@
 
 <div class="container">
     
-    <!-- AVVISO MANUTENZIONE PER ADMIN -->
     <div id="admin-maintenance-warning" style="display: none; background-color: #ff5252; color: white; padding: 15px; border-radius: 8px; margin-bottom: 20px; text-align: center; font-weight: bold; box-shadow: 0 4px 8px rgba(0,0,0,0.3);">
         ⚠️ ATTENZIONE: Il sito è in MANUTENZIONE. Gli utenti normali vedono la schermata di blocco.
     </div>
 
-    <!-- SCHERMATA DI MANUTENZIONE (Utenti) -->
     <div id="maintenance-screen" class="card" style="display: none; text-align: center; padding-top: 40px; padding-bottom: 40px;">
         <img id="maintenance-banner" alt="Banner Manutenzione" style="width: 100%; height: 250px; object-fit: cover; border-radius: 12px; margin-bottom: 20px; box-shadow: 0 8px 16px rgba(0,0,0,0.4); border: 1px solid var(--border-color); display: none;">
         <h2 style="color: var(--jades-color); display: inline-block;">🛠️ Lavori in corso...</h2>
         <p style="color: var(--text-muted); font-size: 1.1em; line-height: 1.5; margin-top: 10px;">Stiamo aggiornando il database per la nuova patch.<br>Ti preghiamo di attendere la fine della manutenzione!</p>
     </div>
 
-    <!-- CONTENUTO PRINCIPALE -->
     <div id="main-app-content">
 
-        <!-- BARRA SUPERIORE -->
         <div class="top-bar">
             <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
             
@@ -291,11 +277,9 @@
                 </div>
             </div>
             
-            <!-- PULSANTI LOGIN TOP BAR -->
             <button id="top-btn-login" onclick="document.getElementById('login-overlay').style.display='flex'" class="top-action-btn admin-login-btn-ui" style="margin-left: auto;">🔒 Login</button>
             <button id="top-btn-logout" onclick="logoutAdmin()" class="top-action-btn admin-enter-btn-ui" style="margin-left: auto; display: none; background-color: #ff5252;">🔓 Esci</button>
 
-            <!-- CONTROLLO MUSICA UTENTE -->
             <div class="music-player" id="music-player-ui">
                 <button id="bgm-toggle" onclick="toggleBgm()" title="Attiva/Disattiva Musica">
                     <svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>
@@ -304,9 +288,6 @@
             </div>
         </div>
 
-        <!-- ============================================== -->
-        <!-- VISTA: PULL COUNTER (TRACKER) -->
-        <!-- ============================================== -->
         <div id="view-tracker">
             <h1 style="display: none;" class="fallback-title">Honkai: Star Rail Tracker</h1>
             
@@ -317,42 +298,67 @@
             <img class="period-banner" alt="Banner Evento">
             <div class="period-title">Caricamento periodo...</div>
 
-            <!-- PANNELLO UTENTE -->
             <div id="user-panel">
                 <div class="pass-selector" style="margin-bottom: 25px;">
                     <input type="checkbox" id="user-has-pass">
                     <label id="pass-label-text" for="user-has-pass">Possiedi l'Express Supply Pass?</label>
                 </div>
 
-                <div class="card" id="stats-card-container">
-                    <h2 id="title-dashboard">Pull Counter</h2>
-                    <p style="color: var(--text-muted); margin-top: -5px;">Durata: <span id="display-dates" style="color: #fff; font-weight: bold;">-</span></p>
+                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 20px; margin-bottom: 20px;">
                     
-                    <div class="dashboard-stats">
-                        <div class="stat-box">
-                            <div>Stellar Jades giornaliere rimanenti</div>
-                            <div class="value jades" id="stat-daily-jades">0</div>
+                    <div class="card" id="stats-card-container" style="margin-bottom: 0;">
+                        <h2 id="title-dashboard">Pull Counter</h2>
+                        <p style="color: var(--text-muted); margin-top: -5px;">Durata: <span id="display-dates" style="color: #fff; font-weight: bold;">-</span></p>
+                        
+                        <div class="dashboard-stats">
+                            <div class="stat-box">
+                                <div>Stellar Jades giornaliere rimanenti</div>
+                                <div class="value jades" id="stat-daily-jades">0</div>
+                            </div>
+                            <div class="stat-box">
+                                <div>Stellar Jades Evento rimanenti</div>
+                                <div class="value jades" id="stat-events-jades">0</div>
+                            </div>
+                            <div class="stat-box" style="border: 1px solid var(--jades-color);">
+                                <div>Totale Stellar Jades Rimanenti</div>
+                                <div class="value jades" id="stat-total-jades">0</div>
+                            </div>
+                            <div class="stat-box" style="border: 1px solid var(--passes-color);">
+                                <div>Totale Special Passes Rimanenti</div>
+                                <div class="value passes" id="stat-total-passes">0</div>
+                            </div>
+                            <div class="stat-box" style="grid-column: 1 / -1; border: 2px solid var(--primary-color); background-color: #1a2032;">
+                                <div>Totale Pulls Patch</div>
+                                <div class="value passes" id="stat-grand-total" style="color: var(--success-color);">0</div>
+                            </div>
                         </div>
-                        <div class="stat-box">
-                            <div>Stellar Jades Evento rimanenti</div>
-                            <div class="value jades" id="stat-events-jades">0</div>
+                    </div>
+
+                    <div class="card" id="inventory-card-container" style="margin-bottom: 0; border: 1px solid #00bcd4; display: flex; flex-direction: column;">
+                        <h2 style="color: #00bcd4; margin-top: 0;">Inventario Personale</h2>
+                        <p style="color: var(--text-muted); margin-top: -5px;">Aggiungi le tue risorse attuali.</p>
+                        
+                        <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                            <div>
+                                <label style="color: var(--jades-color); font-weight: bold; font-size: 0.9em;">Stellar Jades</label>
+                                <input type="number" id="inv-jades" min="0" placeholder="0" style="margin: 5px 0 0 0;">
+                            </div>
+                            <div>
+                                <label style="color: var(--passes-color); font-weight: bold; font-size: 0.9em;">Special Passes</label>
+                                <input type="number" id="inv-passes" min="0" placeholder="0" style="margin: 5px 0 0 0;">
+                            </div>
+                            <div>
+                                <label style="color: #00bcd4; font-weight: bold; font-size: 0.9em;">Oneiric Shards</label>
+                                <input type="number" id="inv-shards" min="0" placeholder="0" style="margin: 5px 0 0 0;">
+                            </div>
                         </div>
-                        <div class="stat-box" style="border: 1px solid var(--jades-color);">
-                            <div>Totale Stellar Jades Rimanenti</div>
-                            <div class="value jades" id="stat-total-jades">0</div>
-                        </div>
-                        <div class="stat-box" style="border: 1px solid var(--passes-color);">
-                            <div>Totale Special Passes Rimanenti</div>
-                            <div class="value passes" id="stat-total-passes">0</div>
-                        </div>
-                        <div class="stat-box" style="grid-column: 1 / -1; border: 2px solid var(--primary-color); background-color: #1a2032;">
-                            <div>Totale Pulls Patch</div>
-                            <div class="value passes" id="stat-grand-total" style="color: var(--success-color);">0</div>
+
+                        <div class="stat-box" style="border: 2px solid var(--success-color); background-color: #1a2032; margin-top: auto;">
+                            <div style="font-size: 0.95em;">Totale Pulls a fine patch</div>
+                            <div class="value passes" id="stat-inventory-grand-total" style="color: var(--success-color);">0</div>
                         </div>
                     </div>
                 </div>
-
-                <!-- SEZIONE GIFT OF ODYSSEY -->
                 <div class="card" id="odyssey-card" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 10px;">
                         <div style="display: flex; align-items: center;">
@@ -366,7 +372,6 @@
                     <div class="odyssey-grid" id="odyssey-list"></div>
                 </div>
 
-                <!-- SEZIONE NAMELESS GLORY -->
                 <div class="card" id="nameless-card" style="display: none;">
                     <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
                         <div style="display: flex; align-items: center;">
@@ -384,7 +389,6 @@
                     <div class="nameless-grid" id="nameless-list" style="display: none;"></div>
                 </div>
 
-                <!-- SEZIONE EVENTI -->
                 <div class="card">
                     <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 20px; flex-wrap: wrap; gap: 10px;">
                         <div>
@@ -402,12 +406,6 @@
                 </div>
             </div>
         </div>
-        <!-- FINE VISTA TRACKER -->
-
-
-        <!-- ============================================== -->
-        <!-- VISTA: CALENDARIO -->
-        <!-- ============================================== -->
         <div id="view-calendar" style="display: none;">
             <div class="card" id="calendar-capture-area">
                 <div class="calendar-header">
@@ -443,18 +441,11 @@
                 <div id="cal-details-content" style="display: flex; flex-direction: column; gap: 15px;"></div>
             </div>
         </div>
-        <!-- FINE VISTA CALENDARIO -->
-
-
-        <!-- ============================================== -->
-        <!-- VISTA: PANNELLO ADMIN (SOLO ADMIN) -->
-        <!-- ============================================== -->
         <div id="view-admin" style="display: none;">
             
             <h1 style="color: #ff5252; margin-bottom: 5px;">⚙️ Hub Amministrazione</h1>
             <p style="color: var(--text-muted); margin-bottom: 25px;">Benvenuto. Gestisci qui tutte le configurazioni del sito, delle patch e del calendario.</p>
 
-            <!-- CARD: GLOBALI E BACKUP -->
             <div class="card" style="border: 1px solid var(--primary-color);">
                 <h2 style="color: var(--primary-color); margin-top: 0;">🌐 Impostazioni Globali e Backup</h2>
                 
@@ -538,7 +529,6 @@
                 </div>
             </div>
 
-            <!-- CARD: TRACKER (PATCH SELEZIONATA) -->
             <div class="card" style="border: 1px solid var(--jades-color);">
                 <h2 style="color: var(--jades-color); margin-top: 0;">📊 Impostazioni Patch (Pull Counter)</h2>
                 
@@ -559,7 +549,6 @@
                     </div>
                 </div>
 
-                <!-- CONTROLLO VISIBILITÀ PATCH -->
                 <div style="background: rgba(0, 230, 118, 0.1); padding: 15px; border-radius: 8px; border: 1px solid var(--success-color); margin-bottom: 20px;">
                     <label style="display: flex; align-items: center; cursor: pointer; color: var(--success-color); font-weight: bold;">
                         <input type="checkbox" id="admin-patch-visible" style="width: auto; margin: 0 15px 0 0; transform: scale(1.5); accent-color: var(--success-color);">
@@ -630,7 +619,6 @@
                 <p id="admin-patch-status" style="color: var(--success-color); display: none; text-align: center; margin-top: 15px; font-weight: bold;">Patch salvata!</p>
             </div>
 
-            <!-- CARD: CALENDARIO (GLOBALE) -->
             <div class="card" style="border: 1px solid #4CAF50;">
                 <h2 style="color: #4CAF50; margin-top: 0;">📅 Impostazioni Calendario Eventi</h2>
                 <p style="color: var(--text-muted); margin-bottom: 20px;">Questi eventi verranno visualizzati da tutti gli utenti nel calendario mensile.</p>
@@ -651,12 +639,7 @@
             </div>
 
         </div>
-        <!-- FINE VISTA ADMIN -->
-
-    </div> <!-- FINE MAIN APP CONTENT -->
-
-    <!-- PIÈ DI PAGINA -->
-    <footer class="site-footer" data-html2canvas-ignore="true">
+        </div> <footer class="site-footer" data-html2canvas-ignore="true">
         Developed by Xen for friends.
     </footer>
 
@@ -843,7 +826,7 @@
     let isBgmPlaying = false;
     let audioInitialized = false;
     
-    const svgVolOn = `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`;
+    const svgVolOn = `<svg viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/></svg>`;
     const svgVolOff = `<svg viewBox="0 0 24 24"><path d="M16.5 12c0-1.77-1.02-3.29-2.5-4.03v2.21l2.45 2.45c.03-.2.05-.41.05-.63zm2.5 0c0 .94-.2 1.82-.54 2.64l1.51 1.51C20.63 14.91 21 13.5 21 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06c1.38-.31 2.63-.95 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z"/></svg>`;
 
     function updateBgmIcon(isPlaying) {
@@ -1503,11 +1486,41 @@
         document.getElementById('stat-total-jades').innerHTML = `<span>${totalJadesRemaining}</span> ${iconJ_HTML} <span class="conversion-text">(≈ ${eqTotalRemaining} ${iconP_HTML})</span>`;
         document.getElementById('stat-total-passes').innerHTML = `<span>${totalPassesRemaining}</span> ${iconP_HTML}`;
         document.getElementById('stat-grand-total').innerHTML = `<span>${grandTotalAbsolutePulls}</span> ${iconP_HTML}`;
+
+        // NUOVO: CALCOLO E RENDER DELL'INVENTARIO
+        const invJades = parseInt(document.getElementById('inv-jades').value) || 0;
+        const invPasses = parseInt(document.getElementById('inv-passes').value) || 0;
+        const invShards = parseInt(document.getElementById('inv-shards').value) || 0;
+
+        // Shards e Jades si equivalgono, sommiamo tutto alle Jades e Passes rimanenti della Patch
+        const grandTotalInvJades = invJades + invShards + totalJadesRemaining;
+        const grandTotalInvPasses = invPasses + totalPassesRemaining;
+        
+        // Calcolo totale in Equivalent Pulls
+        const grandEqTotal = (grandTotalInvPasses + (grandTotalInvJades / 160)).toFixed(1).replace('.0', '');
+
+        document.getElementById('stat-inventory-grand-total').innerHTML = `<span>${grandEqTotal}</span> ${iconP_HTML}`;
     }
 
     document.getElementById('user-has-pass').addEventListener('change', (e) => setUserPassStatus(e.target.checked));
     const namelessCheckUser = document.getElementById('user-has-nameless');
     if(namelessCheckUser) namelessCheckUser.addEventListener('change', (e) => setUserNamelessOwned(e.target.checked));
+
+    // NUOVO: EVENT LISTENERS E SALVATAGGIO INVENTARIO
+    ['inv-jades', 'inv-passes', 'inv-shards'].forEach(id => {
+        const el = document.getElementById(id);
+        if(el) {
+            // Recupera dal localStorage se presente
+            const saved = localStorage.getItem(`hsr_${id}`);
+            if(saved) el.value = saved;
+            
+            // Ascolta ogni digitazione e aggiorna il calcolo in tempo reale
+            el.addEventListener('input', (e) => {
+                localStorage.setItem(`hsr_${id}`, e.target.value);
+                renderDashboard();
+            });
+        }
+    });
 
     // ==========================================
     // LOGICA CALENDARIO MESE E DETTAGLI

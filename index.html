@@ -856,8 +856,11 @@
             visibleIds.sort((a,b) => new Date(periods[b].startDate || '1970-01-01') - new Date(periods[a].startDate || '1970-01-01'));
             if (visibleIds.length > 0) {
                 const latest = periods[visibleIds[0]];
-                if (latest.bannerImgs && latest.bannerImgs.length > 0) banners.push(...latest.bannerImgs.filter(b => b.startsWith('data:image')));
-                else if (latest.bannerImg && latest.bannerImg.startsWith('data:image')) banners.push(latest.bannerImg);
+                if (latest.bannerImgs && latest.bannerImgs.length > 0) {
+                    banners.push(...latest.bannerImgs.map(b => typeof b === 'string' ? {src: b, posY: 50} : b).filter(b => b.src && b.src.startsWith('data:image')));
+                } else if (latest.bannerImg && latest.bannerImg.startsWith('data:image')) {
+                    banners.push({src: latest.bannerImg, posY: 50});
+                }
             }
         });
         
@@ -866,7 +869,8 @@
         
         if (banners.length > 0) {
             const randomBanner = banners[Math.floor(Math.random() * banners.length)];
-            splashBannerEl.src = randomBanner;
+            splashBannerEl.src = randomBanner.src;
+            splashBannerEl.style.objectPosition = `center ${randomBanner.posY}%`;
             splashBannerEl.style.display = 'block';
             splashFallbackEl.style.display = 'none';
         } else {
@@ -1148,15 +1152,20 @@
         if (!globalData) return;
         let banners = [];
         if (globalData.bannerImgs && Array.isArray(globalData.bannerImgs)) {
-            banners = globalData.bannerImgs.filter(b => b && b.startsWith('data:image'));
+            banners = globalData.bannerImgs.map(b => typeof b === 'string' ? {src: b, posY: 50} : b).filter(b => b.src && b.src.startsWith('data:image'));
         } else if (globalData.bannerImg && globalData.bannerImg.startsWith('data:image')) {
-            banners = [globalData.bannerImg]; 
+            banners = [{src: globalData.bannerImg, posY: 50}]; 
         }
+        
         if (banners.length > 0) currentRandomBanner = banners[Math.floor(Math.random() * banners.length)];
         else currentRandomBanner = null; 
 
         document.querySelectorAll('.period-banner').forEach(el => {
-            if (currentRandomBanner) { el.src = currentRandomBanner; el.style.display = 'block'; } 
+            if (currentRandomBanner) { 
+                el.src = currentRandomBanner.src; 
+                el.style.objectPosition = `center ${currentRandomBanner.posY}%`;
+                el.style.display = 'block'; 
+            } 
             else { el.style.display = 'none'; }
         });
 
@@ -1408,9 +1417,15 @@
             document.getElementById('main-app-content').style.display = 'none';
             document.getElementById('maintenance-screen').style.display = 'block';
             const maintBannerEl = document.getElementById('maintenance-banner');
-            let firstBanner = (globalData.bannerImgs && globalData.bannerImgs.length > 0) ? globalData.bannerImgs[0] : globalData.bannerImg;
-            if (firstBanner && firstBanner.startsWith('data:image')) { maintBannerEl.src = firstBanner; maintBannerEl.style.display = 'block'; } 
-            else { maintBannerEl.style.display = 'none'; }
+            
+            let firstBannerRaw = (globalData.bannerImgs && globalData.bannerImgs.length > 0) ? globalData.bannerImgs[0] : globalData.bannerImg;
+            let firstBanner = typeof firstBannerRaw === 'string' ? {src: firstBannerRaw, posY: 50} : firstBannerRaw;
+            
+            if (firstBanner && firstBanner.src && firstBanner.src.startsWith('data:image')) { 
+                maintBannerEl.src = firstBanner.src; 
+                maintBannerEl.style.objectPosition = `center ${firstBanner.posY}%`;
+                maintBannerEl.style.display = 'block'; 
+            } else { maintBannerEl.style.display = 'none'; }
             return; 
         } else {
             document.getElementById('main-app-content').style.display = 'block';
@@ -1940,16 +1955,44 @@
         document.getElementById('admin-bgms-container').appendChild(div);
     }
 
-    window.addAdminBannerRow = function(base64Str = '') {
+    window.addAdminBannerRow = function(bannerData = null) {
+        let src = '';
+        let posY = 50;
+        if (typeof bannerData === 'string') { src = bannerData; }
+        else if (bannerData && bannerData.src) { src = bannerData.src; posY = bannerData.posY || 50; }
+
         const rowId = 'bn_' + Date.now() + Math.random().toString(16).slice(2);
         const div = document.createElement('div');
-        div.className = 'admin-banner-row'; div.setAttribute('data-img', base64Str);
-        div.innerHTML = `<input type="file" id="file_${rowId}" accept="image/*" style="flex: 1; margin: 0; padding: 5px; width: 100%;"> <img id="prev_${rowId}" src="${base64Str}" style="width: 60px; height: 40px; object-fit: cover; border-radius: 4px; display: ${base64Str ? 'block' : 'none'}; flex-shrink: 0;"> <button type="button" onclick="this.parentElement.remove()" style="background-color: transparent; color: #ff5252; padding: 0 10px;">✖</button>`;
+        div.className = 'admin-banner-row'; div.setAttribute('data-img', src);
+        div.style.cssText = 'display:flex; gap:10px; align-items:center; flex-wrap:wrap;';
+        div.innerHTML = `
+            <input type="file" id="file_${rowId}" accept="image/*" style="flex: 1; margin: 0; padding: 5px; min-width: 200px;"> 
+            <div style="display: flex; flex-direction: column; justify-content: center; width: 120px;">
+                <label style="font-size: 0.75em; color: var(--text-muted); text-align:center; margin-bottom: 2px;">↕️ Posizione Y</label>
+                <input type="range" class="banner-pos-y" min="0" max="100" value="${posY}" style="margin: 0;">
+            </div>
+            <img id="prev_${rowId}" src="${src}" style="width: 120px; height: 45px; object-fit: cover; object-position: center ${posY}%; border-radius: 4px; border: 1px solid var(--border-color); display: ${src ? 'block' : 'none'}; flex-shrink: 0;"> 
+            <button type="button" onclick="this.parentElement.remove()" style="background-color: transparent; color: #ff5252; padding: 0 10px; font-size: 1.2em; cursor: pointer;">✖</button>
+        `;
+        
         div.querySelector(`#file_${rowId}`).addEventListener('change', function(e) {
             const file = e.target.files[0]; if(!file) return;
             if(file.size > 1500000) alert("Attenzione: Banner > 1.5MB.");
-            const reader = new FileReader(); reader.onload = function(evt) { div.setAttribute('data-img', evt.target.result); div.querySelector(`#prev_${rowId}`).src = evt.target.result; div.querySelector(`#prev_${rowId}`).style.display = 'block'; }; reader.readAsDataURL(file);
+            const reader = new FileReader(); 
+            reader.onload = function(evt) { 
+                div.setAttribute('data-img', evt.target.result); 
+                const imgEl = div.querySelector(`#prev_${rowId}`);
+                imgEl.src = evt.target.result; 
+                imgEl.style.display = 'block'; 
+            }; 
+            reader.readAsDataURL(file);
         });
+
+        div.querySelector('.banner-pos-y').addEventListener('input', function(e) {
+            const imgEl = div.querySelector(`#prev_${rowId}`);
+            imgEl.style.objectPosition = `center ${e.target.value}%`;
+        });
+
         document.getElementById('admin-banners-container').appendChild(div);
     }
 
@@ -2007,7 +2050,7 @@
         if (data.iconOdysseyImg) { document.getElementById('preview-img-odyssey').src = data.iconOdysseyImg; document.getElementById('preview-img-odyssey').style.display = 'block'; } else { document.getElementById('preview-img-odyssey').style.display = 'none'; }
         
         document.getElementById('admin-banners-container').innerHTML = '';
-        if (data.bannerImgs && data.bannerImgs.length > 0) data.bannerImgs.forEach(b64 => window.addAdminBannerRow(b64));
+        if (data.bannerImgs && data.bannerImgs.length > 0) data.bannerImgs.forEach(bData => window.addAdminBannerRow(bData));
         else if (data.bannerImg) window.addAdminBannerRow(data.bannerImg);
         else window.addAdminBannerRow();
 
@@ -2039,7 +2082,13 @@
 
     window.savePatchToCloud = function() {
         if(!currentPeriodId) return alert("Nessuna patch selezionata.");
-        const bannerImgs = []; document.querySelectorAll('#admin-banners-container .admin-banner-row').forEach(row => { const b64 = row.getAttribute('data-img'); if (b64) bannerImgs.push(b64); });
+        const bannerImgs = []; 
+        document.querySelectorAll('#admin-banners-container .admin-banner-row').forEach(row => { 
+            const b64 = row.getAttribute('data-img'); 
+            const posY = row.querySelector('.banner-pos-y') ? row.querySelector('.banner-pos-y').value : 50;
+            if (b64) bannerImgs.push({ src: b64, posY: parseInt(posY) }); 
+        });
+        
         const events = []; document.querySelectorAll('#admin-events-container .admin-event-row').forEach(row => {
             const name = row.querySelector('.evt-name').value; const jades = row.querySelector('.evt-jades').value; const passes = row.querySelector('.evt-passes').value;
             if (name && (jades || passes)) events.push({ id: row.querySelector('.evt-id').value, name: name, jades: parseInt(jades) || 0, passes: parseInt(passes) || 0, frequency: row.querySelector('.evt-freq').value, startDate: row.querySelector('.evt-start').value });
@@ -2048,7 +2097,7 @@
         const newData = {
             periodName: document.getElementById('admin-period-name').value, dailyBase: parseInt(document.getElementById('admin-daily-base').value) || 0, dailyPass: parseInt(document.getElementById('admin-daily-pass').value) || 0,
             enableOdyssey: document.getElementById('admin-enable-odyssey').checked, enableNameless: document.getElementById('admin-enable-nameless').checked, isVisible: document.getElementById('admin-patch-visible').checked,
-            patchIconImg: savedPatchIconBase64, bannerImgs: bannerImgs, bannerImg: bannerImgs.length > 0 ? bannerImgs[0] : null, iconOdysseyImg: savedOdysseyBase64, 
+            patchIconImg: savedPatchIconBase64, bannerImgs: bannerImgs, bannerImg: bannerImgs.length > 0 ? bannerImgs[0].src : null, iconOdysseyImg: savedOdysseyBase64, 
             startDate: document.getElementById('admin-start-date').value, endDate: document.getElementById('admin-end-date').value, events: events
         };
 
